@@ -36,5 +36,21 @@ function xmldb_poster_upgrade($oldversion) {
 
     $dbman = $DB->get_manager();
 
+
+    if ($oldversion < 2018120203) {
+
+        // Define field author to be added to poster.
+        $table = new xmldb_table('poster');
+        $field = new xmldb_field('author', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'name');
+
+        // Conditionally launch add field author.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2018120203, 'poster');
+    }
+
     return true;
 }
