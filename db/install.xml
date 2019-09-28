@@ -9,7 +9,10 @@
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course poster activity belongs to"/>
         <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances"/>
+        <FIELD NAME="surtitle" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="surtitle field for moodle instances"/>
         <FIELD NAME="author" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="author field for moodle instances"/>
+        <FIELD NAME="numbering" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="numbering field for moodle instances"/>
+        <FIELD NAME="language" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="language field for moodle instances"/>
         <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="General introduction of the poster activity"/>
         <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)"/>
         <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
