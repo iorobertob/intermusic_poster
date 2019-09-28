@@ -51,6 +51,12 @@ class mod_poster_mod_form extends moodleform_mod {
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
+        // Add the poster name field.
+        $mform->addElement('text', 'author', get_string('posterauthor', 'mod_poster'), array('size' => '64'));
+        $mform->setType('author', PARAM_TEXT);
+        $mform->addRule('author', null, 'required', null, 'client');
+        $mform->addRule('author', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+
         // Add the show name at the view page field.
         $mform->addElement('advcheckbox', 'shownameview', get_string('shownameview', 'mod_poster'));
         $mform->addHelpButton('shownameview', 'shownameview', 'mod_poster');
