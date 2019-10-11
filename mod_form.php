@@ -75,6 +75,9 @@ class mod_poster_mod_form extends moodleform_mod {
         $mform->addRule('language', null, 'required', null, 'client');
         $mform->addRule('language', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
+        // Add checkbox to indicate whether to autopopulate the previous fields from children block objects
+        $mform->addElement('advcheckbox', 'autopopulate', get_string('autopopulate', 'poster'), '', array('group' => 1), array(0, 1));
+
         // Add the show name at the view page field.
         $mform->addElement('advcheckbox', 'shownameview', get_string('shownameview', 'mod_poster'));
         $mform->addHelpButton('shownameview', 'shownameview', 'mod_poster');
