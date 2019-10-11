@@ -36,7 +36,6 @@ function xmldb_poster_upgrade($oldversion) {
 
     $dbman = $DB->get_manager();
 
-
     if ($oldversion < 2018120204) {
 
         // Define field author to be added to poster.
@@ -48,13 +47,12 @@ function xmldb_poster_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        $field = new xmldb_field('author', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'surtitle');
+        $field = new xmldb_field('author',   XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'surtitle');
 
         // Conditionally launch add field author.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
-
 
         $field = new xmldb_field('numbering', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'author');
 
@@ -74,5 +72,19 @@ function xmldb_poster_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2018120204, 'poster');
     }
 
+    if ($oldversion < 2018120205)
+    {
+        // Define field author to be added to poster.
+        $table = new xmldb_table('poster');
+        $field = new xmldb_field('rs_collection', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'course ');
+
+        // Conditionally launch add field author.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2018120205, 'poster');
+    }
     return true;
 }
