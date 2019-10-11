@@ -8,7 +8,7 @@
       <FIELDS>
         <FIELD NAME="id"                  TYPE="int"  LENGTH="10"     NOTNULL="true"    SEQUENCE="true"/>
         <FIELD NAME="course"              TYPE="int"  LENGTH="10"     NOTNULL="true"    SEQUENCE="false" COMMENT="Course poster activity belongs to"/>
-        <FIELD NAME="collection"          TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="collection field for moodle instances"/>
+        <FIELD NAME="rs_collection"       TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="collection field for moodle instances"/>
         <FIELD NAME="name"                TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="name field for moodle instances"/>
         <FIELD NAME="surtitle"            TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="surtitle field for moodle instances"/>
         <FIELD NAME="author"              TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="author field for moodle instances"/>

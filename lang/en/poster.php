@@ -32,20 +32,20 @@ You can use the poster
 
 * As a space for your students to present results of their work.
 * As a course dashboard, collating useful elements for students on a single page and keeping the main course page clean and clear of side blocks.';
-$string['modulenameplural'] = 'Posters';
-$string['page-mod-poster-view'] = 'Poster module main page';
-$string['pluginadministration'] = 'Poster administration';
-$string['pluginname'] = 'Poster';
-$string['poster:addinstance'] = 'Add a new poster';
-$string['poster:view'] = 'View poster';
-$string['postername'] = 'Title';
-$string['posterauthor'] = 'Composer';
-$string['postersurtitle'] = 'Surtitle';
-$string['posternumbering'] = 'Numbering';
-$string['posterlanguage'] = 'Language';
-$string['autopopulate'] = 'Autopopulate from childern \'File\' blocks';
-$string['privacy:metadata'] = 'Poster does not store any personal data';
-$string['showdescriptionview'] = 'Display description on view page';
+$string['modulenameplural']     	= 'Posters';
+$string['page-mod-poster-view'] 	= 'Poster module main page';
+$string['pluginadministration'] 	= 'Poster administration';
+$string['pluginname'] 				= 'Poster';
+$string['poster:addinstance'] 		= 'Add a new poster';
+$string['poster:view'] 				= 'View poster';
+$string['postername'] 				= 'Title';
+$string['posterauthor'] 			= 'Composer';
+$string['postersurtitle'] 			= 'Surtitle';
+$string['posternumbering'] 			= 'Numbering';
+$string['posterlanguage'] 			= 'Language';
+$string['autopopulate'] 			= 'Autopopulate from childern \'File\' blocks';
+$string['privacy:metadata'] 		= 'Poster does not store any personal data';
+$string['showdescriptionview'] 		= 'Display description on view page';
 $string['showdescriptionview_help'] = 'If enabled, the description above will be displayed on the poster page.';
-$string['shownameview'] = 'Display name on view page';
-$string['shownameview_help'] = 'If enabled, the poster name will be displayed as heading on the poster page.';
+$string['shownameview'] 			= 'Display name on view page';
+$string['shownameview_help'] 		= 'If enabled, the poster name will be displayed as heading on the poster page.';
