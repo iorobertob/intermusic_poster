@@ -54,25 +54,25 @@ class mod_poster_mod_form extends moodleform_mod {
         // Add the poster surtitle field.
         $mform->addElement('text', 'surtitle', get_string('postersurtitle', 'mod_poster'), array('size' => '64'));
         $mform->setType('surtitle', PARAM_TEXT);
-        $mform->addRule('surtitle', null, 'required', null, 'client');
+        // $mform->addRule('surtitle', null, 'required', null, 'client');
         $mform->addRule('surtitle', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
         // Add the poster author field.
         $mform->addElement('text', 'author', get_string('posterauthor', 'mod_poster'), array('size' => '64'));
         $mform->setType('author', PARAM_TEXT);
-        $mform->addRule('author', null, 'required', null, 'client');
+        // $mform->addRule('author', null, 'required', null, 'client');
         $mform->addRule('author', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
         // Add the poster surtitle field.
         $mform->addElement('text', 'numbering', get_string('posternumbering', 'mod_poster'), array('size' => '64'));
         $mform->setType('numbering', PARAM_TEXT);
-        $mform->addRule('numbering', null, 'required', null, 'client');
+        // $mform->addRule('numbering', null, 'required', null, 'client');
         $mform->addRule('numbering', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
         // Add the poster surtitle field.
         $mform->addElement('text', 'language', get_string('posterlanguage', 'mod_poster'), array('size' => '64'));
         $mform->setType('language', PARAM_TEXT);
-        $mform->addRule('language', null, 'required', null, 'client');
+        // $mform->addRule('language', null, 'required', null, 'client');
         $mform->addRule('language', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
         // Add checkbox to indicate whether to autopopulate the previous fields from children block objects
