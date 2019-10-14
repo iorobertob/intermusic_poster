@@ -52,7 +52,8 @@ The module natively supports responsive layout in bootstrap based themes (both 2
 Author
 ------
 
-The Poster module has been written and is currently maintained by David Mudrák <david@moodle.com>
+* The Poster module has been written and is currently maintained by David Mudrák <david@moodle.com>
+* The current plugin is a modified version of David's as part of Intermusic Project.
 
 Licence
 -------
@@ -67,3 +68,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
 
 You should have received a copy of the GNU General Public License along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
+
+
+TODOs
+-------
+* Perform migration from original poster plugin, which was used as template for the current module. 

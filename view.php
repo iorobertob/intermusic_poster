@@ -32,7 +32,6 @@ $cm = get_coursemodule_from_id('poster', $cmid, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 $poster = $DB->get_record('poster', array('id' => $cm->instance), '*', MUST_EXIST);
 
-
 require_login($course, true, $cm);
 require_capability('mod/poster:view', $PAGE->context);
 
