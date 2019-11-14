@@ -43,6 +43,9 @@ class backup_poster_activity_structure_step extends backup_activity_structure_st
      */
     protected function define_structure() {
 
+        // To know if we are including userinfo
+        $userinfo = $this->get_setting_value('userinfo');
+        
         // Define the poster root element.
         $poster = new backup_nested_element('poster', array('id'), array(
             'name', 'intro', 'introformat', 'timecreated', 'timemodified', 'shownameview', 'showdescriptionview'));

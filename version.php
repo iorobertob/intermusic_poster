@@ -28,4 +28,4 @@ $plugin->component = 'mod_poster';
 $plugin->release   = '5.2.1';
 $plugin->version   = 2019030505;
 $plugin->requires  = 2016120500;
-$plugin->maturity  = MATURITY_STABLE;
+$plugin->maturity  = MATURITY_BETA;
