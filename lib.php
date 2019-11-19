@@ -172,7 +172,8 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
 
         
         file_print('INSTANCE ID',TRUE);
-        file_print($context->id);;
+        file_print($context->cm);
+        file_print($context->cmid);
 
         // // TODO: here to implement the autopopulation of metadata, from files' metadata
         // $activity_module      = $DB->get_record('course_modules',array('id' =>$context         ->instanceid)); // get the module where the course is the current course
