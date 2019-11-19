@@ -201,5 +201,5 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
 
 
 
-        file_print($keys[0]);
+        file_print($keys);
     }
