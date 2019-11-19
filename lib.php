@@ -74,7 +74,7 @@ function poster_add_instance(stdClass $poster) {
 
     /////////////////////////////////////////////////
     $context = $PAGE->context;
-    get_item_from_filename($context, 0);
+    get_item_from_filename($context, 0, $poster->id);
     /////////////////////////////////////////////////
 
     return $poster->id;
@@ -165,7 +165,7 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
     * @param String   $item_number is the position number of the filename to get
     * @return String  $item is the piece of string from the filename of the first file in the upload. 
     **/
-    function get_item_from_filename($context, $item_number)
+    function get_item_from_filename($context, $item_number, $id)
     {
         global $DB, $CFG, $PAGE;    
         require_once("$CFG->dirroot/mod/poster/io_print.php");
@@ -173,7 +173,7 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
         
         file_print('INSTANCE ID',TRUE);
         file_print($context->instanceid);
-        file_print($context->instance);
+        file_print($context->$id);
 
 
         // // TODO: here to implement the autopopulation of metadata, from files' metadata
