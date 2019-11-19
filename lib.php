@@ -167,10 +167,10 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
     **/
     function get_item_from_filename($context, $item_number)
     {
-
+        global $DB, $CFG, $PAGE;    
         require_once("$CFG->dirroot/blocks/file/io_print.php");
 
-        global $DB, $CFG, $PAGE;
+        
         file_print('INSTANCE ID',TRUE);
         file_print($context->instanceid);;
 
