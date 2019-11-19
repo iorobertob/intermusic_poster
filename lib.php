@@ -186,7 +186,7 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
         $fs              = get_file_storage();
         $files           = $fs->get_area_files($context->id, 'mod_poster', 'file', 0);
         $keys            = array_keys($files);
-        // $filename        = $files[$keys[1]] -> get_filename();
+        $filename        = $files[$keys[1]] -> get_filename();
         // $filename_parts  = explode("_", $filename);
         // $item            = $filename_parts[$item_number];
         // $characteristics = $filename_parts[2];
@@ -201,5 +201,5 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
 
 
 
-        file_print($keys);
+        file_print($filename);
     }
