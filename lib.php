@@ -183,9 +183,9 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
         // $autopopulateCheckbox = $poster_instance->autopopulate;
         
         // // Get files array and their names, split them by '_' and return the first of those divisions. 
-        // $fs              = get_file_storage();
-        // $files           = $fs->get_area_files($this->context->id, 'block_file', 'file', 0);
-        // $keys            = array_keys($files);
+        $fs              = get_file_storage();
+        $files           = $fs->get_area_files($context->id, 'mod_poster', 'file', 0);
+        $keys            = array_keys($files);
         // $filename        = $files[$keys[1]] -> get_filename();
         // $filename_parts  = explode("_", $filename);
         // $item            = $filename_parts[$item_number];
@@ -195,4 +195,11 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
         // $items[0] = $item;
         // $items[1] = $poster_name;
         // return $items;
+
+
+
+
+
+
+        file_print($keys[0]);
     }
