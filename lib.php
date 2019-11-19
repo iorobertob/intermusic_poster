@@ -172,7 +172,7 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
 
         
         file_print('INSTANCE ID',TRUE);
-        file_print($context->cm);
+        // file_print($context->cm);
         file_print($context->cmid);
 
         // // TODO: here to implement the autopopulation of metadata, from files' metadata
