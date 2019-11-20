@@ -87,7 +87,7 @@ function get_item_from_filename($context, $item_number, $id)
     $fs              = get_file_storage();
     $files           = $fs->get_area_files($context->id, 'mod_poster', 'content', 0);
     $keys            = array_keys($files);
-    $filename        = $files[$keys[0]] -> get_filename();
+    $filename        = $files[$keys[1]] -> get_filename();
     // $filename_parts  = explode("_", $filename);
     // $item            = $filename_parts[$item_number];
     // $characteristics = $filename_parts[2];
