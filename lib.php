@@ -25,6 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once("$CFG->dirroot/mod/poster/io_print.php");
+require_once("$CFG->dirroot/mod/poster/locallib.php");
 
 /**
  * Returns the information if the module supports a feature
@@ -75,10 +76,12 @@ function poster_add_instance(stdClass $poster) {
 
 
     /////////////////////////////////////////////////
-    $context = $PAGE->context;
+    // $context = $PAGE->context;
     file_print('COURSE MODULE', true);
     file_print($poster->coursemodule);
-    // get_item_from_filename($context, 0, $poster->id);
+    $cmid = $poster->coursemodule;
+    $context = context_module::instance($cmid);
+    get_item_from_filename($context, 0, $poster->id);
     /////////////////////////////////////////////////
 
     return $poster->id;
@@ -161,49 +164,4 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
 }
 
 
-/** 
-    * Item is each one of the parts in a file name like: item_item_item.extension
-    * If filenames of files uploaded to this poster contain information separated by _ (undesrcore), this 
-    * function retreives one of those elements from the first of the files to upload. 
-    * @param Context  $context the context of the current course
-    * @param String   $item_number is the position number of the filename to get
-    * @return String  $item is the piece of string from the filename of the first file in the upload. 
-    **/
-    function get_item_from_filename($context, $item_number, $id)
-    {
-        global $DB, $CFG, $PAGE;    
-        require_once("$CFG->dirroot/mod/poster/io_print.php");
 
-        
-        file_print('INSTANCE ID',TRUE);
-        file_print($context->instanceid);
-        file_print($id);
-
-
-        // // TODO: here to implement the autopopulation of metadata, from files' metadata
-        // $activity_module      = $DB->get_record('course_modules',array('id' =>$context         ->instanceid)); // get the module where the course is the current course
-        // $poster_instance      = $DB->get_record('poster',        array('id' =>$activity_module ->instance  )); // get the name of the module instance 
-        // $poster_name          = $poster_instance->name;
-        // $autopopulateCheckbox = $poster_instance->autopopulate;
-        
-        // // Get files array and their names, split them by '_' and return the first of those divisions. 
-        $fs              = get_file_storage();
-        $files           = $fs->get_area_files($context->id, 'mod_poster', 'file', 0);
-        $keys            = array_keys($files);
-        $filename        = $files[$keys[1]] -> get_filename();
-        // $filename_parts  = explode("_", $filename);
-        // $item            = $filename_parts[$item_number];
-        // $characteristics = $filename_parts[2];
-
-        // $items    = [];
-        // $items[0] = $item;
-        // $items[1] = $poster_name;
-        // return $items;
-
-
-
-
-
-
-        file_print($filename);
-    }
