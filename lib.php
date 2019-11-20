@@ -24,6 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once("$CFG->dirroot/mod/poster/io_print.php");
+
 /**
  * Returns the information if the module supports a feature
  *
@@ -74,7 +76,9 @@ function poster_add_instance(stdClass $poster) {
 
     /////////////////////////////////////////////////
     $context = $PAGE->context;
-    get_item_from_filename($context, 0, $poster->id);
+    file_print('COURSE MODULE', true);
+    file_print($poster->coursemodule);
+    // get_item_from_filename($context, 0, $poster->id);
     /////////////////////////////////////////////////
 
     return $poster->id;
