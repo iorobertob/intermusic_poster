@@ -86,6 +86,8 @@ function get_item_from_filename($context, $item_number, $id)
     // // Get files array and their names, split them by '_' and return the first of those divisions. 
     $fs              = get_file_storage();
     $files           = $fs->get_area_files($context->id, 'mod_poster', 'content', 0);
+    file_print('COUNT');
+    file_print(count($files));
     $keys            = array_keys($files);
     $filename        = $files[$keys[1]] -> get_filename();
     // $filename_parts  = explode("_", $filename);
