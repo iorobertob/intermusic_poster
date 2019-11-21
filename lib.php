@@ -220,4 +220,25 @@ function poster_set_display_options($data) {
     $data->displayoptions = serialize($displayoptions);
 }
 
+/**
+ * Returns the lists of all browsable file areas within the given module context.
+ *
+ * The file area 'intro' for the activity introduction field is added automatically
+ * by {@link file_browser::get_file_info_context_module()}.
+ *
+ * @package     mod_inter
+ * @category    files
+ *
+ * @param stdClass $course.
+ * @param stdClass $cm.
+ * @param stdClass $context.
+ * @return string[].
+ */
+function poster_get_file_areas($course, $cm, $context) {
+    // return array();
+    $areas = array();
+    $areas['content'] = get_string('resourcecontent', 'poster');
+    return $areas;
+}
+
 

@@ -50,3 +50,4 @@ $string['showdescriptionview_help'] = 'If enabled, the description above will be
 $string['shownameview'] 			= 'Display name on view page';
 $string['shownameview_help'] 		= 'If enabled, the poster name will be displayed as heading on the poster page.';
 $string['metadatafile']= 'Metadata file';
+$string['resourcecontent'] = 'Files and subfolders';
