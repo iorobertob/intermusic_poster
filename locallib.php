@@ -23,7 +23,7 @@
 defined('MOODLE_INTERNAL') || die();
 require_once("$CFG->libdir/filelib.php");
 require_once("$CFG->libdir/resourcelib.php");
-require_once("$CFG->dirroot/mod/inter/lib.php");
+require_once("$CFG->dirroot/mod/poster/lib.php");
 /**
  * Handle the \core\event\something_else_happened event.
  *
