@@ -97,6 +97,10 @@ function poster_add_instance(stdClass $poster) {
 
     $DB->set_field('course_modules', 'instance', $poster->id, array('id'=>$cmid));
 
+    $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
+    
+    \core_completion\api::update_completion_date_event($cmid, 'poster', $poster->id, $completiontimeexpected);
+
     /////////////////////////////////////////////////
 
 
@@ -120,7 +124,7 @@ function poster_update_instance(stdClass $poster) {
 
     // FASDFASDFAdf
     poster_set_display_options($poster);
-    
+
 
     $DB->update_record('poster', $poster);
 
