@@ -77,8 +77,8 @@ function poster_add_instance(stdClass $poster) {
 
     /////////////////////////////////////////////////
     // $context = $PAGE->context;
-    file_print('COURSE MODULE', true);
-    file_print($poster->coursemodule);
+    poster_print('COURSE MODULE', true);
+    poster_print($poster->coursemodule);
     $cmid = $poster->coursemodule;
     $context = context_module::instance($cmid);
     get_item_from_filename($context, 0, $poster->id);

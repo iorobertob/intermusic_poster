@@ -1,6 +1,6 @@
 <?php
 
-function file_print($txt, $overwrite = false)
+function poster_print($txt, $overwrite = false)
 {
     global $CFG, $DB;
 
