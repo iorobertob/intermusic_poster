@@ -97,8 +97,8 @@ function poster_add_instance(stdClass $poster) {
 
     $DB->set_field('course_modules', 'instance', $poster->id, array('id'=>$cmid));
 
-    get_item_from_filename($context, 0, $poster->id, $poster);
-    // $url = poster_set_mainfile($poster);
+    // get_item_from_filename($context, 0, $poster->id, $poster);
+    $url = poster_set_mainfile($poster);
 
 
 
