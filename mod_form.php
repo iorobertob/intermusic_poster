@@ -88,7 +88,7 @@ class mod_poster_mod_form extends moodleform_mod {
         $filemanager_options['maxfiles'] = -1;
         $filemanager_options['mainfile'] = true;
 
-        $mform->addElement('filemanager', 'content', get_string('metadatafile'), null, $filemanager_options);
+        $mform->addElement('filemanager', 'content', get_string('metadatafile','poster'), null, $filemanager_options);
         //========================   FILE PIKCER ==========================================
 
         // Add checkbox to indicate whether to autopopulate the previous fields from children block objects
