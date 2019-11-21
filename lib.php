@@ -91,6 +91,7 @@ function poster_add_instance(stdClass $poster) {
 
     /////////////////////////////////////////////////
 
+
     return $poster->id;
 }
 

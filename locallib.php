@@ -79,7 +79,7 @@ function get_item_from_filename($context, $item_number, $id, $data)
         if ($data->display == RESOURCELIB_DISPLAY_EMBED) {
             $options['embed'] = true;
         }
-        file_save_draft_area_files($draftitemid, $context->id, 'mod_poster', 'content', 0, $options);
+        file_save_draft_area_files($draftitemid, $context->id, 'mod_poster', 'files', 0, $options);
     }
 
     // // TODO: here to implement the autopopulation of metadata, from files' metadata
