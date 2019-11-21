@@ -241,4 +241,131 @@ function poster_get_file_areas($course, $cm, $context) {
     return $areas;
 }
 
+/**
+ * File browsing support for mod_poster file areas.
+ *
+ * @package     mod_inter
+ * @category    files
+ *
+ * @param file_browser $browser.
+ * @param array $areas.
+ * @param stdClass $course.
+ * @param stdClass $cm.
+ * @param stdClass $context.
+ * @param string $filearea.
+ * @param int $itemid.
+ * @param string $filepath.
+ * @param string $filename.
+ * @return file_info Instance or null if not found.
+ */
+function poster_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
+     global $CFG;
+
+    if (!has_capability('moodle/course:managefiles', $context)) {
+        // students can not peak here!
+        return null;
+    }
+
+    $fs = get_file_storage();
+
+    if ($filearea === 'content') {
+        $filepath = is_null($filepath) ? '/' : $filepath;
+        $filename = is_null($filename) ? '.' : $filename;
+
+        $urlbase = $CFG->wwwroot.'/pluginfile.php';
+        if (!$storedfile = $fs->get_file($context->id, 'mod_poster', 'content', 0, $filepath, $filename)) {
+            if ($filepath === '/' and $filename === '.') {
+                $storedfile = new virtual_root_file($context->id, 'mod_poster', 'content', 0);
+            } else {
+                // not found
+                return null;
+            }
+        }
+        require_once("$CFG->dirroot/mod/poster/locallib.php");
+        return new poaster_content_file_info($browser, $context, $storedfile, $urlbase, $areas[$filearea], true, true, true, false);
+    }
+
+    // note: resource_intro handled in file_browser automatically
+
+    return null;
+}
+
+/**
+ * Serves the files from the mod_inter file areas.
+ *
+ * @package     mod_inter
+ * @category    files
+ *
+ * @param stdClass $course The course object.
+ * @param stdClass $cm The course module object.
+ * @param stdClass $context The mod_inter's context.
+ * @param string $filearea The name of the file area.
+ * @param array $args Extra arguments (itemid, path).
+ * @param bool $forcedownload Whether or not force download.
+ * @param array $options Additional options affecting the file serving.
+ */
+function poster_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, $options = array()) {
+    global $DB, $CFG;
+
+    require_once("$CFG->libdir/resourcelib.php");
+
+    if ($context->contextlevel != CONTEXT_MODULE) {
+        return false;
+    }
+
+    require_course_login($course, true, $cm);
+    if (!has_capability('mod/poster:view', $context)) {
+        return false;
+    }
+
+    if ($filearea !== 'content') {
+        // intro is handled automatically in pluginfile.php
+        return false;
+    }
+
+    array_shift($args); // ignore revision - designed to prevent caching problems only
+
+    $fs = get_file_storage();
+    $relativepath = implode('/', $args);
+    $fullpath = rtrim("/$context->id/mod_poster/$filearea/0/$relativepath", '/');
+    do {
+        if (!$file = $fs->get_file_by_hash(sha1($fullpath))) {
+            if ($fs->get_file_by_hash(sha1("$fullpath/."))) {
+                if ($file = $fs->get_file_by_hash(sha1("$fullpath/index.htm"))) {
+                    break;
+                }
+                if ($file = $fs->get_file_by_hash(sha1("$fullpath/index.html"))) {
+                    break;
+                }
+                if ($file = $fs->get_file_by_hash(sha1("$fullpath/Default.htm"))) {
+                    break;
+                }
+            }
+            $instance = $DB->get_record('poster', array('id'=>$cm->instance), 'id, legacyfiles', MUST_EXIST);
+            if ($instance->legacyfiles != RESOURCELIB_LEGACYFILES_ACTIVE) {
+                return false;
+            }
+            if (!$file = resourcelib_try_file_migration('/'.$relativepath, $cm->id, $cm->course, 'mod_poster', 'content', 0)) {
+                return false;
+            }
+            // file migrate - update flag
+            $instance->legacyfileslast = time();
+            $DB->update_record('poster', $instance);
+        }
+    } while (false);
+
+    // should we apply filters?
+    $mimetype = $file->get_mimetype();
+    if ($mimetype === 'text/html' or $mimetype === 'text/plain' or $mimetype === 'application/xhtml+xml') {
+        $filter = $DB->get_field('poster', 'filterfiles', array('id'=>$cm->instance));
+        $CFG->embeddedsoforcelinktarget = true;
+    } else {
+        $filter = 0;
+    }
+
+    // finally send the file
+    send_stored_file($file, null, $filter, $forcedownload, $options);
+    // send_stored_file($file, null, $filter, false, $options);
+    
+}
 
