@@ -59,7 +59,7 @@ function poster_set_mainfile($data) {
 * @param String   $item_number is the position number of the filename to get
 * @return String  $item is the piece of string from the filename of the first file in the upload. 
 **/
-function get_item_from_filename($context, $item_number, $id)
+function get_item_from_filename($context, $item_number, $id, $data)
 {
     global $DB, $CFG, $PAGE;    
     // require_once("$CFG->dirroot/mod/poster/io_print.php");
@@ -69,6 +69,12 @@ function get_item_from_filename($context, $item_number, $id)
     poster_print($context->instanceid);
     poster_print($id);
 
+
+    $draftitemid = $data->files;
+    if($draftitemid)
+    {
+        poster_print("DRAFT");
+    }
 
     // // TODO: here to implement the autopopulation of metadata, from files' metadata
     // $activity_module      = $DB->get_record('course_modules',array('id' =>$context         ->instanceid)); // get the module where the course is the current course
