@@ -121,6 +121,37 @@ class mod_poster_mod_form extends moodleform_mod {
             file_prepare_draft_area($draftitemid, $this->context->id, 'mod_poster', 'content', 0, array('subdirs'=>true));
             $default_values['files'] = $draftitemid;
         }
+
+        if (!empty($default_values['displayoptions'])) {
+            $displayoptions = unserialize($default_values['displayoptions']);
+            if (isset($displayoptions['printintro'])) {
+                $default_values['printintro'] = $displayoptions['printintro'];
+            }
+            if (!empty($displayoptions['popupwidth'])) {
+                $default_values['popupwidth'] = $displayoptions['popupwidth'];
+            }
+            if (!empty($displayoptions['popupheight'])) {
+                $default_values['popupheight'] = $displayoptions['popupheight'];
+            }
+            if (!empty($displayoptions['showsize'])) {
+                $default_values['showsize'] = $displayoptions['showsize'];
+            } else {
+                // Must set explicitly to 0 here otherwise it will use system
+                // default which may be 1.
+                $default_values['showsize'] = 0;
+            }
+            if (!empty($displayoptions['showtype'])) {
+                $default_values['showtype'] = $displayoptions['showtype'];
+            } else {
+                $default_values['showtype'] = 0;
+            }
+            if (!empty($displayoptions['showdate'])) {
+                $default_values['showdate'] = $displayoptions['showdate'];
+            } else {
+                $default_values['showdate'] = 0;
+            }
+        }
+        
     }
 
 
