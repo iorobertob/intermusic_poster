@@ -26,6 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once("$CFG->dirroot/mod/poster/io_print.php");
 require_once("$CFG->dirroot/mod/poster/locallib.php");
+require_once("$CFG->libdir/resourcelib.php");
 
 /**
  * Returns the information if the module supports a feature
