@@ -69,7 +69,7 @@ function poster_set_mainfile($data) {
 function get_item_from_filename($context, $item_number, $id)
 {
     global $DB, $CFG, $PAGE;    
-    require_once("$CFG->dirroot/mod/poster/io_print.php");
+    // require_once("$CFG->dirroot/mod/poster/io_print.php");
 
     
     file_print('INSTANCE ID',TRUE);
