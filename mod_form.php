@@ -78,10 +78,10 @@ class mod_poster_mod_form extends moodleform_mod {
 
 
         //========================   FILE PIKCER ==========================================
-        $element = $mform->getElement('introeditor');
-        $attributes = $element->getAttributes();
-        $attributes['rows'] = 5;
-        $element->setAttributes($attributes);
+        // $element = $mform->getElement('introeditor');
+        // $attributes = $element->getAttributes();
+        // $attributes['rows'] = 5;
+        // $element->setAttributes($attributes);
         $filemanager_options = array();
         $filemanager_options['accepted_types'] = '*';
         $filemanager_options['maxbytes'] = 0;
