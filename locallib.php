@@ -74,6 +74,12 @@ function get_item_from_filename($context, $item_number, $id, $data)
     if($draftitemid)
     {
         poster_print("DRAFT");
+
+        $options = array('subdirs' => true, 'embed' => false);
+        if ($data->display == RESOURCELIB_DISPLAY_EMBED) {
+            $options['embed'] = true;
+        }
+        file_save_draft_area_files($draftitemid, $context->id, 'mod_poster', 'content', 0, $options);
     }
 
     // // TODO: here to implement the autopopulation of metadata, from files' metadata
@@ -84,11 +90,11 @@ function get_item_from_filename($context, $item_number, $id, $data)
     
     // // Get files array and their names, split them by '_' and return the first of those divisions. 
     $fs              = get_file_storage();
-    $files           = $fs->get_area_files($context->id, 'mod_poster', 'files', 0);
+    $files           = $fs->get_area_files($context->id, 'mod_poster', 'content', 0, 'sortorder', false);
     poster_print('COUNT');
     poster_print(count($files));
     $keys            = array_keys($files);
-    $filename        = $files[$keys[1]] -> get_filename();
+    $filename        = $files[$keys[0]] -> get_filename();
     // $filename_parts  = explode("_", $filename);
     // $item            = $filename_parts[$item_number];
     // $characteristics = $filename_parts[2];
