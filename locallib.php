@@ -24,14 +24,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once("$CFG->libdir/filelib.php");
 require_once("$CFG->libdir/resourcelib.php");
 require_once("$CFG->dirroot/mod/poster/lib.php");
-/**
- * Handle the \core\event\something_else_happened event.
- *
- * @param object $event The event object.
- */
-function local_test_locallib_function($event) {
-    return;
-}
+
 
 
 function poster_set_mainfile($data) {
@@ -72,9 +65,9 @@ function get_item_from_filename($context, $item_number, $id)
     // require_once("$CFG->dirroot/mod/poster/io_print.php");
 
     
-    file_print('INSTANCE ID',TRUE);
-    file_print($context->instanceid);
-    file_print($id);
+    poster_print('INSTANCE ID',TRUE);
+    poster_print($context->instanceid);
+    poster_print($id);
 
 
     // // TODO: here to implement the autopopulation of metadata, from files' metadata
@@ -86,8 +79,8 @@ function get_item_from_filename($context, $item_number, $id)
     // // Get files array and their names, split them by '_' and return the first of those divisions. 
     $fs              = get_file_storage();
     $files           = $fs->get_area_files($context->id, 'mod_poster', 'content', 0);
-    file_print('COUNT');
-    file_print(count($files));
+    poster_print('COUNT');
+    poster_print(count($files));
     $keys            = array_keys($files);
     $filename        = $files[$keys[1]] -> get_filename();
     // $filename_parts  = explode("_", $filename);
@@ -104,5 +97,5 @@ function get_item_from_filename($context, $item_number, $id)
 
 
 
-    file_print($filename);
+    poster_print($filename);
 }
