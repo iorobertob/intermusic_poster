@@ -118,6 +118,10 @@ function poster_update_instance(stdClass $poster) {
     $poster->timemodified = time();
     $poster->id = $poster->instance;
 
+    // FASDFASDFAdf
+    poster_set_display_options($poster);
+    
+
     $DB->update_record('poster', $poster);
 
     return true;
