@@ -84,7 +84,7 @@ function get_item_from_filename($context, $item_number, $id, $data)
     
     // // Get files array and their names, split them by '_' and return the first of those divisions. 
     $fs              = get_file_storage();
-    $files           = $fs->get_area_files($context->id, 'mod_poster', 'content', 0);
+    $files           = $fs->get_area_files($context->id, 'mod_poster', 'files', 0);
     poster_print('COUNT');
     poster_print(count($files));
     $keys            = array_keys($files);
