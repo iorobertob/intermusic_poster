@@ -72,6 +72,14 @@ function poster_add_instance(stdClass $poster) {
     $poster->timecreated = time();
     $poster->timemodified = $poster->timecreated;
 
+
+
+    // FASDFASDFAdf
+    poster_set_display_options($poster);
+
+
+
+
     $poster->id = $DB->insert_record('poster', $poster);
 
 
@@ -171,5 +179,32 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
     );
 }
 
+/**
+ * Updates display options based on form input.
+ *
+ * Shared code used by resource_add_instance and resource_update_instance.
+ *
+ * @param object $data Data object
+ */
+function poster_set_display_options($data) {
+    $displayoptions = array();
+    if ($data->display == RESOURCELIB_DISPLAY_POPUP) {
+        $displayoptions['popupwidth']  = $data->popupwidth;
+        $displayoptions['popupheight'] = $data->popupheight;
+    }
+    if (in_array($data->display, array(RESOURCELIB_DISPLAY_AUTO, RESOURCELIB_DISPLAY_EMBED, RESOURCELIB_DISPLAY_FRAME))) {
+        $displayoptions['printintro']   = (int)!empty($data->printintro);
+    }
+    if (!empty($data->showsize)) {
+        $displayoptions['showsize'] = 1;
+    }
+    if (!empty($data->showtype)) {
+        $displayoptions['showtype'] = 1;
+    }
+    if (!empty($data->showdate)) {
+        $displayoptions['showdate'] = 1;
+    }
+    $data->displayoptions = serialize($displayoptions);
+}
 
 
