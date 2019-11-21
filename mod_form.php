@@ -121,6 +121,7 @@ class mod_poster_mod_form extends moodleform_mod {
             file_prepare_draft_area($draftitemid, $this->context->id, 'mod_poster', 'content', 0, array('subdirs'=>true));
             $default_values['files'] = $draftitemid;
         }
+    }
 
 
 }
