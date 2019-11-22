@@ -94,7 +94,7 @@ function poster_add_instance(stdClass $poster) {
     poster_print($poster->coursemodule);
     
     $context = context_module::instance($cmid);
-    
+
 
     $DB->set_field('course_modules', 'instance', $poster->id, array('id'=>$cmid));
 
@@ -305,68 +305,68 @@ function poster_get_file_info($browser, $areas, $course, $cm, $context, $fileare
  * @param bool $forcedownload Whether or not force download.
  * @param array $options Additional options affecting the file serving.
  */
-function poster_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, $options = array()) {
-    global $DB, $CFG;
+// function poster_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, $options = array()) {
+//     global $DB, $CFG;
 
-    require_once("$CFG->libdir/resourcelib.php");
+//     require_once("$CFG->libdir/resourcelib.php");
 
-    if ($context->contextlevel != CONTEXT_MODULE) {
-        return false;
-    }
+//     if ($context->contextlevel != CONTEXT_MODULE) {
+//         return false;
+//     }
 
-    require_course_login($course, true, $cm);
-    if (!has_capability('mod/poster:view', $context)) {
-        return false;
-    }
+//     require_course_login($course, true, $cm);
+//     if (!has_capability('mod/poster:view', $context)) {
+//         return false;
+//     }
 
-    if ($filearea !== 'content') {
-        // intro is handled automatically in pluginfile.php
-        return false;
-    }
+//     if ($filearea !== 'content') {
+//         // intro is handled automatically in pluginfile.php
+//         return false;
+//     }
 
-    array_shift($args); // ignore revision - designed to prevent caching problems only
+//     array_shift($args); // ignore revision - designed to prevent caching problems only
 
-    $fs = get_file_storage();
-    $relativepath = implode('/', $args);
-    $fullpath = rtrim("/$context->id/mod_poster/$filearea/0/$relativepath", '/');
-    do {
-        if (!$file = $fs->get_file_by_hash(sha1($fullpath))) {
-            if ($fs->get_file_by_hash(sha1("$fullpath/."))) {
-                if ($file = $fs->get_file_by_hash(sha1("$fullpath/index.htm"))) {
-                    break;
-                }
-                if ($file = $fs->get_file_by_hash(sha1("$fullpath/index.html"))) {
-                    break;
-                }
-                if ($file = $fs->get_file_by_hash(sha1("$fullpath/Default.htm"))) {
-                    break;
-                }
-            }
-            $instance = $DB->get_record('poster', array('id'=>$cm->instance), 'id, legacyfiles', MUST_EXIST);
-            if ($instance->legacyfiles != RESOURCELIB_LEGACYFILES_ACTIVE) {
-                return false;
-            }
-            if (!$file = resourcelib_try_file_migration('/'.$relativepath, $cm->id, $cm->course, 'mod_poster', 'content', 0)) {
-                return false;
-            }
-            // file migrate - update flag
-            $instance->legacyfileslast = time();
-            $DB->update_record('poster', $instance);
-        }
-    } while (false);
+//     $fs = get_file_storage();
+//     $relativepath = implode('/', $args);
+//     $fullpath = rtrim("/$context->id/mod_poster/$filearea/0/$relativepath", '/');
+//     do {
+//         if (!$file = $fs->get_file_by_hash(sha1($fullpath))) {
+//             if ($fs->get_file_by_hash(sha1("$fullpath/."))) {
+//                 if ($file = $fs->get_file_by_hash(sha1("$fullpath/index.htm"))) {
+//                     break;
+//                 }
+//                 if ($file = $fs->get_file_by_hash(sha1("$fullpath/index.html"))) {
+//                     break;
+//                 }
+//                 if ($file = $fs->get_file_by_hash(sha1("$fullpath/Default.htm"))) {
+//                     break;
+//                 }
+//             }
+//             $instance = $DB->get_record('poster', array('id'=>$cm->instance), 'id, legacyfiles', MUST_EXIST);
+//             if ($instance->legacyfiles != RESOURCELIB_LEGACYFILES_ACTIVE) {
+//                 return false;
+//             }
+//             if (!$file = resourcelib_try_file_migration('/'.$relativepath, $cm->id, $cm->course, 'mod_poster', 'content', 0)) {
+//                 return false;
+//             }
+//             // file migrate - update flag
+//             $instance->legacyfileslast = time();
+//             $DB->update_record('poster', $instance);
+//         }
+//     } while (false);
 
-    // should we apply filters?
-    $mimetype = $file->get_mimetype();
-    if ($mimetype === 'text/html' or $mimetype === 'text/plain' or $mimetype === 'application/xhtml+xml') {
-        $filter = $DB->get_field('poster', 'filterfiles', array('id'=>$cm->instance));
-        $CFG->embeddedsoforcelinktarget = true;
-    } else {
-        $filter = 0;
-    }
+//     // should we apply filters?
+//     $mimetype = $file->get_mimetype();
+//     if ($mimetype === 'text/html' or $mimetype === 'text/plain' or $mimetype === 'application/xhtml+xml') {
+//         $filter = $DB->get_field('poster', 'filterfiles', array('id'=>$cm->instance));
+//         $CFG->embeddedsoforcelinktarget = true;
+//     } else {
+//         $filter = 0;
+//     }
 
-    // finally send the file
-    send_stored_file($file, null, $filter, $forcedownload, $options);
-    // send_stored_file($file, null, $filter, false, $options);
+//     // finally send the file
+//     send_stored_file($file, null, $filter, $forcedownload, $options);
+//     // send_stored_file($file, null, $filter, false, $options);
     
-}
+// }
 
