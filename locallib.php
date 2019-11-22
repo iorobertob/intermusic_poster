@@ -26,7 +26,7 @@ require_once("$CFG->libdir/resourcelib.php");
 require_once("$CFG->dirroot/mod/poster/lib.php");
 
 
-
+// moodle 
 function poster_set_mainfile($data) {
     global $DB;
     $fs = get_file_storage();
@@ -52,6 +52,7 @@ function poster_set_mainfile($data) {
 
 
 /** 
+* lmta.utility
 * Item is each one of the parts in a file name like: item_item_item.extension
 * If filenames of files uploaded to this poster contain information separated by _ (undesrcore), this 
 * function retreives one of those elements from the first of the files to upload. 
@@ -112,6 +113,7 @@ function get_item_from_filename($context, $item_number, $id, $data)
     poster_print($filename);
 }
 
+// moodle 
 /**
  * File browsing support class
  */

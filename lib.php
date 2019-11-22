@@ -28,6 +28,7 @@ require_once("$CFG->dirroot/mod/poster/io_print.php");
 require_once("$CFG->dirroot/mod/poster/locallib.php");
 require_once("$CFG->libdir/resourcelib.php");
 
+//moodle 
 /**
  * Returns the information if the module supports a feature
  *
@@ -57,6 +58,7 @@ function poster_supports($feature) {
     }
 }
 
+//moodle
 /**
  * Adds a new instance of the poster into the database
  *
@@ -97,8 +99,8 @@ function poster_add_instance(stdClass $poster) {
 
     $DB->set_field('course_modules', 'instance', $poster->id, array('id'=>$cmid));
 
-    // get_item_from_filename($context, 0, $poster->id, $poster);
-    $url = poster_set_mainfile($poster);
+    get_item_from_filename($context, 0, $poster->id, $poster);
+    // $url = poster_set_mainfile($poster);
 
 
 
