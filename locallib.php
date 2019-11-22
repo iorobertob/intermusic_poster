@@ -65,11 +65,9 @@ function get_item_from_filename($context, $item_number, $id, $data)
     global $DB, $CFG, $PAGE;    
     // require_once("$CFG->dirroot/mod/poster/io_print.php");
 
-    
     poster_print('INSTANCE ID',TRUE);
     poster_print($context->instanceid);
     poster_print($id);
-
 
     $draftitemid = $data->files;
     if($draftitemid)
@@ -111,6 +109,100 @@ function get_item_from_filename($context, $item_number, $id, $data)
 
 
     poster_print($filename);
+}
+
+/**
+ * Display embedded moduleinstance file.
+ * @param object $moduleinstance module instance 
+ * @param object $cm
+ * @param object $course
+ * @param stored_file $file main file
+ * @return does not return
+ */
+// function poster_display_embed($moduleinstance, $cm, $course, $file) {
+//     global $CFG, $PAGE, $OUTPUT;
+
+//     $clicktoopen = poster_get_clicktoopen($file, $moduleinstance->revision);
+
+//     $context = context_module::instance($cm->id);
+//     $path = '/'.$context->id.'/mod_poster/content/'.$moduleinstance->revision.$file->get_filepath().$file->get_filename();
+//     $fullurl = file_encode_url($CFG->wwwroot.'/pluginfile.php', $path, false);
+//     $moodleurl = new moodle_url('/pluginfile.php' . $path);
+
+//     $mimetype = $file->get_mimetype();
+//     $title    = $moduleinstance->name;
+
+//     $extension = resourcelib_get_extension($file->get_filename());
+
+//     $mediamanager = core_media_manager::instance($PAGE);
+//     $embedoptions = array(
+//         core_media_manager::OPTION_TRUSTED => true,
+//         core_media_manager::OPTION_BLOCK => true,
+//     );
+
+//     if (file_mimetype_in_typegroup($mimetype, 'web_image')) {  // It's an image
+//         $code = resourcelib_embed_image($fullurl, $title);
+
+//     } else if ($mimetype === 'application/pdf') {
+//         // PDF document
+//         $code = resourcelib_embed_pdf($fullurl, $title, $clicktoopen);
+
+//     } else if ($mediamanager->can_embed_url($moodleurl, $embedoptions)) {
+//         // Media (audio/video) file.
+//         $code = $mediamanager->embed_url($moodleurl, $title, 0, 0, $embedoptions);
+
+//     } else {
+//         // We need a way to discover if we are loading remote docs inside an iframe.
+//         $moodleurl->param('embed', 1);
+
+//         // anything else - just try object tag enlarged as much as possible
+//         $code = resourcelib_embed_general($moodleurl, $title, $clicktoopen, $mimetype);
+//     }
+
+//     // resource_print_header($moduleinstance, $cm, $course);
+//     // resource_print_heading($moduleinstance, $cm, $course);
+
+//     echo $code;
+
+//     // resource_print_intro($moduleinstance, $cm, $course);
+
+//     echo $OUTPUT->footer();
+//     die;
+// }
+
+/**
+ * Internal function - create click to open text with link.
+ */
+// function poster_get_clicktoopen($file, $revision, $extra='') {
+//     global $CFG;
+
+//     $filename = $file->get_filename();
+
+//     $path = '/'.$file->get_contextid().'/mod_poster/content/'.$revision.$file->get_filepath().$file->get_filename();
+
+//     $fullurl = file_encode_url($CFG->wwwroot.'/pluginfile.php', $path, false);
+
+//     $string = get_string('clicktoopen2', 'poster', "<a href=\"$fullurl\" $extra>$filename</a>");
+
+//     return $string;
+// }
+
+/**
+ * File browsing support class
+ */
+class inter_content_file_info extends file_info_stored {
+    public function get_parent() {
+        if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
+            return $this->browser->get_file_info($this->context);
+        }
+        return parent::get_parent();
+    }
+    public function get_visible_name() {
+        if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
+            return $this->topvisiblename;
+        }
+        return parent::get_visible_name();
+    }
 }
 
 // moodle 
