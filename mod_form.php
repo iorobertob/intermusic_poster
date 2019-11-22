@@ -76,14 +76,6 @@ class mod_poster_mod_form extends moodleform_mod {
         $mform->addRule('language', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
 
-         // Adding the standard "intro" and "introformat" fields.
-         if ($CFG->branch >= 29) {
-            $this->standard_intro_elements();
-        } else {
-            $this->add_intro_editor();
-        }
-
-
         //========================   FILE PIKCER ==========================================
         // $element = $mform->getElement('introeditor');
         // $attributes = $element->getAttributes();
