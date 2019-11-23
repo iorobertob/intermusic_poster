@@ -77,7 +77,7 @@ function poster_add_instance(stdClass $poster) {
 
 
     // FASDFASDFAdf
-    poster_set_display_options($poster);
+    // poster_set_display_options($poster);
 
 
 
