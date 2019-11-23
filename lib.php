@@ -250,7 +250,7 @@ function poster_get_file_info($browser, $areas, $course, $cm, $context, $fileare
             }
         }
         require_once("$CFG->dirroot/mod/poster/locallib.php");
-        return new poaster_content_file_info($browser, $context, $storedfile, $urlbase, $areas[$filearea], true, true, true, false);
+        return new poster_content_file_info($browser, $context, $storedfile, $urlbase, $areas[$filearea], true, true, true, false);
     }
 
     // note: resource_intro handled in file_browser automatically
