@@ -50,7 +50,6 @@ function poster_set_mainfile($data) {
     return $url;
 }
 
-
 /** 
 * lmta.utility
 * Item is each one of the parts in a file name like: item_item_item.extension
@@ -59,7 +58,7 @@ function poster_set_mainfile($data) {
 * @param Context  $context the context of the current course
 * @param String   $item_number is the position number of the filename to get
 * @return String  $item is the piece of string from the filename of the first file in the upload. 
-**/
+*/
 function get_item_from_filename($context, $item_number, $id, $data)
 {
     global $DB, $CFG, $PAGE;    
@@ -190,36 +189,36 @@ function get_item_from_filename($context, $item_number, $id, $data)
 /**
  * File browsing support class
  */
-class inter_content_file_info extends file_info_stored {
-    public function get_parent() {
-        if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
-            return $this->browser->get_file_info($this->context);
-        }
-        return parent::get_parent();
-    }
-    public function get_visible_name() {
-        if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
-            return $this->topvisiblename;
-        }
-        return parent::get_visible_name();
-    }
-}
+// class inter_content_file_info extends file_info_stored {
+//     public function get_parent() {
+//         if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
+//             return $this->browser->get_file_info($this->context);
+//         }
+//         return parent::get_parent();
+//     }
+//     public function get_visible_name() {
+//         if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
+//             return $this->topvisiblename;
+//         }
+//         return parent::get_visible_name();
+//     }
+// }
 
 // moodle 
 /**
  * File browsing support class
  */
-class poster_content_file_info extends file_info_stored {
-    public function get_parent() {
-        if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
-            return $this->browser->get_file_info($this->context);
-        }
-        return parent::get_parent();
-    }
-    public function get_visible_name() {
-        if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
-            return $this->topvisiblename;
-        }
-        return parent::get_visible_name();
-    }
-}
+// class poster_content_file_info extends file_info_stored {
+//     public function get_parent() {
+//         if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
+//             return $this->browser->get_file_info($this->context);
+//         }
+//         return parent::get_parent();
+//     }
+//     public function get_visible_name() {
+//         if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
+//             return $this->topvisiblename;
+//         }
+//         return parent::get_visible_name();
+//     }
+// }
