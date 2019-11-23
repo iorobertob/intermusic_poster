@@ -75,16 +75,7 @@ function poster_add_instance(stdClass $poster) {
     $poster->timemodified = $poster->timecreated;
 
 
-
-    // FASDFASDFAdf
-    // poster_set_display_options($poster);
-
-
-
-
     $poster->id = $DB->insert_record('poster', $poster);
-
-
 
     /////////////////////////////////////////////////
     $cmid = $poster->coursemodule;
@@ -100,7 +91,6 @@ function poster_add_instance(stdClass $poster) {
 
     // get_item_from_filename($context, 0, $poster->id, $poster);
     $url = poster_set_mainfile($poster);
-
 
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
@@ -127,12 +117,17 @@ function poster_update_instance(stdClass $poster) {
 
     $poster->timemodified = time();
     $poster->id = $poster->instance;
+    $poster->revision++;
 
-    // FASDFASDFAdf
-    poster_set_display_options($poster);
-
+    // // FASDFASDFAdf
+    // poster_set_display_options($poster);
 
     $DB->update_record('poster', $poster);
+
+    $url = poster_set_mainfile($poster);
+
+    $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
+    \core_completion\api::update_completion_date_event($poster->coursemodule, 'poster', $poster->id, $completiontimeexpected);
 
     return true;
 }
@@ -191,34 +186,6 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
     return array(
         'mod-poster-view' => get_string('page-mod-poster-view', 'mod_poster'),
     );
-}
-
-/**
- * Updates display options based on form input.
- *
- * Shared code used by resource_add_instance and resource_update_instance.
- *
- * @param object $data Data object
- */
-function poster_set_display_options($data) {
-    $displayoptions = array();
-    if ($data->display == RESOURCELIB_DISPLAY_POPUP) {
-        $displayoptions['popupwidth']  = $data->popupwidth;
-        $displayoptions['popupheight'] = $data->popupheight;
-    }
-    if (in_array($data->display, array(RESOURCELIB_DISPLAY_AUTO, RESOURCELIB_DISPLAY_EMBED, RESOURCELIB_DISPLAY_FRAME))) {
-        $displayoptions['printintro']   = (int)!empty($data->printintro);
-    }
-    if (!empty($data->showsize)) {
-        $displayoptions['showsize'] = 1;
-    }
-    if (!empty($data->showtype)) {
-        $displayoptions['showtype'] = 1;
-    }
-    if (!empty($data->showdate)) {
-        $displayoptions['showdate'] = 1;
-    }
-    $data->displayoptions = serialize($displayoptions);
 }
 
 /**
