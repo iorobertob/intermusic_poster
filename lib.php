@@ -99,7 +99,7 @@ function poster_add_instance(stdClass $poster) {
     $DB->set_field('poster', 'rs_collection', $collection[0], array('name' => $poster->name));
 
     // Findout which ID corresponds to this file in RS
-    $request_json = $this->get_file_fields_metadata($collection[1]);
+    $request_json = get_file_fields_metadata($collection[1]);
 
     try {
         $DB->set_field('poster', 'rs_id', $request_json[1][0]["ref"], array('name' => $poster->name));
