@@ -269,5 +269,6 @@ function init_resourcespace()
     $RS_object->enable_help     = get_config('resourcespace', 'enable_help');
     $RS_object->enable_help_url = get_config('resourcespace', 'enable_help_url');
 
+    poster_print($RS_object->api_key);
     return $RS_object;
 }
