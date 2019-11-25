@@ -104,6 +104,7 @@ function poster_add_instance(stdClass $poster) {
     try {
         $DB->set_field('poster', 'rs_id', $request_json[1][0]["ref"], array('name' => $poster->name));
     } catch (Exception $e) {
+        poster_print($request_json[1][0]["ref"]);
         poster_print($poster->name);
         poster_print("Exception in Commit to DB:", false);
         poster_print($e);
