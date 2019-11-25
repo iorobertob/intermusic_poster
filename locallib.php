@@ -251,6 +251,7 @@ function do_api_search($string, $function)
     $result[0] = "https://resourcespace.lmta.lt/api/?" . $query . "&sign=" . $sign;
     $result[1] = $results;
 
+    poster_print($result[0]);
     return $result;
 }
 
