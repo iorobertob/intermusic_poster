@@ -91,7 +91,23 @@ function poster_add_instance(stdClass $poster) {
     $url = poster_set_mainfile($poster);
 
     // Retrieve elements from filename divided by "_"s
-    get_item_from_filename($context, 0, $poster->id);
+    // collection[0]= collection section in filename, collection[1]=whole filename
+    $collection = get_item_from_filename($context, 0, $poster->id);
+
+    // TODO: ABSTRACT THESE FEW FUNCTIONS INTO ONE SINGLE UTILITY 
+    // $DB->set_field('poster', 'rs_collection', $collection[0], array('name' => $collection[1]));
+    $DB->set_field('poster', 'rs_collection', $collection[0], array('name' => $poster->name));
+
+    // Findout which ID corresponds to this file in RS
+    $request_json = $this->get_file_fields_metadata($collection[1]);
+
+    try {
+        $DB->set_field('poster', 'rs_id', $request_json[1][0]["ref"], array('name' => $poster->name));
+    } catch (Exception $e) {
+        file_print("Exception in Commit to DB:", true);
+    }
+
+
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
     

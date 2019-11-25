@@ -209,3 +209,64 @@ class poster_content_file_info extends file_info_stored {
         return parent::get_visible_name();
     }
 }
+
+/**
+ * Get the fields from the Resourcespae metadata
+ */
+function get_file_fields_metadata($string)
+{
+    $api_result = do_api_search($string, 'do_search');
+    return $api_result;
+}
+
+
+/**
+ * Do an API requeuest with 
+ */
+function do_api_search($string, $function)
+{
+    $RS_object = init_resourcespace();
+    // Set the private API key for the user (from the user account page) and the user we're accessing the system as.
+    // $private_key="9885aec8ea7eb2fb8ee45ff110773a5041030a7bdf7abb761c9e682de7f03045";
+    $private_key = $RS_object->api_key;
+
+    $user="admin";
+    $user = $RS_object->api_user;
+
+    $url = $RS_object->resourcespace_api_url ;
+    // Formulate the query
+    $query="user=" . $user . "&function=".$function."&param1=".$string."&param2=&param3=&param4=&param5=&param6=";
+
+    // Sign the query using the private key
+    $sign=hash("sha256",$private_key . $query);
+
+    // Make the request and output the JSON results.
+    // $results=json_decode(file_get_contents("https://resourcespace.lmta.lt/api/?" . $query . "&sign=" . $sign));
+    $results=json_decode(file_get_contents($url . $query . "&sign=" . $sign));
+    $results=file_get_contents($url . $query . "&sign=" . $sign);
+    $results=json_decode(file_get_contents($url . $query . "&sign=" . $sign), TRUE);
+    // print_r($results);
+    
+    $result = [];
+    $result[0] = "https://resourcespace.lmta.lt/api/?" . $query . "&sign=" . $sign;
+    $result[1] = $results;
+
+    return $result;
+}
+
+
+/**
+ * Initialise Resourcespace API variables
+ */
+function init_resourcespace()
+{
+    $RS_object = [];
+    $RS_object->config          = get_config('resourcespace');
+    $RS_object->resourcespace_api_url = get_config('resourcespace', 'resourcespace_api_url');
+    $RS_object->api_key         = get_config('resourcespace', 'api_key');
+    $RS_object->api_user        = get_config('resourcespace', 'api_user');
+    $RS_object->enable_help     = get_config('resourcespace', 'enable_help');
+    $RS_object->enable_help_url = get_config('resourcespace', 'enable_help_url');
+
+    return $RS_object;
+}
