@@ -74,7 +74,6 @@ function poster_add_instance(stdClass $poster) {
     $poster->timecreated = time();
     $poster->timemodified = $poster->timecreated;
 
-
     $poster->id = $DB->insert_record('poster', $poster);
 
     /////////////////////////////////////////////////
@@ -86,12 +85,13 @@ function poster_add_instance(stdClass $poster) {
     
     $context = context_module::instance($cmid);
 
-
     $DB->set_field('course_modules', 'instance', $poster->id, array('id'=>$cmid));
 
-    // get_item_from_filename($context, 0, $poster->id, $poster);
+    
     $url = poster_set_mainfile($poster);
 
+    // Retrieve elements from filename divided by "_"s
+    get_item_from_filename($context, 0, $poster->id);
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
     
