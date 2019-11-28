@@ -103,6 +103,8 @@ function poster_add_instance(stdClass $poster) {
 
     try {
         $DB->set_field('poster', 'rs_id', $request_json[1][0]["ref"], array('name' => $poster->name));
+        poster_print("REF");
+        poster_print($request_json[1][0]["ref"]);
     } catch (Exception $e) {
         poster_print($request_json[1][0]["ref"]);
         poster_print($poster->name);
