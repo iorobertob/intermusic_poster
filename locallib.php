@@ -270,5 +270,6 @@ function init_resourcespace()
     $RS_object->enable_help_url = get_config('resourcespace', 'enable_help_url');
 
     poster_print($RS_object->api_key);
+    poster_print(get_config('resourcespace', 'resourcespace_api_url'));
     return $RS_object;
 }
