@@ -261,7 +261,7 @@ function do_api_search($string, $function)
  */
 function init_resourcespace()
 {
-    $RS_object = [];
+    $RS_object = new stdClass;
     $RS_object->config          = get_config('resourcespace');
     $RS_object->resourcespace_api_url = get_config('resourcespace', 'resourcespace_api_url');
     $RS_object->api_key         = get_config('resourcespace', 'api_key');
