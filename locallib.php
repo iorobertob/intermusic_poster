@@ -50,15 +50,15 @@ function poster_set_mainfile($data) {
     return $url;
 }
 
-/** 
-* lmta.utility
-* Item is each one of the parts in a file name like: item_item_item.extension
-* If filenames of files uploaded to this poster contain information separated by _ (undesrcore), this 
-* function retreives one of those elements from the first of the files to upload. 
-* @param Context  $context the context of the current course
-* @param String   $item_number is the position number of the filename to get
-* @return String  $item is the piece of string from the filename of the first file in the upload. 
-*/
+/**
+ * lmta.utility
+ * Item is each one of the parts in a file name like: item_item_item.extension 
+ * If filenames of files uploaded to this poster contain information separated by _ (undesrcore), this 
+ * function retreives one of those elements from the first of the files to upload. 
+ * @param Context  $context the context of the current course
+ * @param String   $item_number is the position number of the filename to get
+ * @return String  $item is the piece of string from the filename of the first file in the upload. 
+ */
 function get_item_from_filename($context, $item_number, $id)
 {
     global $DB, $CFG, $PAGE;    
@@ -272,4 +272,29 @@ function init_resourcespace()
     poster_print($RS_object->api_key);
     poster_print(get_config('resourcespace', 'resourcespace_api_url'));
     return $RS_object;
+}
+
+
+/**
+ * Get the data via API call and compare its metadata with the one indicated in the current Inter list instance
+ */
+function get_metadata_from_api($resourcespace_id, $moduleinstance, $list_metadata)
+{
+    global $PAGE, $DB, $CFG;
+    $prefix = $CFG->prefix;
+
+    $result = do_api_search($resourcespace_id, 'get_resource_field_data');
+
+    $new_list_metadata = [];
+    for($i = 0; $i <= sizeof($list_metadata); $i++)
+    {
+        foreach($result[1] as $row)
+        {
+            if ($row["title"] === $list_metadata[$i])
+            {
+                $new_list_metadata[$i] = $row["value"];
+            }
+        }
+    } 
+    return $new_list_metadata;
 }

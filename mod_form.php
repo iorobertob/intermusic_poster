@@ -51,30 +51,37 @@ class mod_poster_mod_form extends moodleform_mod {
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
+        ///////////////////////////////////// METADATA FIELDS ////////////////////////////////
         // Add the poster surtitle field.
-        $mform->addElement('text', 'surtitle', get_string('postersurtitle', 'mod_poster'), array('size' => '64'));
-        $mform->setType('surtitle', PARAM_TEXT);
+        $mform->addElement('text', 'meta1', get_string('meta1', 'mod_poster'), array('size' => '64'));
+        $mform->setType('meta1', PARAM_TEXT);
         // $mform->addRule('surtitle', null, 'required', null, 'client');
-        $mform->addRule('surtitle', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        $mform->addRule('meta1', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
         // Add the poster author field.
-        $mform->addElement('text', 'author', get_string('posterauthor', 'mod_poster'), array('size' => '64'));
-        $mform->setType('author', PARAM_TEXT);
+        $mform->addElement('text', 'meta2', get_string('meta2', 'mod_poster'), array('size' => '64'));
+        $mform->setType('meta2', PARAM_TEXT);
         // $mform->addRule('author', null, 'required', null, 'client');
-        $mform->addRule('author', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        $mform->addRule('meta2', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
         // Add the poster surtitle field.
-        $mform->addElement('text', 'numbering', get_string('posternumbering', 'mod_poster'), array('size' => '64'));
-        $mform->setType('numbering', PARAM_TEXT);
+        $mform->addElement('text', 'meta3', get_string('meta3', 'mod_poster'), array('size' => '64'));
+        $mform->setType('meta3', PARAM_TEXT);
         // $mform->addRule('numbering', null, 'required', null, 'client');
-        $mform->addRule('numbering', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        $mform->addRule('meta3', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
         // Add the poster surtitle field.
-        $mform->addElement('text', 'language', get_string('posterlanguage', 'mod_poster'), array('size' => '64'));
-        $mform->setType('language', PARAM_TEXT);
+        $mform->addElement('text', 'meta4', get_string('meta4', 'mod_poster'), array('size' => '64'));
+        $mform->setType('meta4', PARAM_TEXT);
         // $mform->addRule('language', null, 'required', null, 'client');
-        $mform->addRule('language', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        $mform->addRule('meta4', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
+        // Add the poster surtitle field.
+        $mform->addElement('text', 'meta5', get_string('meta5', 'mod_poster'), array('size' => '64'));
+        $mform->setType('meta5', PARAM_TEXT);
+        // $mform->addRule('language', null, 'required', null, 'client');
+        $mform->addRule('meta5', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        ///////////////////////////////////// METADATA FIELDS ////////////////////////////////
 
         //========================   FILE PIKCER ==========================================
         // $element = $mform->getElement('introeditor');
