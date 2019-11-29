@@ -118,11 +118,14 @@ function poster_add_instance(stdClass $poster) {
     
     $metadata = get_metadata_from_api($resourcespace_id, $poster, $list_metadata);
 
-    $DB->set_field('poster', 'meta1', $metadata[0], array('name' => $poster->name));
-    $DB->set_field('poster', 'meta2', $metadata[1], array('name' => $poster->name));
-    $DB->set_field('poster', 'meta3', $metadata[2], array('name' => $poster->name));
-    $DB->set_field('poster', 'meta4', $metadata[3], array('name' => $poster->name));
-    $DB->set_field('poster', 'meta5', $metadata[4], array('name' => $poster->name));
+
+    $length = count($metadata);
+    for ($i = 0; $i < $length; $i++) {
+        if($metadata[$i] != NULL){
+            $DB->set_field('poster', 'meta'.$i, $metadata[$i], array('name' => $poster->name));
+        }
+       
+    }
 
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
