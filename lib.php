@@ -121,7 +121,7 @@ function poster_add_instance(stdClass $poster) {
 
     $length = count($metadata);
     for ($i = 0; $i < $length; $i++) {
-        if($metadata[$i+1] != NULL){
+        if($metadata[$i] != NULL){
             $index = $i + 1;
             $DB->set_field('poster', 'meta'.$index, $metadata[$i], array('name' => $poster->name));
         }
