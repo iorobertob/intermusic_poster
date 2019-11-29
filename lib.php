@@ -99,24 +99,28 @@ function poster_add_instance(stdClass $poster) {
     $DB->set_field('poster', 'rs_collection', $collection[0], array('name' => $poster->name));
 
     // Findout which ID corresponds to this file in RS
-    $request_json = get_file_fields_metadata($collection[1]);
+    $request_json     = get_file_fields_metadata($collection[1]);
+    $resourcespace_id = $request_json[1][0]["ref"];
 
     try {
-        $DB->set_field('poster', 'rs_id', $request_json[1][0]["ref"], array('name' => $poster->name));
-        poster_print("REF");
-        poster_print($request_json[1][0]["ref"]);
+        $DB->set_field('poster', 'rs_id', $resourcespace_id, array('name' => $poster->name));
     } catch (Exception $e) {
-        poster_print($request_json[1][0]["ref"]);
-        poster_print($poster->name);
         poster_print("Exception in Commit to DB:", false);
         poster_print($e);
     }
 
 
+    $list_metadata[0] = ($poster->meta1 != "" ? $poster->meta1 : "Composer");
+    $list_metadata[1] = ($poster->meta2 != "" ? $poster->meta2 : "Title");
+    $list_metadata[2] = ($poster->meta3 != "" ? $poster->meta3 : "Surtitle");
+    $list_metadata[3] = ($poster->meta4 != "" ? $poster->meta4 : "List");
+    $list_metadata[4] = ($poster->meta5 != "" ? $poster->meta5 : "Language");
+    
+    $metadata = get_metadata_from_api($resourcespace_id, $poster, $list_metadata);
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
     
-    \core_completion\api::update_completion_date_event($cmid, 'poster', $poster->id, $completiontimeexpected);
+        \core_completion\api::update_completion_date_event($cmid, 'poster', $poster->id, $completiontimeexpected);
 
     /////////////////////////////////////////////////
 
