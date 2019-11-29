@@ -128,10 +128,10 @@ function xmldb_poster_upgrade($oldversion) {
         $field_4 = new xmldb_field('language');
 
         $field_meta1 = new xmldb_field('meta1', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'name');
-        $field_meta2 = new xmldb_field('meta1', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta1');
-        $field_meta3 = new xmldb_field('meta1', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta2');
-        $field_meta4 = new xmldb_field('meta1', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta3');
-        $field_meta5 = new xmldb_field('meta1', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta4');
+        $field_meta2 = new xmldb_field('meta2', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta1');
+        $field_meta3 = new xmldb_field('meta3', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta2');
+        $field_meta4 = new xmldb_field('meta4', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta3');
+        $field_meta5 = new xmldb_field('meta5', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta4');
 
         // Conditionally launch drop field surtitle.
         if ($dbman->field_exists($table, $field_1)) {
@@ -149,6 +149,28 @@ function xmldb_poster_upgrade($oldversion) {
 
         // Poster savepoint reached.
         upgrade_mod_savepoint(true, 2019030506, 'poster');
+    }
+
+    if ($oldversion < 2019030507) {
+
+        // Define field surtitle to be dropped from poster.
+        $table = new xmldb_table('poster');
+
+        $field_meta2 = new xmldb_field('meta2', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta1');
+        $field_meta3 = new xmldb_field('meta3', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta2');
+        $field_meta4 = new xmldb_field('meta4', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta3');
+        $field_meta5 = new xmldb_field('meta5', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta4');
+
+        // Conditionally launch drop field surtitle.
+        if ($dbman->field_exists($table, $field_1)) {
+            $dbman->add_field($table, $field_meta2);
+            $dbman->add_field($table, $field_meta3);
+            $dbman->add_field($table, $field_meta4);
+            $dbman->add_field($table, $field_meta5);
+        }
+
+        // Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2019030507, 'poster');
     }
     // \ 29 nov 2029
 
