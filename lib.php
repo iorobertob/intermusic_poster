@@ -119,7 +119,7 @@ function poster_add_instance(stdClass $poster) {
     $metadata = get_metadata_from_api($resourcespace_id, $poster, $list_metadata);
 
     $DB->set_field('poster', 'meta1', $metadata[0], array('name' => $poster->name));
-    $DB->set_field('poster', 'meat2', $metadata[1], array('name' => $poster->name));
+    $DB->set_field('poster', 'meta2', $metadata[1], array('name' => $poster->name));
     $DB->set_field('poster', 'meta3', $metadata[2], array('name' => $poster->name));
     $DB->set_field('poster', 'meta4', $metadata[3], array('name' => $poster->name));
     $DB->set_field('poster', 'meta5', $metadata[4], array('name' => $poster->name));
