@@ -293,6 +293,7 @@ function get_metadata_from_api($resourcespace_id, $moduleinstance, $list_metadat
             if ($row["title"] === $list_metadata[$i])
             {
                 $new_list_metadata[$i] = $row["value"];
+                poster_print("VALUE: ".$row["value"]);
             }
         }
     } 
