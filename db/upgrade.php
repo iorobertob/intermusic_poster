@@ -151,7 +151,7 @@ function xmldb_poster_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2019030506, 'poster');
     }
 
-    if ($oldversion < 2019030508) {
+    if ($oldversion < 2019030509) {
 
         // Define field surtitle to be dropped from poster.
         $table = new xmldb_table('poster');
@@ -170,7 +170,7 @@ function xmldb_poster_upgrade($oldversion) {
         }
 
         // Poster savepoint reached.
-        upgrade_mod_savepoint(true, 2019030508, 'poster');
+        upgrade_mod_savepoint(true, 2019030509, 'poster');
     }
     // \ 29 nov 2029
 
