@@ -81,6 +81,12 @@ class mod_poster_mod_form extends moodleform_mod {
         $mform->setType('meta5', PARAM_TEXT);
         // $mform->addRule('language', null, 'required', null, 'client');
         $mform->addRule('meta5', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+
+        // Add the poster surtitle field.
+        $mform->addElement('text', 'meta6', get_string('meta6', 'mod_poster'), array('size' => '64'));
+        $mform->setType('meta6', PARAM_TEXT);
+        // $mform->addRule('language', null, 'required', null, 'client');
+        $mform->addRule('meta6', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
         ///////////////////////////////////// METADATA FIELDS ////////////////////////////////
 
         //========================   FILE PIKCER ==========================================

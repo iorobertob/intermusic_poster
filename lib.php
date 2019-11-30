@@ -114,11 +114,12 @@ function poster_add_instance(stdClass $poster) {
     $list_metadata[1] = ($poster->meta2 != "" ? $poster->meta2 : "Title");
     $list_metadata[2] = ($poster->meta3 != "" ? $poster->meta3 : "Surtitle");
     $list_metadata[3] = ($poster->meta4 != "" ? $poster->meta4 : "List");
-    $list_metadata[4] = ($poster->meta5 != "" ? $poster->meta5 : "Language");
+    $list_metadata[4] = ($poster->meta5 != "" ? $poster->meta4 : "First Line");
+    $list_metadata[5] = ($poster->meta6 != "" ? $poster->meta5 : "Language");
     
     $metadata = get_metadata_from_api($resourcespace_id, $poster, $list_metadata);
 
-
+    // Commit metadata to database
     $length = count($metadata);
     for ($i = 0; $i < $length; $i++) {
         if($metadata[$i] != NULL){

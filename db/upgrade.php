@@ -174,5 +174,20 @@ function xmldb_poster_upgrade($oldversion) {
     }
     // \ 29 nov 2029
 
+    if ($oldversion < 2019030511) {
+
+        // Define field surtitle to be dropped from poster.
+        $table = new xmldb_table('poster');
+        $field_meta6 = new xmldb_field('meta6', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta5');
+
+        // Conditionally launch drop field surtitle.
+        if ($dbman->table_exists($table)) {
+            $dbman->add_field($table, $field_meta6);
+        }
+
+        // Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2019030511, 'poster');
+    }
+
     return true;
 }
