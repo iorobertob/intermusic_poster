@@ -120,6 +120,7 @@ function poster_add_instance(stdClass $poster) {
 
     // Commit metadata to database
     $length = count($metadata);
+    poster_print("LENGTH = ".$length);
     for ($i = 0; $i < $length; $i++) {
         if($metadata[$i] != NULL){
             $index = $i + 1;
