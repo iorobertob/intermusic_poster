@@ -285,7 +285,7 @@ function get_metadata_from_api($resourcespace_id, $moduleinstance, $list_metadat
 
     $result = do_api_search($resourcespace_id, 'get_resource_field_data');
 
-    $new_list_metadata = [];
+    $new_list_metadata = array_fill(0, sizeof($list_metadata), '');
     for($i = 0; $i <= sizeof($list_metadata); $i++)
     {
         foreach($result[1] as $row)
