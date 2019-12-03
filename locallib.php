@@ -51,6 +51,50 @@ function poster_set_mainfile($data) {
 }
 
 /**
+ * Get Metadata from Resource Space based on the Metadata File added on the settings of this activity
+ * @param $context  The Context of this activity / module
+ * @param @poster   The current module's instance
+ */
+function poster_get_metadata($context, $poster)
+{
+    try{
+        // Retrieve elements from filename divided by "_"s
+        // collection[0]= collection section in filename, collection[1]=whole filename
+        $collection = get_item_from_filename($context, 0, $poster->id);
+
+        $DB->set_field('poster', 'rs_collection', $collection[0], array('name' => $poster->name));
+
+        // Findout which ID corresponds to this file in RS
+        $request_json     = get_file_fields_metadata($collection[1]);
+        $resourcespace_id = $request_json[1][0]["ref"];
+   
+        $DB->set_field('poster', 'rs_id', $resourcespace_id, array('name' => $poster->name));
+   
+        $list_metadata[0] = ($poster->meta1 != "" ? $poster->meta1 : "Composer");
+        $list_metadata[1] = ($poster->meta2 != "" ? $poster->meta2 : "Title");
+        $list_metadata[2] = ($poster->meta3 != "" ? $poster->meta3 : "Surtitle");
+        $list_metadata[3] = ($poster->meta4 != "" ? $poster->meta4 : "List");
+        $list_metadata[4] = ($poster->meta5 != "" ? $poster->meta4 : "1st line");
+        $list_metadata[5] = ($poster->meta6 != "" ? $poster->meta5 : "Language");
+        
+        $metadata = get_metadata_from_api($resourcespace_id, $poster, $list_metadata);
+
+        // Commit metadata to database
+        $length = count($metadata);
+        for ($i = 0; $i < $length; $i++) {
+            if($metadata[$i] != NULL){
+                $index = $i + 1;
+                $DB->set_field('poster', 'meta_value'.$index, $metadata[$i], array('name' => $poster->name));
+                $DB->set_field('poster', 'meta'.$index, $list_metadata[$i], array('name' => $poster->name));
+            }
+        }
+
+    }catch (Exception $e){
+        poster_print($e);
+    }
+}
+
+/**
  * lmta.utility
  * Item is each one of the parts in a file name like: item_item_item.extension 
  * If filenames of files uploaded to this poster contain information separated by _ (undesrcore), this 
@@ -62,134 +106,23 @@ function poster_set_mainfile($data) {
 function get_item_from_filename($context, $item_number, $id)
 {
     global $DB, $CFG, $PAGE;    
-    // require_once("$CFG->dirroot/mod/poster/io_print.php");
-
-    poster_print('INSTANCE ID',TRUE);
-    poster_print($context->instanceid);
-    poster_print($id);
-
-
-    // // TODO: here to implement the autopopulation of metadata, from files' metadata
-    // $activity_module      = $DB->get_record('course_modules',array('id' =>$context         ->instanceid)); // get the module where the course is the current course
-    // $poster_instance      = $DB->get_record('poster',        array('id' =>$activity_module ->instance  )); // get the name of the module instance 
-    // $poster_name          = $poster_instance->name;
-    // $autopopulateCheckbox = $poster_instance->autopopulate;
     
     // // Get files array and their names, split them by '_' and return the first of those divisions. 
     $fs              = get_file_storage();
     $files           = $fs->get_area_files($context->id, 'mod_poster', 'content', 0, 'sortorder', false);
-    poster_print('COUNT');
-    poster_print(count($files));
+
     $keys            = array_keys($files);
     $filename        = $files[$keys[0]] -> get_filename();
     $filename_parts  = explode("_", $filename);
     $item            = $filename_parts[$item_number];
     $characteristics = $filename_parts[2];
 
-
-    // $items    = [];
     $items[0] = $item;
     $items[1] = $filename;
 
-    poster_print($items[0]);
-    poster_print($items[1]);
     return $items;
     
 }
-
-/**
- * Display embedded moduleinstance file.
- * @param object $moduleinstance module instance 
- * @param object $cm
- * @param object $course
- * @param stored_file $file main file
- * @return does not return
- */
-// function poster_display_embed($moduleinstance, $cm, $course, $file) {
-//     global $CFG, $PAGE, $OUTPUT;
-
-//     $clicktoopen = poster_get_clicktoopen($file, $moduleinstance->revision);
-
-//     $context = context_module::instance($cm->id);
-//     $path = '/'.$context->id.'/mod_poster/content/'.$moduleinstance->revision.$file->get_filepath().$file->get_filename();
-//     $fullurl = file_encode_url($CFG->wwwroot.'/pluginfile.php', $path, false);
-//     $moodleurl = new moodle_url('/pluginfile.php' . $path);
-
-//     $mimetype = $file->get_mimetype();
-//     $title    = $moduleinstance->name;
-
-//     $extension = resourcelib_get_extension($file->get_filename());
-
-//     $mediamanager = core_media_manager::instance($PAGE);
-//     $embedoptions = array(
-//         core_media_manager::OPTION_TRUSTED => true,
-//         core_media_manager::OPTION_BLOCK => true,
-//     );
-
-//     if (file_mimetype_in_typegroup($mimetype, 'web_image')) {  // It's an image
-//         $code = resourcelib_embed_image($fullurl, $title);
-
-//     } else if ($mimetype === 'application/pdf') {
-//         // PDF document
-//         $code = resourcelib_embed_pdf($fullurl, $title, $clicktoopen);
-
-//     } else if ($mediamanager->can_embed_url($moodleurl, $embedoptions)) {
-//         // Media (audio/video) file.
-//         $code = $mediamanager->embed_url($moodleurl, $title, 0, 0, $embedoptions);
-
-//     } else {
-//         // We need a way to discover if we are loading remote docs inside an iframe.
-//         $moodleurl->param('embed', 1);
-
-//         // anything else - just try object tag enlarged as much as possible
-//         $code = resourcelib_embed_general($moodleurl, $title, $clicktoopen, $mimetype);
-//     }
-
-//     // resource_print_header($moduleinstance, $cm, $course);
-//     // resource_print_heading($moduleinstance, $cm, $course);
-
-//     echo $code;
-
-//     // resource_print_intro($moduleinstance, $cm, $course);
-
-//     echo $OUTPUT->footer();
-//     die;
-// }
-
-/**
- * Internal function - create click to open text with link.
- */
-// function poster_get_clicktoopen($file, $revision, $extra='') {
-//     global $CFG;
-
-//     $filename = $file->get_filename();
-
-//     $path = '/'.$file->get_contextid().'/mod_poster/content/'.$revision.$file->get_filepath().$file->get_filename();
-
-//     $fullurl = file_encode_url($CFG->wwwroot.'/pluginfile.php', $path, false);
-
-//     $string = get_string('clicktoopen2', 'poster', "<a href=\"$fullurl\" $extra>$filename</a>");
-
-//     return $string;
-// }
-
-/**
- * File browsing support class
- */
-// class inter_content_file_info extends file_info_stored {
-//     public function get_parent() {
-//         if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
-//             return $this->browser->get_file_info($this->context);
-//         }
-//         return parent::get_parent();
-//     }
-//     public function get_visible_name() {
-//         if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
-//             return $this->topvisiblename;
-//         }
-//         return parent::get_visible_name();
-//     }
-// }
 
 // moodle 
 /**
@@ -245,13 +178,11 @@ function do_api_search($string, $function)
     $results=json_decode(file_get_contents($url . $query . "&sign=" . $sign));
     $results=file_get_contents($url . $query . "&sign=" . $sign);
     $results=json_decode(file_get_contents($url . $query . "&sign=" . $sign), TRUE);
-    // print_r($results);
     
     $result = [];
     $result[0] = "https://resourcespace.lmta.lt/api/?" . $query . "&sign=" . $sign;
     $result[1] = $results;
 
-    poster_print($result[0]);
     return $result;
 }
 
@@ -269,8 +200,6 @@ function init_resourcespace()
     $RS_object->enable_help     = get_config('resourcespace', 'enable_help');
     $RS_object->enable_help_url = get_config('resourcespace', 'enable_help_url');
 
-    poster_print($RS_object->api_key);
-    poster_print(get_config('resourcespace', 'resourcespace_api_url'));
     return $RS_object;
 }
 
@@ -293,7 +222,6 @@ function get_metadata_from_api($resourcespace_id, $moduleinstance, $list_metadat
             if ($row["title"] === $list_metadata[$i])
             {
                 $new_list_metadata[$i] = $row["value"];
-                poster_print("VALUE[".$i."] = ".$row["value"]);
             }
         }
     } 

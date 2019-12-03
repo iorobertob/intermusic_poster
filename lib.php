@@ -76,7 +76,7 @@ function poster_add_instance(stdClass $poster) {
 
     $poster->id = $DB->insert_record('poster', $poster);
 
-    /////////////////////////////////////////////////
+    /////////////// CUSTOM CODE ////////////////////
     $cmid = $poster->coursemodule;
 
     // $context = $PAGE->context;
@@ -89,55 +89,11 @@ function poster_add_instance(stdClass $poster) {
 
     $url = poster_set_mainfile($poster);
 
-    
-    try{
-        // Retrieve elements from filename divided by "_"s
-        // collection[0]= collection section in filename, collection[1]=whole filename
-        $collection = get_item_from_filename($context, 0, $poster->id);
-
-        // TODO: ABSTRACT THESE FEW FUNCTIONS INTO ONE SINGLE UTILITY 
-        $DB->set_field('poster', 'rs_collection', $collection[0], array('name' => $poster->name));
-
-        // Findout which ID corresponds to this file in RS
-        $request_json     = get_file_fields_metadata($collection[1]);
-        $resourcespace_id = $request_json[1][0]["ref"];
-    }catch (Exception $e){
-        poster_print($e);
-    }
-   
-
-    try {
-        $DB->set_field('poster', 'rs_id', $resourcespace_id, array('name' => $poster->name));
-    } catch (Exception $e) {
-        poster_print("Exception in Commit to DB:", false);
-        poster_print($e);
-    }
-
-    $list_metadata[0] = ($poster->meta1 != "" ? $poster->meta1 : "Composer");
-    $list_metadata[1] = ($poster->meta2 != "" ? $poster->meta2 : "Title");
-    $list_metadata[2] = ($poster->meta3 != "" ? $poster->meta3 : "Surtitle");
-    $list_metadata[3] = ($poster->meta4 != "" ? $poster->meta4 : "List");
-    $list_metadata[4] = ($poster->meta5 != "" ? $poster->meta4 : "1st line");
-    $list_metadata[5] = ($poster->meta6 != "" ? $poster->meta5 : "Language");
-    
-    $metadata = get_metadata_from_api($resourcespace_id, $poster, $list_metadata);
-
-    // Commit metadata to database
-    // TODO: ONLY DO IF CHECKBOX ENABLED TO DO SO 
-    $length = count($metadata);
-    poster_print("LENGTH = ".$length);
-    for ($i = 0; $i < $length; $i++) {
-        if($metadata[$i] != NULL){
-            $index = $i + 1;
-            $DB->set_field('poster', 'meta_value'.$index, $metadata[$i], array('name' => $poster->name));
-            $DB->set_field('poster', 'meta'.$index, $list_metadata[$i], array('name' => $poster->name));
-            poster_print("INDEX[".$index."] = ".$metadata[$i]);
-        }
-    }
+    poster_get_metadata($context, $poster);
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
     
-        \core_completion\api::update_completion_date_event($cmid, 'poster', $poster->id, $completiontimeexpected);
+    \core_completion\api::update_completion_date_event($cmid, 'poster', $poster->id, $completiontimeexpected);
 
     /////////////////////////////////////////////////
 
@@ -161,12 +117,11 @@ function poster_update_instance(stdClass $poster) {
     $poster->id = $poster->instance;
     $poster->revision++;
 
-    // // FASDFASDFAdf
-    // poster_set_display_options($poster);
-
     $DB->update_record('poster', $poster);
 
     $url = poster_set_mainfile($poster);
+
+    poster_get_metadata($context, $poster);
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
     \core_completion\api::update_completion_date_event($poster->coursemodule, 'poster', $poster->id, $completiontimeexpected);
@@ -300,82 +255,5 @@ function poster_get_file_info($browser, $areas, $course, $cm, $context, $fileare
     return null;
 }
 
-/**
- * Serves the files from the mod_inter file areas.
- *
- * @package     mod_inter
- * @category    files
- *
- * @param stdClass $course The course object.
- * @param stdClass $cm The course module object.
- * @param stdClass $context The mod_inter's context.
- * @param string $filearea The name of the file area.
- * @param array $args Extra arguments (itemid, path).
- * @param bool $forcedownload Whether or not force download.
- * @param array $options Additional options affecting the file serving.
- */
-// function poster_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, $options = array()) {
-//     global $DB, $CFG;
 
-//     require_once("$CFG->libdir/resourcelib.php");
-
-//     if ($context->contextlevel != CONTEXT_MODULE) {
-//         return false;
-//     }
-
-//     require_course_login($course, true, $cm);
-//     if (!has_capability('mod/poster:view', $context)) {
-//         return false;
-//     }
-
-//     if ($filearea !== 'content') {
-//         // intro is handled automatically in pluginfile.php
-//         return false;
-//     }
-
-//     array_shift($args); // ignore revision - designed to prevent caching problems only
-
-//     $fs = get_file_storage();
-//     $relativepath = implode('/', $args);
-//     $fullpath = rtrim("/$context->id/mod_poster/$filearea/0/$relativepath", '/');
-//     do {
-//         if (!$file = $fs->get_file_by_hash(sha1($fullpath))) {
-//             if ($fs->get_file_by_hash(sha1("$fullpath/."))) {
-//                 if ($file = $fs->get_file_by_hash(sha1("$fullpath/index.htm"))) {
-//                     break;
-//                 }
-//                 if ($file = $fs->get_file_by_hash(sha1("$fullpath/index.html"))) {
-//                     break;
-//                 }
-//                 if ($file = $fs->get_file_by_hash(sha1("$fullpath/Default.htm"))) {
-//                     break;
-//                 }
-//             }
-//             $instance = $DB->get_record('poster', array('id'=>$cm->instance), 'id, legacyfiles', MUST_EXIST);
-//             if ($instance->legacyfiles != RESOURCELIB_LEGACYFILES_ACTIVE) {
-//                 return false;
-//             }
-//             if (!$file = resourcelib_try_file_migration('/'.$relativepath, $cm->id, $cm->course, 'mod_poster', 'content', 0)) {
-//                 return false;
-//             }
-//             // file migrate - update flag
-//             $instance->legacyfileslast = time();
-//             $DB->update_record('poster', $instance);
-//         }
-//     } while (false);
-
-//     // should we apply filters?
-//     $mimetype = $file->get_mimetype();
-//     if ($mimetype === 'text/html' or $mimetype === 'text/plain' or $mimetype === 'application/xhtml+xml') {
-//         $filter = $DB->get_field('poster', 'filterfiles', array('id'=>$cm->instance));
-//         $CFG->embeddedsoforcelinktarget = true;
-//     } else {
-//         $filter = 0;
-//     }
-
-//     // finally send the file
-//     send_stored_file($file, null, $filter, $forcedownload, $options);
-//     // send_stored_file($file, null, $filter, false, $options);
-    
-// }
 

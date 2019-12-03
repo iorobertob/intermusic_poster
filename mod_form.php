@@ -54,7 +54,7 @@ class mod_poster_mod_form extends moodleform_mod {
         ///////////////////////////////////// METADATA FIELDS ////////////////////////////////
         // Metadata Field #1
         $mform->addElement('header', 'meta_label_1', get_string('meta_label_1', 'mod_poster'));
-        $mform->setExpanded('meta_label_1');
+        // $mform->setExpanded('meta_label_1');
         $mform->addElement('text', 'meta1', get_string('meta_title', 'mod_poster'), array('size' => '64'));
         $mform->setType('meta1', PARAM_TEXT);
         $mform->addRule('meta1', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -66,7 +66,7 @@ class mod_poster_mod_form extends moodleform_mod {
 
          // Metadata Field #2
         $mform->addElement('header', 'meta_label_2', get_string('meta_label_2', 'mod_poster'));
-        $mform->setExpanded('meta_label_2');
+        // $mform->setExpanded('meta_label_2');
         $mform->addElement('text', 'meta2', get_string('meta_title', 'mod_poster'), array('size' => '64'));
         $mform->setType('meta2', PARAM_TEXT);
         $mform->addRule('meta2', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -78,7 +78,7 @@ class mod_poster_mod_form extends moodleform_mod {
 
         // Metadata Field #3
         $mform->addElement('header', 'meta_label_3', get_string('meta_label_3', 'mod_poster'));
-        $mform->setExpanded('meta_label_3');
+        // $mform->setExpanded('meta_label_3');
         $mform->addElement('text', 'meta3', get_string('meta_title', 'mod_poster'), array('size' => '64'));
         $mform->setType('meta3', PARAM_TEXT);
         $mform->addRule('meta3', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -90,7 +90,7 @@ class mod_poster_mod_form extends moodleform_mod {
 
         // Metadata Field #4
         $mform->addElement('header', 'meta_label_4', get_string('meta_label_4', 'mod_poster'));
-        $mform->setExpanded('meta_label_4');
+        // $mform->setExpanded('meta_label_4');
         $mform->addElement('text', 'meta4', get_string('meta_title', 'mod_poster'), array('size' => '64'));
         $mform->setType('meta4', PARAM_TEXT);
         $mform->addRule('meta4', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -102,7 +102,7 @@ class mod_poster_mod_form extends moodleform_mod {
 
         // Metadata Field #5
         $mform->addElement('header', 'meta_label_5', get_string('meta_label_5', 'mod_poster'));
-        $mform->setExpanded('meta_label_5');
+        // $mform->setExpanded('meta_label_5');
         $mform->addElement('text', 'meta5', get_string('meta_title', 'mod_poster'), array('size' => '64'));
         $mform->setType('meta5', PARAM_TEXT);
         $mform->addRule('meta5', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -114,7 +114,7 @@ class mod_poster_mod_form extends moodleform_mod {
 
         // Metadata Field #6
         $mform->addElement('header', 'meta_label_6', get_string('meta_label_6', 'mod_poster'));
-        $mform->setExpanded('meta_label_6');
+        // $mform->setExpanded('meta_label_6');
         $mform->addElement('text', 'meta6', get_string('meta_title', 'mod_poster'), array('size' => '64'));
         $mform->setType('meta6', PARAM_TEXT);
         $mform->addRule('meta6', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -126,10 +126,6 @@ class mod_poster_mod_form extends moodleform_mod {
         ///////////////////////////////////// METADATA FIELDS ////////////////////////////////
 
         //========================   FILE PIKCER ==========================================
-        // $element = $mform->getElement('introeditor');
-        // $attributes = $element->getAttributes();
-        // $attributes['rows'] = 5;
-        // $element->setAttributes($attributes);
         $filemanager_options = array();
         $filemanager_options['accepted_types'] = '*';
         $filemanager_options['maxbytes'] = 0;
