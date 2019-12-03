@@ -133,7 +133,7 @@ function xmldb_poster_upgrade($oldversion) {
         $field_meta4 = new xmldb_field('meta4', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta3');
         $field_meta5 = new xmldb_field('meta5', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta4');
 
-        // Conditionally launch drop field surtitle.
+        // Conditionally launch drop and add fields.
         if ($dbman->field_exists($table, $field_1)) {
             $dbman->drop_field($table, $field_1);
             $dbman->drop_field($table, $field_2);
@@ -161,7 +161,7 @@ function xmldb_poster_upgrade($oldversion) {
         $field_meta4 = new xmldb_field('meta4', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta3');
         $field_meta5 = new xmldb_field('meta5', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta4');
 
-        // Conditionally launch drop field surtitle.
+        // Conditionally launch 
         if ($dbman->table_exists($table)) {
             $dbman->add_field($table, $field_meta2);
             $dbman->add_field($table, $field_meta3);
@@ -180,7 +180,7 @@ function xmldb_poster_upgrade($oldversion) {
         $table = new xmldb_table('poster');
         $field_meta6 = new xmldb_field('meta6', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta5');
 
-        // Conditionally launch drop field surtitle.
+        // Conditionally launch 
         if ($dbman->table_exists($table)) {
             $dbman->add_field($table, $field_meta6);
         }
@@ -188,6 +188,36 @@ function xmldb_poster_upgrade($oldversion) {
         // Poster savepoint reached.
         upgrade_mod_savepoint(true, 2019030511, 'poster');
     }
+
+
+    // 3 December 2019
+    if ($oldversion < 2019030512) {
+
+        // Define field surtitle to be dropped from poster.
+        $table = new xmldb_table('poster');
+
+        $field_meta1 = new xmldb_field('meta_value1', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta6');
+        $field_meta2 = new xmldb_field('meta_value2', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta_value1');
+        $field_meta3 = new xmldb_field('meta_value3', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta_value2');
+        $field_meta4 = new xmldb_field('meta_value4', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta_value3');
+        $field_meta5 = new xmldb_field('meta_value5', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta_value4');
+        $field_meta6 = new xmldb_field('meta_value6', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta_value5');
+
+        // Conditionally launch add fields
+        if ($dbman->field_exists($table, $field_meta1)) {
+
+            $dbman->add_field($table, $field_meta1);
+            $dbman->add_field($table, $field_meta2);
+            $dbman->add_field($table, $field_meta3);
+            $dbman->add_field($table, $field_meta4);
+            $dbman->add_field($table, $field_meta5);
+            $dbman->add_field($table, $field_meta6);
+        }
+
+        // Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2019030512, 'poster');
+    }
+    // \ 3 December 2019
 
     return true;
 }

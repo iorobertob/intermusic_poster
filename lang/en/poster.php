@@ -28,12 +28,18 @@ defined('MOODLE_INTERNAL') || die();
 $string['modulename'] = 'Poster';
 $string['meta_label_1'] = 'Metadata Field #1';
 $string['meta_label_2'] = 'Metadata Field #2';
+$string['meta_label_3'] = 'Metadata Field #3';
+$string['meta_label_4'] = 'Metadata Field #4';
+$string['meta_label_5'] = 'Metadata Field #5';
+$string['meta_label_6'] = 'Metadata Field #6';
 $string['meta1'] = 'Metadata Field #1:';
 $string['meta2'] = 'Metadata Field #2:';
 $string['meta3'] = 'Metadata Field #3:';
 $string['meta4'] = 'Metadata Field #4:';
 $string['meta5'] = 'Metadata Field #5:';
 $string['meta5'] = 'Metadata Field #6:';
+$string['meta_value']  = 'Value';
+$string['meta_title]'] = 'Title';
 $string['modulename_help'] = 'The poster module enables a teacher to make a page out of blocks (such as the HTML block, comments, calendar or RSS feed block), dragging and dropping them to the preferred location.
 
 You can use the poster
@@ -57,5 +63,5 @@ $string['showdescriptionview'] 		= 'Display description on view page';
 $string['showdescriptionview_help'] = 'If enabled, the description above will be displayed on the poster page.';
 $string['shownameview'] 			= 'Display name on view page';
 $string['shownameview_help'] 		= 'If enabled, the poster name will be displayed as heading on the poster page.';
-$string['metadatafile']= 'Metadata file';
+$string['metadatafile']    = 'Metadata file';
 $string['resourcecontent'] = 'Files and subfolders';

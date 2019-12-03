@@ -89,17 +89,22 @@ function poster_add_instance(stdClass $poster) {
 
     $url = poster_set_mainfile($poster);
 
-    // Retrieve elements from filename divided by "_"s
-    // collection[0]= collection section in filename, collection[1]=whole filename
-    $collection = get_item_from_filename($context, 0, $poster->id);
+    
+    try{
+        // Retrieve elements from filename divided by "_"s
+        // collection[0]= collection section in filename, collection[1]=whole filename
+        $collection = get_item_from_filename($context, 0, $poster->id);
 
-    // TODO: ABSTRACT THESE FEW FUNCTIONS INTO ONE SINGLE UTILITY 
-    // $DB->set_field('poster', 'rs_collection', $collection[0], array('name' => $collection[1]));
-    $DB->set_field('poster', 'rs_collection', $collection[0], array('name' => $poster->name));
+        // TODO: ABSTRACT THESE FEW FUNCTIONS INTO ONE SINGLE UTILITY 
+        $DB->set_field('poster', 'rs_collection', $collection[0], array('name' => $poster->name));
 
-    // Findout which ID corresponds to this file in RS
-    $request_json     = get_file_fields_metadata($collection[1]);
-    $resourcespace_id = $request_json[1][0]["ref"];
+        // Findout which ID corresponds to this file in RS
+        $request_json     = get_file_fields_metadata($collection[1]);
+        $resourcespace_id = $request_json[1][0]["ref"];
+    }catch (Exception $e){
+        poster_print($e);
+    }
+   
 
     try {
         $DB->set_field('poster', 'rs_id', $resourcespace_id, array('name' => $poster->name));
@@ -107,7 +112,6 @@ function poster_add_instance(stdClass $poster) {
         poster_print("Exception in Commit to DB:", false);
         poster_print($e);
     }
-
 
     $list_metadata[0] = ($poster->meta1 != "" ? $poster->meta1 : "Composer");
     $list_metadata[1] = ($poster->meta2 != "" ? $poster->meta2 : "Title");
@@ -124,11 +128,10 @@ function poster_add_instance(stdClass $poster) {
     for ($i = 0; $i < $length; $i++) {
         if($metadata[$i] != NULL){
             $index = $i + 1;
-            $DB->set_field('poster', 'meta'.$index, $metadata[$i], array('name' => $poster->name));
+            $DB->set_field('poster', 'meta_value'.$index, $metadata[$i], array('name' => $poster->name));
             poster_print("INDEX[".$index."] = ".$metadata[$i]);
         }
     }
-
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
     
