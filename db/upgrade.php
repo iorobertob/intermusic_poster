@@ -118,7 +118,7 @@ function xmldb_poster_upgrade($oldversion) {
 
 
     // 29 nov 2019
-    if ($oldversion < 2019030506) {
+    if ($oldversion < 2019030505) {
 
         // Define field surtitle to be dropped from poster.
         $table = new xmldb_table('poster');
@@ -148,7 +148,7 @@ function xmldb_poster_upgrade($oldversion) {
         }
 
         // Poster savepoint reached.
-        upgrade_mod_savepoint(true, 2019030506, 'poster');
+        upgrade_mod_savepoint(true, 2019030505, 'poster');
     }
 
     if ($oldversion < 2019030510) {
@@ -162,7 +162,7 @@ function xmldb_poster_upgrade($oldversion) {
         $field_meta5 = new xmldb_field('meta5', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta4');
 
         // Conditionally launch 
-        if ($dbman->table_exists($table)) {
+        if ($dbman->table_exists($table) && !$dbman->field_exists($table, $field_meta2)) {
             $dbman->add_field($table, $field_meta2);
             $dbman->add_field($table, $field_meta3);
             $dbman->add_field($table, $field_meta4);
