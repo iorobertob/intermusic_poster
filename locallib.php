@@ -82,6 +82,7 @@ function poster_get_metadata($context, $poster)
         $metadata = get_metadata_from_api($resourcespace_id, $poster, $list_metadata);
 
         // Commit metadata to database
+        poster_print("ENCODING", TRUE);
         $length = count($metadata);
         for ($i = 0; $i < $length; $i++) {
             if($metadata[$i] != NULL){
