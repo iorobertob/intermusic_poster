@@ -53,6 +53,7 @@ class mod_poster_mod_form extends moodleform_mod {
 
         ///////////////////////////////////// METADATA FIELDS ////////////////////////////////
         $mform->addElement('header', 'meta_label_1', get_string('meta_label_1', 'mod_poster'));
+        $mform->setExpanded('meta_label_1');
         // Add the poster surtitle field.
         $mform->addElement('text', 'meta1', get_string('meta1', 'mod_poster'), array('size' => '64'));
         $mform->setType('meta1', PARAM_TEXT);
