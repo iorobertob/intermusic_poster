@@ -123,12 +123,14 @@ function poster_add_instance(stdClass $poster) {
     $metadata = get_metadata_from_api($resourcespace_id, $poster, $list_metadata);
 
     // Commit metadata to database
+    // TODO: ONLY DO IF CHECKBOX ENABLED TO DO SO 
     $length = count($metadata);
     poster_print("LENGTH = ".$length);
     for ($i = 0; $i < $length; $i++) {
         if($metadata[$i] != NULL){
             $index = $i + 1;
             $DB->set_field('poster', 'meta_value'.$index, $metadata[$i], array('name' => $poster->name));
+            $DB->set_field('poster', 'meta'.$index, $list_metadata[$i], array('name' => $poster->name));
             poster_print("INDEX[".$index."] = ".$metadata[$i]);
         }
     }
