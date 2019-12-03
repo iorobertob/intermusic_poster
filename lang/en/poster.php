@@ -26,6 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['modulename'] = 'Poster';
+$string['meta_label_1'] = 'Metadata Field #1';
+$string['meta_label_2'] = 'Metadata Field #2';
 $string['meta1'] = 'Metadata Field #1:';
 $string['meta2'] = 'Metadata Field #2:';
 $string['meta3'] = 'Metadata Field #3:';

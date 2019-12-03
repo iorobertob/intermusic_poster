@@ -52,12 +52,15 @@ class mod_poster_mod_form extends moodleform_mod {
         $mform->addRule('name', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
         ///////////////////////////////////// METADATA FIELDS ////////////////////////////////
+        $mform->addElement('header', 'meta_label_1', get_string('meta_label_1', 'mod_poster'));
         // Add the poster surtitle field.
         $mform->addElement('text', 'meta1', get_string('meta1', 'mod_poster'), array('size' => '64'));
         $mform->setType('meta1', PARAM_TEXT);
         // $mform->addRule('surtitle', null, 'required', null, 'client');
         $mform->addRule('meta1', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
+
+        $mform->addElement('header', 'meta_label_2', get_string('meta_label_2', 'mod_poster'));
         // Add the poster author field.
         $mform->addElement('text', 'meta2', get_string('meta2', 'mod_poster'), array('size' => '64'));
         $mform->setType('meta2', PARAM_TEXT);
