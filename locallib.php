@@ -84,6 +84,7 @@ function poster_get_metadata($context, $poster)
         // Commit metadata to database
         poster_print("ENCODING", TRUE);
         poster_print(phpinfo());
+        die;
         $length = count($metadata);
         for ($i = 0; $i < $length; $i++) {
             if($metadata[$i] != NULL){
