@@ -126,6 +126,7 @@ class mod_poster_mod_form extends moodleform_mod {
         ///////////////////////////////////// METADATA FIELDS ////////////////////////////////
 
         //========================   FILE PIKCER ==========================================
+        $mform->addElement('header', 'meta_label_file', get_string('meta_label_file', 'mod_poster'));
         $filemanager_options = array();
         $filemanager_options['accepted_types'] = '*';
         $filemanager_options['maxbytes'] = 0;

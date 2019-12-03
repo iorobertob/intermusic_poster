@@ -32,6 +32,7 @@ $string['meta_label_3'] = 'Metadata Field #3';
 $string['meta_label_4'] = 'Metadata Field #4';
 $string['meta_label_5'] = 'Metadata Field #5';
 $string['meta_label_6'] = 'Metadata Field #6';
+$string['meta_label_file'] = 'Metadata File';
 $string['meta1'] = 'Metadata Field #1:';
 $string['meta2'] = 'Metadata Field #2:';
 $string['meta3'] = 'Metadata Field #3:';
