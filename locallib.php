@@ -87,7 +87,11 @@ function poster_get_metadata($context, $poster)
         for ($i = 0; $i < $length; $i++) {
             if($metadata[$i] != NULL){
                 $index = $i + 1;
-                $metadata[$i] = utf8_encode($metadata[$i]);
+                if (mb_detect_encoding($metadata[$i]) === 'ASCII'){
+                    poster_print('ASCII CONVERSION');
+                    $metadata[$i] = iconv('ASCII', 'UTF-8//IGNORE', $metadata[$i]);
+                }
+                
                 $DB->set_field('poster', 'meta_value'.$index, $metadata[$i], array('name' => $poster->name));
                 $DB->set_field('poster', 'meta'.$index, $list_metadata[$i],  array('name' => $poster->name));
                 poster_print('ENCODING: '. $metadata[$i]. " : " .mb_detect_encoding($metadata[$i]));
