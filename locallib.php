@@ -57,6 +57,8 @@ function poster_set_mainfile($data) {
  */
 function poster_get_metadata($context, $poster)
 {
+    global $DB;
+    
     try{
         // Retrieve elements from filename divided by "_"s
         // collection[0]= collection section in filename, collection[1]=whole filename
