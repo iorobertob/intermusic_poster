@@ -58,7 +58,7 @@ function poster_set_mainfile($data) {
 function poster_get_metadata($context, $poster)
 {
     global $DB;
-    
+
     try{
         // Retrieve elements from filename divided by "_"s
         // collection[0]= collection section in filename, collection[1]=whole filename
@@ -88,6 +88,7 @@ function poster_get_metadata($context, $poster)
                 $index = $i + 1;
                 $DB->set_field('poster', 'meta_value'.$index, $metadata[$i], array('name' => $poster->name));
                 $DB->set_field('poster', 'meta'.$index, $list_metadata[$i],  array('name' => $poster->name));
+                poster_print('ENCODING: '. $metadata[$i]. " : " .mb_detect_encoding($metadata[$i]));
             }
         }
 
