@@ -39,7 +39,7 @@ $string['meta4'] = 'Metadata Field #4:';
 $string['meta5'] = 'Metadata Field #5:';
 $string['meta5'] = 'Metadata Field #6:';
 $string['meta_value']  = 'Value';
-$string['meta_title]'] = 'Title';
+$string['meta_title'] = 'Title';
 $string['modulename_help'] = 'The poster module enables a teacher to make a page out of blocks (such as the HTML block, comments, calendar or RSS feed block), dragging and dropping them to the preferred location.
 
 You can use the poster
