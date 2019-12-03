@@ -85,7 +85,7 @@ function poster_get_metadata($context, $poster)
             if($metadata[$i] != NULL){
                 $index = $i + 1;
                 $DB->set_field('poster', 'meta_value'.$index, $metadata[$i], array('name' => $poster->name));
-                $DB->set_field('poster', 'meta'.$index, $list_metadata[$i], array('name' => $poster->name));
+                $DB->set_field('poster', 'meta'.$index, $list_metadata[$i],  array('name' => $poster->name));
             }
         }
 

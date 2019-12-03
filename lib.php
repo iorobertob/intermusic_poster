@@ -78,10 +78,6 @@ function poster_add_instance(stdClass $poster) {
 
     /////////////// CUSTOM CODE ////////////////////
     $cmid = $poster->coursemodule;
-
-    // $context = $PAGE->context;
-    poster_print('COURSE MODULE', true);
-    poster_print($poster->coursemodule);
     
     $context = context_module::instance($cmid);
 
@@ -119,13 +115,19 @@ function poster_update_instance(stdClass $poster) {
 
     $DB->update_record('poster', $poster);
 
+    /////////////// CUSTOM CODE ////////////////////
+    $cmid = $poster->coursemodule;
+    $context = context_module::instance($cmid);
+
     $url = poster_set_mainfile($poster);
 
     poster_get_metadata($context, $poster);
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
     \core_completion\api::update_completion_date_event($poster->coursemodule, 'poster', $poster->id, $completiontimeexpected);
+    /////////////////////////////////////////////////
 
+    
     return true;
 }
 
