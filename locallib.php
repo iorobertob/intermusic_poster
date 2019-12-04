@@ -89,13 +89,14 @@ function poster_get_metadata($context, $poster)
         for ($i = 0; $i < $length; $i++) {
             if($metadata[$i] != NULL){
                 $index = $i + 1;
-                if (mb_detect_encoding($metadata[$i]) === 'ASCII'){
-                    poster_print('ASCII CONVERSION');
-                    $data = iconv('ASCII', 'UTF-8//IGNORE', $metadata[$i]);
-                }
-                else{
-                    $data = $metadata[$i];
-                }
+                $data = $metadata[$i];
+                // if (mb_detect_encoding($metadata[$i]) === 'ASCII'){
+                //     poster_print('ASCII CONVERSION');
+                //     $data = iconv('ASCII', 'UTF-8//IGNORE', $metadata[$i]);
+                // }
+                // else{
+                //     $data = $metadata[$i];
+                // }
                 
                 $DB->set_field('poster', 'meta_value'.$index, $data, array('name' => $poster->name));
                 $DB->set_field('poster', 'meta'.$index, $list_metadata[$i],  array('name' => $poster->name));
