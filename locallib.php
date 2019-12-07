@@ -82,9 +82,6 @@ function poster_get_metadata($context, $poster)
         $metadata = get_metadata_from_api($resourcespace_id, $poster, $list_metadata);
 
         // Commit metadata to database
-        poster_print("ENCODING", TRUE);
-        // poster_print(phpinfo());
-        // die;
         $length = count($metadata);
         for ($i = 0; $i < $length; $i++) {
             if($metadata[$i] != NULL){
@@ -100,7 +97,6 @@ function poster_get_metadata($context, $poster)
                 
                 $DB->set_field('poster', 'meta_value'.$index, $data, array('name' => $poster->name));
                 $DB->set_field('poster', 'meta'.$index, $list_metadata[$i],  array('name' => $poster->name));
-                poster_print('ENCODING: '. $data. " : " .mb_detect_encoding($data));
             }
         }
 

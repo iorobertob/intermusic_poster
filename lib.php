@@ -78,7 +78,7 @@ function poster_add_instance(stdClass $poster) {
 
     /////////////// CUSTOM CODE ////////////////////
     $cmid = $poster->coursemodule;
-    
+    poster_print("CMID: " . $cmid, true);
     $context = context_module::instance($cmid);
 
     $DB->set_field('course_modules', 'instance', $poster->id, array('id'=>$cmid));
