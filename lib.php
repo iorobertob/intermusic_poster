@@ -85,11 +85,15 @@ function poster_add_instance(stdClass $poster) {
 
     try{
         $url = poster_set_mainfile($poster);
+
+        poster_get_metadata($cmid, $poster);
     }catch (Exception $e){
+        poster_print($e);
+    }catch (Throwable $e){
         poster_print($e);
     }
     
-    poster_get_metadata($cmid, $poster);
+    
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
     
