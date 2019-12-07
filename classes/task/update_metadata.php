@@ -56,7 +56,7 @@ class update_metadata extends \core\task\scheduled_task {
         
         foreach($poster_instances as $moduleinstance)
         {
-            $cmid = $DB->get_field("course_modules", 'id', array('course'=> $modulinstance->course, 'instance'=>$moduleinstance->id));
+            $cmid = $DB->get_field("course_modules", 'id', array('course'=> $moduleinstance->course, 'instance'=>$moduleinstance->id));
             $context = context_module::instance($cmid);
             poster_get_metadata($context, $moduleinstance);
         }
