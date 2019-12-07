@@ -137,7 +137,9 @@ function get_item_from_filename($context, $item_number, $id)
     $fs              = get_file_storage();
     $files           = $fs->get_area_files($context->id, 'mod_poster', 'content', 0, 'sortorder', false);
 
-    if (count($files >0)){
+    if (count($files > 0)){
+        echo "count";
+        echo count($files);
         $keys            = array_keys($files);
         $filename        = $files[$keys[0]] -> get_filename();
         $filename_parts  = explode("_", $filename);
