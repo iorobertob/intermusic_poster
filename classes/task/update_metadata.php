@@ -53,19 +53,17 @@ class update_metadata extends \core\task\scheduled_task {
     public function execute() {
 
         global $CFG, $DB, $PAGE;
-        
-        require_once($CFG->dirroot . '/lib/accesslib.php');
 
-        
+        // require_once($CFG->dirroot . '/lib/accesslib.php');
 
         $poster_instances = $DB->get_records("poster", null, $sort='', $fields='*');
         
         foreach($poster_instances as $moduleinstance)
         {
             $cmid = $DB->get_field("course_modules", 'id', array('course'=> $moduleinstance->course, 'instance'=>$moduleinstance->id));
-            echo $cmid;
-            $context = context_module::instance($cmid);
-            poster_get_metadata($context, $moduleinstance);
+            // echo $cmid;
+            // $context = context_module::instance($cmid);
+            poster_get_metadata($cmid, $moduleinstance);
         }
     }
 }

@@ -89,7 +89,7 @@ function poster_add_instance(stdClass $poster) {
         poster_print($e);
     }
     
-    poster_get_metadata($context, $poster);
+    poster_get_metadata($cmid, $poster);
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
     

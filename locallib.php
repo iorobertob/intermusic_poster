@@ -62,10 +62,10 @@ function poster_set_mainfile($data) {
  * @param $context  The Context of this activity / module
  * @param @poster   The current module's instance
  */
-function poster_get_metadata($context, $poster)
+function poster_get_metadata($cmid, $poster)
 {
     global $DB;
-
+    $context = context_module::instance($cmid);
     try{
         // Retrieve elements from filename divided by "_"s
         // collection[0]= collection section in filename, collection[1]=whole filename
