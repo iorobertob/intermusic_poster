@@ -91,6 +91,8 @@ function poster_add_instance(stdClass $poster) {
         poster_print($e);
     }catch (Throwable $e){
         poster_print($e);
+    }catch (Error $e){
+        poster_print($e);
     }
     
     
