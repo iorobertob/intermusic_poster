@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/mod/poster/lib.php');
 require_once($CFG->dirroot . '/mod/poster/locallib.php');
 require_once("$CFG->libdir/resourcelib.php");
-require_once($CFG->dirroot . '/lib/accesslib.php');
+require($CFG->dirroot . '/lib/accesslib.php');
 
 /**
  * The main scheduled task for the forum.
