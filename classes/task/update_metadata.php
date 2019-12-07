@@ -52,11 +52,13 @@ class update_metadata extends \core\task\scheduled_task {
     public function execute() {
         global $CFG, $DB;
 
-        $inter_instances = $DB->get_records("poster", null, $sort='', $fields='*');
+        $poster_instances = $DB->get_records("poster", null, $sort='', $fields='*');
         
-        foreach($inter_instances as $moduleinstance)
+        foreach($poster_instances as $moduleinstance)
         {
-            save_serialized_metadata($moduleinstance->course, $moduleinstance, $moduleinstance->id);
+            $cmid = $DB->get_field("course_modules", 'id', array('course'=> $modulinstance->course, 'instance'=>$moduleinstance->id));
+            $context = context_module::instance($cmid);
+            poster_get_metadata($context, $moduleinstance);
         }
     }
 

@@ -83,8 +83,12 @@ function poster_add_instance(stdClass $poster) {
 
     $DB->set_field('course_modules', 'instance', $poster->id, array('id'=>$cmid));
 
-    $url = poster_set_mainfile($poster);
-
+    try{
+        $url = poster_set_mainfile($poster);
+    }catch (Exception $e){
+        poster_print($e);
+    }
+    
     poster_get_metadata($context, $poster);
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
