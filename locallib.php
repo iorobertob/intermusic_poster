@@ -45,8 +45,15 @@ function poster_set_mainfile($data) {
         // only one file attached, set it as main file automatically
         $file = reset($files);
         file_set_sortorder($context->id, 'mod_poster', 'content', 0, $file->get_filepath(), $file->get_filename(), 1);
-	}
-    $url = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename(), false);
+    }
+    
+    try{
+        $url = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename(), false);
+    }catch (Exception $e){
+        poster_print($e);
+        $url = 'no file';
+    }
+    
     return $url;
 }
 
