@@ -28,7 +28,6 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/mod/poster/lib.php');
 require_once($CFG->dirroot . '/mod/poster/locallib.php');
 require_once("$CFG->libdir/resourcelib.php");
-require($CFG->dirroot . '/lib/accesslib.php');
 
 /**
  * The main scheduled task for the forum.
@@ -52,6 +51,9 @@ class update_metadata extends \core\task\scheduled_task {
      * Execute the scheduled task.
      */
     public function execute() {
+
+        require_once($CFG->dirroot . '/lib/accesslib.php');
+
         global $CFG, $DB, $PAGE;
 
         $poster_instances = $DB->get_records("poster", null, $sort='', $fields='*');
