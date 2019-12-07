@@ -47,12 +47,14 @@ function poster_set_mainfile($data) {
         file_set_sortorder($context->id, 'mod_poster', 'content', 0, $file->get_filepath(), $file->get_filename(), 1);
     }
     
-    try{
+    if (count($files) > 0) {
         $url = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename(), false);
-    }catch (Exception $e){
+    }
+    else{
         poster_print($e);
         $url = 'no file';
     }
+
     
     return $url;
 }
@@ -70,6 +72,12 @@ function poster_get_metadata($cmid, $poster)
         // Retrieve elements from filename divided by "_"s
         // collection[0]= collection section in filename, collection[1]=whole filename
         $collection = get_item_from_filename($context, 0, $poster->id);
+
+        
+        if ($collection == null){
+            return;
+        }
+
 
         $DB->set_field('poster', 'rs_collection', $collection[0], array('name' => $poster->name));
 
@@ -129,16 +137,22 @@ function get_item_from_filename($context, $item_number, $id)
     $fs              = get_file_storage();
     $files           = $fs->get_area_files($context->id, 'mod_poster', 'content', 0, 'sortorder', false);
 
-    $keys            = array_keys($files);
-    $filename        = $files[$keys[0]] -> get_filename();
-    $filename_parts  = explode("_", $filename);
-    $item            = $filename_parts[$item_number];
-    $characteristics = $filename_parts[2];
-
-    $items[0] = $item;
-    $items[1] = $filename;
-
-    return $items;
+    if (count($files >0)){
+        $keys            = array_keys($files);
+        $filename        = $files[$keys[0]] -> get_filename();
+        $filename_parts  = explode("_", $filename);
+        $item            = $filename_parts[$item_number];
+        $characteristics = $filename_parts[2];
+    
+        $items[0] = $item;
+        $items[1] = $filename;
+    
+        return $items;
+    }
+    else{
+        return null;
+    }
+    
     
 }
 
