@@ -52,9 +52,11 @@ class update_metadata extends \core\task\scheduled_task {
      */
     public function execute() {
 
+        global $CFG, $DB, $PAGE;
+        
         require_once($CFG->dirroot . '/lib/accesslib.php');
 
-        global $CFG, $DB, $PAGE;
+        
 
         $poster_instances = $DB->get_records("poster", null, $sort='', $fields='*');
         
