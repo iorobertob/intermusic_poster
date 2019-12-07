@@ -73,7 +73,7 @@ function poster_get_metadata($cmid, $poster)
         // collection[0]= collection section in filename, collection[1]=whole filename
         $collection = get_item_from_filename($context, 0, $poster->id);
 
-        
+        // If there was no file then we cut short here. 
         if ($collection == null){
             return;
         }
@@ -87,12 +87,19 @@ function poster_get_metadata($cmid, $poster)
    
         $DB->set_field('poster', 'rs_id', $resourcespace_id, array('name' => $poster->name));
    
-        $list_metadata[0] = ($poster->meta1 != "" ? $poster->meta1 : "Composer");
-        $list_metadata[1] = ($poster->meta2 != "" ? $poster->meta2 : "Title");
-        $list_metadata[2] = ($poster->meta3 != "" ? $poster->meta3 : "Surtitle");
-        $list_metadata[3] = ($poster->meta4 != "" ? $poster->meta4 : "List");
-        $list_metadata[4] = ($poster->meta5 != "" ? $poster->meta4 : "1st line");
-        $list_metadata[5] = ($poster->meta6 != "" ? $poster->meta5 : "Language");
+        // $list_metadata[0] = ($poster->meta1 != "" ? $poster->meta1 : "Composer");
+        // $list_metadata[1] = ($poster->meta2 != "" ? $poster->meta2 : "Title");
+        // $list_metadata[2] = ($poster->meta3 != "" ? $poster->meta3 : "Surtitle");
+        // $list_metadata[3] = ($poster->meta4 != "" ? $poster->meta4 : "List");
+        // $list_metadata[4] = ($poster->meta5 != "" ? $poster->meta5 : "1st line");
+        // $list_metadata[5] = ($poster->meta6 != "" ? $poster->meta6 : "Language");
+
+        $list_metadata[0] = ($poster->meta1 != "" ? "" : "");
+        $list_metadata[1] = ($poster->meta2 != "" ? "" : "");
+        $list_metadata[2] = ($poster->meta3 != "" ? "" : "");
+        $list_metadata[3] = ($poster->meta4 != "" ? "" : "");
+        $list_metadata[4] = ($poster->meta5 != "" ? "" : "");
+        $list_metadata[5] = ($poster->meta6 != "" ? "" : "");
         
         $metadata = get_metadata_from_api($resourcespace_id, $poster, $list_metadata);
 
