@@ -29,7 +29,7 @@ $tasks = array(
     array(
         'classname' => 'mod_poster\task\update_metadata',
         'blocking' => 0,
-        'minute' => '*/5',
+        'minute' => '*',
         'hour' => '*',
         'day' => '*',
         'month' => '*',
