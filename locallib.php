@@ -106,7 +106,7 @@ function poster_get_metadata($cmid, $poster)
         // Commit metadata to database
         $length = count($metadata);
         for ($i = 0; $i < $length; $i++) {
-            if($metadata[$i] != NULL){
+            // if($metadata[$i] != NULL){
                 $index = $i + 1;
                 $data = $metadata[$i];
                 // if (mb_detect_encoding($metadata[$i]) === 'ASCII'){
@@ -119,7 +119,7 @@ function poster_get_metadata($cmid, $poster)
                 
                 $DB->set_field('poster', 'meta_value'.$index, $data, array('name' => $poster->name));
                 $DB->set_field('poster', 'meta'.$index, $list_metadata[$i],  array('name' => $poster->name));
-            }
+            // }
         }
 
     }catch (Exception $e){
@@ -192,7 +192,6 @@ function get_file_fields_metadata($string)
     return $api_result;
 }
 
-
 /**
  * Do an API requeuest with 
  */
@@ -226,7 +225,6 @@ function do_api_search($string, $function)
     return $result;
 }
 
-
 /**
  * Initialise Resourcespace API variables
  */
@@ -242,7 +240,6 @@ function init_resourcespace()
 
     return $RS_object;
 }
-
 
 /**
  * Get the data via API call and compare its metadata with the one indicated in the current Inter list instance
