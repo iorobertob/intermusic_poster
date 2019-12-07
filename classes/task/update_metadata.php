@@ -21,7 +21,7 @@
  * @copyright  2019 Roberto Becerra <roberto.becerra@lmta.lt>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace mod_inter\task;
+namespace mod_poster\task;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -61,5 +61,4 @@ class update_metadata extends \core\task\scheduled_task {
             poster_get_metadata($context, $moduleinstance);
         }
     }
-
 }
