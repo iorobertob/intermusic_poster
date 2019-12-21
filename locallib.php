@@ -150,18 +150,14 @@ function get_item_from_filename($context, $item_number, $id)
         $filename        = $files[$keys[0]] -> get_filename();
         $filename_parts  = explode("_", $filename);
 
-        if(count($filename_parts) >= 2  && count($filename_parts) >= $item_number){
-            $item            = $filename_parts[$item_number];
+        $item            = $filename_parts[$item_number];
+
+        if(count($filename_parts) >= 2){
             $characteristics = $filename_parts[2];
-        
-            $items[0] = $item;
-            $items[1] = $filename;
         }
 
-        else{
-            return array("");
-        }
-        
+        $items[0] = $item;
+        $items[1] = $filename;
     
         return $items;
     }
