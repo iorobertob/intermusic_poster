@@ -149,11 +149,19 @@ function get_item_from_filename($context, $item_number, $id)
         $keys            = array_keys($files);
         $filename        = $files[$keys[0]] -> get_filename();
         $filename_parts  = explode("_", $filename);
-        $item            = $filename_parts[$item_number];
-        $characteristics = $filename_parts[2];
-    
-        $items[0] = $item;
-        $items[1] = $filename;
+
+        if(count($filename_parts) > 2  && count($filename_parts) >= $item_number){
+            $item            = $filename_parts[$item_number];
+            $characteristics = $filename_parts[2];
+        
+            $items[0] = $item;
+            $items[1] = $filename;
+        }
+
+        else{
+            return array("");
+        }
+        
     
         return $items;
     }
