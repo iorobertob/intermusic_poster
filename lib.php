@@ -131,7 +131,7 @@ function poster_update_instance(stdClass $poster) {
 
     $url = poster_set_mainfile($poster);
 
-    poster_get_metadata($context, $poster);
+    poster_get_metadata($cmid, $poster);
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
     \core_completion\api::update_completion_date_event($poster->coursemodule, 'poster', $poster->id, $completiontimeexpected);
