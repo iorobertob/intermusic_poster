@@ -152,7 +152,7 @@ function get_item_from_filename($context, $item_number, $id)
 
         $item            = $filename_parts[$item_number];
 
-        if(count($filename_parts) >= 2){
+        if(count($filename_parts) > 2){
             $characteristics = $filename_parts[2];
         }
 
