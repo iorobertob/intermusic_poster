@@ -150,7 +150,7 @@ function get_item_from_filename($context, $item_number, $id)
         $filename        = $files[$keys[0]] -> get_filename();
         $filename_parts  = explode("_", $filename);
 
-        if(count($filename_parts) > 2  && count($filename_parts) >= $item_number){
+        if(count($filename_parts) >= 2  && count($filename_parts) >= $item_number){
             $item            = $filename_parts[$item_number];
             $characteristics = $filename_parts[2];
         
