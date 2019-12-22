@@ -65,7 +65,7 @@ $PAGE->blocks->add_region('mod_poster-pre', true);
 $PAGE->blocks->add_region('mod_poster-post', true);
 
 $output = $PAGE->get_renderer('mod_poster');
-$PAGE->requires->js( new moodle_url($CFG->wwwroot . '/mod/poster/lmtajs.js'));
+// $PAGE->requires->js( new moodle_url($CFG->wwwroot . '/mod/poster/lmtajs.js'));
 
 echo $output->view_page($poster);
 
