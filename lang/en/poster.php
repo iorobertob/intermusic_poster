@@ -56,6 +56,7 @@ $string['pluginname'] 				= 'Poster';
 $string['poster:addinstance'] 		= 'Add a new poster';
 $string['poster:view'] 				= 'View poster';
 $string['postername'] 				= 'Title';
+$string['overwrite'] 				= 'Overwrite Intermusic metadata with custom fields.';
 $string['posterauthor'] 			= 'Composer';
 $string['postersurtitle'] 			= 'Surtitle';
 $string['posternumbering'] 			= 'Numbering';

@@ -11,6 +11,7 @@
         <FIELD NAME="rs_collection"       TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="collection field for moodle instances"/>
         <FIELD NAME="rs_id"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="RS ID field for moodle instances"/>
         <FIELD NAME="name"                TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="name field for moodle instances"/>
+        <FIELD NAME="overwrite"           TYPE="char" LENGTH="8"      NOTNULL="true"    DEFAULT="0"      SEQUENCE="false"/>
         <FIELD NAME="meta1"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
         <FIELD NAME="meta2"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
         <FIELD NAME="meta3"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
