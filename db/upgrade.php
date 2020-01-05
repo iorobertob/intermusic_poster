@@ -232,6 +232,18 @@ function xmldb_poster_upgrade($oldversion) {
         }
         upgrade_mod_savepoint(true, 2019030522, 'poster');
     }
+
+    if ($oldversion < 2019030524){
+        // Define table and field to modify/add
+        $table = new xmldb_table('poster');
+        $field_7 = new xmldb_field('meta7', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta6');
+
+        // Conditionally launch add field author.
+        if (!$dbman->field_exists($table, $field_7)) {
+            $dbman->add_field($table, $field_7);
+        }
+        upgrade_mod_savepoint(true, 2019030524, 'poster');
+    }
     // \ 5 :Jan 2020
 
     return true;
