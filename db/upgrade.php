@@ -221,7 +221,7 @@ function xmldb_poster_upgrade($oldversion) {
 
 
     // 5 Jan 2020
-    if ($oldversion < 2019030522){
+    if ($oldversion < 2019030523){
         // Define table and field to modify/add
         $table = new xmldb_table('poster');
         $field_meta7 = new xmldb_field('meta_value7', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta_value6');
