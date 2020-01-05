@@ -123,6 +123,18 @@ class mod_poster_mod_form extends moodleform_mod {
         $mform->setType('meta_value6', PARAM_TEXT);
         $mform->addRule('meta_value6', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
+
+        // Metadata Field #6
+        $mform->addElement('header', 'meta_label_7', get_string('meta_label_7', 'mod_poster'));
+        // $mform->setExpanded('meta_label_6');
+        $mform->addElement('text', 'meta7', get_string('meta_title', 'mod_poster'), array('size' => '64'));
+        $mform->setType('meta7', PARAM_TEXT);
+        $mform->addRule('meta7', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        //
+        $mform->addElement('text', 'meta_value7', get_string('meta_value', 'mod_poster'), array('size' => '64'));
+        $mform->setType('meta_value7', PARAM_TEXT);
+        $mform->addRule('meta_value7', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+
         ///////////////////////////////////// METADATA FIELDS ////////////////////////////////
 
         //========================   FILE PIKCER ==========================================

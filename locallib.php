@@ -89,10 +89,11 @@ function poster_get_metadata($cmid, $poster)
    
         $list_metadata[0] = ($poster->meta1 != "" ? $poster->meta1 : "Composer");
         $list_metadata[1] = ($poster->meta2 != "" ? $poster->meta2 : "Title");
-        $list_metadata[2] = ($poster->meta3 != "" ? $poster->meta3 : "Surtitle");
-        $list_metadata[3] = ($poster->meta4 != "" ? $poster->meta4 : "List");
-        $list_metadata[4] = ($poster->meta5 != "" ? $poster->meta5 : "1st line");
-        $list_metadata[5] = ($poster->meta6 != "" ? $poster->meta6 : "Language");
+        $list_metadata[2] = ($poster->meta6 != "" ? $poster->meta6 : "Title - English");
+        $list_metadata[3] = ($poster->meta3 != "" ? $poster->meta3 : "Surtitle");
+        $list_metadata[4] = ($poster->meta4 != "" ? $poster->meta4 : "List");
+        $list_metadata[5] = ($poster->meta5 != "" ? $poster->meta5 : "1st line");
+        $list_metadata[6] = ($poster->meta6 != "" ? $poster->meta6 : "Language");
 
         // $list_metadata[0] = ($poster->meta1 != "" ? "" : "");
         // $list_metadata[1] = ($poster->meta2 != "" ? "" : "");
