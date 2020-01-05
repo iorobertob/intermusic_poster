@@ -31,6 +31,7 @@ $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 require_course_login($course, true);
 
 $PAGE->set_pagelayout('incourse');
+
 $PAGE->set_url('/mod/poster/index.php', array('id' => $course->id));
 $PAGE->set_title($course->shortname.': '.get_string('modulenameplural', 'mod_poster'));
 $PAGE->set_heading($course->fullname);
@@ -55,7 +56,7 @@ $usesections = course_format_uses_sections($course->format);
 
 $table = new html_table();
 $table->attributes['class'] = 'generaltable mod_index';
-
+// Header stuff ! 
 if ($usesections) {
     $table->head = array(
         get_string('sectionname', 'format_'.$course->format),
@@ -75,7 +76,7 @@ if ($usesections) {
 
 $modinfo = get_fast_modinfo($course);
 $currentsection = '';
-
+// PROCESS INSTANCES!!
 foreach ($posters as $poster) {
     $cm = $modinfo->cms[$poster->coursemodule];
     if ($usesections) {

@@ -24,6 +24,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once("$CFG->dirroot/mod/poster/io_print.php");
+require_once("$CFG->dirroot/mod/poster/locallib.php");
+require_once("$CFG->libdir/resourcelib.php");
+
+//moodle 
 /**
  * Returns the information if the module supports a feature
  *
@@ -53,6 +58,7 @@ function poster_supports($feature) {
     }
 }
 
+//moodle
 /**
  * Adds a new instance of the poster into the database
  *
@@ -63,12 +69,40 @@ function poster_supports($feature) {
  * @return int The id of the newly inserted poster record
  */
 function poster_add_instance(stdClass $poster) {
-    global $DB;
+    global $DB, $PAGE, $CFG;
 
     $poster->timecreated = time();
     $poster->timemodified = $poster->timecreated;
 
     $poster->id = $DB->insert_record('poster', $poster);
+
+    /////////////// CUSTOM CODE ////////////////////
+    $cmid = $poster->coursemodule;
+    poster_print("CMID: " . $cmid, true);
+    $context = context_module::instance($cmid);
+
+    $DB->set_field('course_modules', 'instance', $poster->id, array('id'=>$cmid));
+
+    try{
+        $url = poster_set_mainfile($poster);
+
+        poster_get_metadata($cmid, $poster);
+    }catch (Exception $e){
+        poster_print($e);
+    }catch (Throwable $e){
+        poster_print($e);
+    }catch (Error $e){
+        poster_print($e);
+    }
+    
+    
+
+    $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
+    
+    \core_completion\api::update_completion_date_event($cmid, 'poster', $poster->id, $completiontimeexpected);
+
+    /////////////////////////////////////////////////
+
 
     return $poster->id;
 }
@@ -87,9 +121,23 @@ function poster_update_instance(stdClass $poster) {
 
     $poster->timemodified = time();
     $poster->id = $poster->instance;
+    $poster->revision++;
 
     $DB->update_record('poster', $poster);
 
+    /////////////// CUSTOM CODE ////////////////////
+    $cmid = $poster->coursemodule;
+    $context = context_module::instance($cmid);
+
+    $url = poster_set_mainfile($poster);
+
+    poster_get_metadata($cmid, $poster);
+
+    $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
+    \core_completion\api::update_completion_date_event($poster->coursemodule, 'poster', $poster->id, $completiontimeexpected);
+    /////////////////////////////////////////////////
+
+    
     return true;
 }
 
@@ -148,3 +196,76 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
         'mod-poster-view' => get_string('page-mod-poster-view', 'mod_poster'),
     );
 }
+
+/**
+ * Returns the lists of all browsable file areas within the given module context.
+ *
+ * The file area 'intro' for the activity introduction field is added automatically
+ * by {@link file_browser::get_file_info_context_module()}.
+ *
+ * @package     mod_inter
+ * @category    files
+ *
+ * @param stdClass $course.
+ * @param stdClass $cm.
+ * @param stdClass $context.
+ * @return string[].
+ */
+function poster_get_file_areas($course, $cm, $context) {
+    // return array();
+    $areas = array();
+    $areas['content'] = get_string('resourcecontent', 'poster');
+    return $areas;
+}
+
+/**
+ * File browsing support for mod_poster file areas.
+ *
+ * @package     mod_inter
+ * @category    files
+ *
+ * @param file_browser $browser.
+ * @param array $areas.
+ * @param stdClass $course.
+ * @param stdClass $cm.
+ * @param stdClass $context.
+ * @param string $filearea.
+ * @param int $itemid.
+ * @param string $filepath.
+ * @param string $filename.
+ * @return file_info Instance or null if not found.
+ */
+function poster_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
+     global $CFG;
+
+    if (!has_capability('moodle/course:managefiles', $context)) {
+        // students can not peak here!
+        return null;
+    }
+
+    $fs = get_file_storage();
+
+    if ($filearea === 'content') {
+        $filepath = is_null($filepath) ? '/' : $filepath;
+        $filename = is_null($filename) ? '.' : $filename;
+
+        $urlbase = $CFG->wwwroot.'/pluginfile.php';
+        if (!$storedfile = $fs->get_file($context->id, 'mod_poster', 'content', 0, $filepath, $filename)) {
+            if ($filepath === '/' and $filename === '.') {
+                $storedfile = new virtual_root_file($context->id, 'mod_poster', 'content', 0);
+            } else {
+                // not found
+                return null;
+            }
+        }
+        require_once("$CFG->dirroot/mod/poster/locallib.php");
+        return new poster_content_file_info($browser, $context, $storedfile, $urlbase, $areas[$filearea], true, true, true, false);
+    }
+
+    // note: resource_intro handled in file_browser automatically
+
+    return null;
+}
+
+
+

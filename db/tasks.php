@@ -15,17 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides meta-information about the plugin.
+ * Definition of Forum scheduled tasks.
  *
- * @package     mod_poster
- * @copyright   2015 David Mudrak <david@moodle.com>
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   mod_poster
+ * @category  task
+ * @copyright 2019 Roberto Becerra <roberto.becerra@lmta.lt>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'mod_poster';
-$plugin->release   = '5.2.1';
-$plugin->version   = 2019030521;
-$plugin->requires  = 2016120500;
-$plugin->maturity  = MATURITY_BETA;
+$tasks = array(
+    array(
+        'classname' => 'mod_poster\task\update_metadata',
+        'blocking' => 0,
+        'minute' => '*',
+        'hour' => '*',
+        'day' => '*',
+        'month' => '*',
+        'dayofweek' => '*'
+    )
+);

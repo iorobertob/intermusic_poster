@@ -43,15 +43,39 @@ class backup_poster_activity_structure_step extends backup_activity_structure_st
      */
     protected function define_structure() {
 
+        // To know if we are including userinfo
+        $userinfo = $this->get_setting_value('userinfo');
+        
         // Define the poster root element.
         $poster = new backup_nested_element('poster', array('id'), array(
-            'name', 'intro', 'introformat', 'timecreated', 'timemodified', 'shownameview', 'showdescriptionview'));
+                'name', 
+                'intro',
+                'rs_collection',
+                'rs_id',
+                'meta1', 
+                'meta2', 
+                'meta3', 
+                'meta4', 
+                'meta5', 
+                'meta6',
+                'meta_value1',
+                'meta_value2',
+                'meta_value3',
+                'meta_value4',
+                'meta_value5',
+                'meta_value6',
+                'introformat', 
+                'timecreated', 
+                'timemodified', 
+                'shownameview', 
+                'showdescriptionview'));
 
         // Define the data source.
         $poster->set_source_table('poster', array('id' => backup::VAR_ACTIVITYID));
 
         // Define file annotations.
         $poster->annotate_files('mod_poster', 'intro', null);
+        $poster->annotate_files('mod_poster', 'content', null); // This file areas haven't itemid
 
         return $this->prepare_activity_structure($poster);
     }

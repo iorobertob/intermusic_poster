@@ -6,15 +6,30 @@
   <TABLES>
     <TABLE NAME="poster" COMMENT="Holds the module instances data.">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course poster activity belongs to"/>
-        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances"/>
-        <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="General introduction of the poster activity"/>
-        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)"/>
-        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
-        <FIELD NAME="shownameview" TYPE="int" LENGTH="3" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Display the poster name as a heading title of the view page"/>
-        <FIELD NAME="showdescriptionview" TYPE="int" LENGTH="3" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Display the intro description at the view page"/>
+        <FIELD NAME="id"                  TYPE="int"  LENGTH="10"     NOTNULL="true"    SEQUENCE="true"/>
+        <FIELD NAME="course"              TYPE="int"  LENGTH="10"     NOTNULL="true"    SEQUENCE="false" COMMENT="Course poster activity belongs to"/>
+        <FIELD NAME="rs_collection"       TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="collection field for moodle instances"/>
+        <FIELD NAME="rs_id"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="RS ID field for moodle instances"/>
+        <FIELD NAME="name"                TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="name field for moodle instances"/>
+        <FIELD NAME="meta1"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
+        <FIELD NAME="meta2"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
+        <FIELD NAME="meta3"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
+        <FIELD NAME="meta4"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
+        <FIELD NAME="meta5"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
+        <FIELD NAME="meta6"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
+        <FIELD NAME="meta_value1"         TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
+        <FIELD NAME="meta_value2"         TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
+        <FIELD NAME="meta_value3"         TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
+        <FIELD NAME="meta_value4"         TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
+        <FIELD NAME="meta_value5"         TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
+        <FIELD NAME="meta_value6"         TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
+        <FIELD NAME="autopopulate"        TYPE="text"                 NOTNULL="false"   SEQUENCE="false"/>
+        <FIELD NAME="intro"               TYPE="text"                 NOTNULL="true"    SEQUENCE="false" COMMENT="General introduction of the poster activity"/>
+        <FIELD NAME="introformat"         TYPE="int"  LENGTH="4"      NOTNULL="true"    DEFAULT="0"      SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)"/>
+        <FIELD NAME="timecreated"         TYPE="int"  LENGTH="10"     NOTNULL="true"                     SEQUENCE="false"/>
+        <FIELD NAME="timemodified"        TYPE="int"  LENGTH="10"     NOTNULL="true"    DEFAULT="0"      SEQUENCE="false"/>
+        <FIELD NAME="shownameview"        TYPE="int"  LENGTH="3"      NOTNULL="true"    DEFAULT="0"      SEQUENCE="false" COMMENT="Display the poster name as a heading title of the view page"/>
+        <FIELD NAME="showdescriptionview" TYPE="int"  LENGTH="3"      NOTNULL="true"    DEFAULT="0"      SEQUENCE="false" COMMENT="Display the intro description at the view page"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

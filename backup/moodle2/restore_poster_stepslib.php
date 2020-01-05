@@ -64,5 +64,6 @@ class restore_poster_activity_structure_step extends restore_activity_structure_
      */
     protected function after_execute() {
         $this->add_related_files('mod_poster', 'intro', null);
+        $this->add_related_files('mod_poster', 'content', null);
     }
 }

@@ -31,8 +31,7 @@ $edit = optional_param('edit', null, PARAM_BOOL);
 $cm = get_coursemodule_from_id('poster', $cmid, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 $poster = $DB->get_record('poster', array('id' => $cm->instance), '*', MUST_EXIST);
-//echo '<script>console.log('.(string)$poster.');</script>';
-//print_r($poster);
+
 require_login($course, true, $cm);
 require_capability('mod/poster:view', $PAGE->context);
 
@@ -66,7 +65,7 @@ $PAGE->blocks->add_region('mod_poster-pre', true);
 $PAGE->blocks->add_region('mod_poster-post', true);
 
 $output = $PAGE->get_renderer('mod_poster');
-$PAGE->requires->js( new moodle_url($CFG->wwwroot . '/mod/poster/lmtajs.js'));
+// $PAGE->requires->js( new moodle_url($CFG->wwwroot . '/mod/poster/lmtajs.js'));
 
 echo $output->view_page($poster);
 
