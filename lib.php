@@ -87,23 +87,16 @@ function poster_add_instance(stdClass $poster) {
         $url = poster_set_mainfile($poster);
 
         poster_get_metadata($cmid, $poster);
+        
     }catch (Exception $e){
         poster_print($e);
-    }catch (Throwable $e){
-        poster_print($e);
-    }catch (Error $e){
-        poster_print($e);
-    }
-    
-    
+    } 
 
     $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
     
     \core_completion\api::update_completion_date_event($cmid, 'poster', $poster->id, $completiontimeexpected);
-
     /////////////////////////////////////////////////
-
-
+    
     return $poster->id;
 }
 
