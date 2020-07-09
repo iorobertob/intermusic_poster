@@ -1,15 +1,4 @@
 
-// var audioPlayer = document.getElementById("audiofile");
-
-// audioPlayer.addEventListener("timeupdate", function(e)
-// {
-// 	syncData.forEach(function(element, index, array)
-// 	{
-// 	    if( audioPlayer.currentTime >= 0.5 && audioPlayer.currentTime <= 1.0 )
-// 	        console.log("time stamp");
-// 	});
-// });
-
 // Draggable elements by class name, from their title element
 var cardClassName  = "card-block";
 // In the newer version of Fordson theme the name of the html element has changed...
@@ -24,31 +13,19 @@ for ( var i = 0; i < blockList.length; i++){
     var cardElement  = blockList[i].getElementsByClassName(cardClassName) [0];
     var titleElement = blockList[i].getElementsByClassName(titleClassName)[0];
     
-    // Enable resizing
-    //cardElement.style.resize   = 'both';
-    //cardElement.style.overflow = 'auto';
-    //blockList[i].style.overflow = 'visible';
+    // Resizing
     blockList[i].style.resize = 'both';
     blockList[i].style.overflow = 'auto';
-    
-    
+  
     // Enable dragging
     dragElement(cardElement, blockList[i], titleElement);
 }
 
 if (posterColumnOne && posterColumnTwo) {
-   // posterColumnOne.style.resize   = 'horizontal';
-   // posterColumnOne.style.overflow = 'auto';
-    console.log(posterColumnOne.className);
     // Store initial widths
     posterColumnOne.dataset.initialSize = posterColumnOne.offsetWidth;
     posterColumnTwo.dataset.initialSize = posterColumnTwo.offsetWidth;
 
-    // TODO: synchronize column widths during resize (drag)
-    // onresize seems to only work on window, outside of IE :/
-    posterColumnOne.onresize = function() {
-        console.log(e);
-   }
 }
 
 
@@ -98,10 +75,8 @@ function dragElement(elmnt, block, titleElement) {
     document.onmouseup = null;
     document.onmousemove = null;
 
-    block.style.resize = 'both';
+    block.style.resize   = 'both';
     block.style.overflow = 'auto';
-    //block.style.overflow = 'scroll';
-    console.log("click");
   }
 }
 

@@ -1,3 +1,8 @@
+### 5.2.1.1 ###
+
+* Custom implementation for the Intermusic Project
+
+
 ### 5.2.1 ###
 
 * Behat tests updated to run on Moodle 3.6
