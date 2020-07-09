@@ -219,5 +219,44 @@ function xmldb_poster_upgrade($oldversion) {
     }
     // \ 3 December 2019
 
+
+    // 5 Jan 2020
+    if ($oldversion < 2019030523){
+        // Define table and field to modify/add
+        $table = new xmldb_table('poster');
+        $field_meta7 = new xmldb_field('meta_value7', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta_value6');
+
+        // Conditionally launch add field author.
+        if (!$dbman->field_exists($table, $field_meta7)) {
+            $dbman->add_field($table, $field_meta7);
+        }
+        upgrade_mod_savepoint(true, 2019030522, 'poster');
+    }
+
+    if ($oldversion < 2019030524){
+        // Define table and field to modify/add
+        $table = new xmldb_table('poster');
+        $field_7 = new xmldb_field('meta7', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta6');
+
+        // Conditionally launch add field author.
+        if (!$dbman->field_exists($table, $field_7)) {
+            $dbman->add_field($table, $field_7);
+        }
+        upgrade_mod_savepoint(true, 2019030524, 'poster');
+    }
+
+    if ($oldversion < 2019030525){
+        // Define table and field to modify/add
+        $table = new xmldb_table('poster');
+        $field_overwrite = new xmldb_field('overwrite', XMLDB_TYPE_CHAR, '8', null, XMLDB_NOTNULL, null, "0", 'name');
+
+        // Conditionally launch add field author.
+        if (!$dbman->field_exists($table, $field_overwrite)) {
+            $dbman->add_field($table, $field_overwrite);
+        }
+        upgrade_mod_savepoint(true, 2019030525, 'poster');
+    }
+    // \ 5 :Jan 2020
+
     return true;
 }
