@@ -10,7 +10,7 @@ etc.). It provides yet another place within the course where blocks can be put w
 
 Important!!
 ----------
-This is a fork of the original 'Poster' plugin, which is customised to work together with other Intermusic project plugins and therefore does not follow the releaes of the original plugin. 
+This is a fork of the original 'Poster' plugin, which is customised to work together with other Intermusic project plugins and therefore does not follow the releaes of the original plugin, and will likely have a name space collision if trying to use this version parallel to the original.
 
 
 Motivation
