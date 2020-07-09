@@ -10,7 +10,7 @@ function poster_print($txt, $overwrite = false)
 
     $path = "$CFG->dirroot/mod/poster/log.txt";
 
-    $f = ((file_exists($path))? fopen($path, "a+") : fopen($path, "w+"));
+    // $f = ((file_exists($path))? fopen($path, "a+") : fopen($path, "w+"));
 
     if ($overwrite)
     {
