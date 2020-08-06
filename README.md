@@ -1,16 +1,40 @@
 Moodle Poster activity module [INTERMUSIC]
 =============================
 
+Important!!
+----------
+This is a fork of the original 'Poster' plugin, which is customised to work together with other Intermusic project plugins and therefore does not follow the releaes of the original plugin, and will likely have a name space collision if trying to use this version parallel to the original.
+
+Differences with origintal Poster:
+----------
+- This version has settings to add metadata to this activity, that is late read by the 'Intermusic Database' activity plugin (https://github.com/iorobertob/intermusic-database)
+- This metadata is retreived from the Intermusic project's asset management system(AMS). (https://resourcespace.lmta.lt) or it can be manually input.
+- It can take a metadata file, whose sole purpose is to provide some strings to look for in the AMS. 
+
+
+How does this module get its metadata
+----------
+- The module has settings for  5 metadata field titles and values, that can be filled manually or sought for in the AMS. 
+- The mmodule also has the option to upload a metadata file. The metadata file contains in its name, the ID of a collection in the AMS, and performs an API call to retreive a json list with information about files of that collection. 
+- From the info of the collection, the script looks for the fields with the titles set in this module's configuration. If they are found, they are used to fill the values in this module's info. If the metadata field titles in the config are left empty, the poster will use the default values:  	 "Composer";
+            		"Title";
+            		"Title - English";
+            		"Surtitle";
+            		"List";
+            		"1st line";
+            		"Language";
+
+
+
+Moodle Poster activity module [ORIGINAL]
+=============================
+
 [![Build status](https://travis-ci.org/mudrd8mz/moodle-mod_poster.svg?branch=master)](https://travis-ci.org/mudrd8mz/moodle-mod_poster)
 
 Poster is a resource activity module for Moodle. It allows teachers to create a page for their students. What makes this module
 unique is that the contents of the poster page is composed of Moodle blocks (such as HTML blocks, Calendar block, Latest news block
 etc.). It provides yet another place within the course where blocks can be put without polluting the course front page.
 
-
-Important!!
-----------
-This is a fork of the original 'Poster' plugin, which is customised to work together with other Intermusic project plugins and therefore does not follow the releaes of the original plugin, and will likely have a name space collision if trying to use this version parallel to the original.
 
 
 Motivation

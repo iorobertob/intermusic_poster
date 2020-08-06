@@ -106,14 +106,6 @@ function poster_get_metadata($cmid, $poster)
             $list_metadata[6] = "Language";
         }
         
-
-        // $list_metadata[0] = ($poster->meta1 != "" ? "" : "");
-        // $list_metadata[1] = ($poster->meta2 != "" ? "" : "");
-        // $list_metadata[2] = ($poster->meta3 != "" ? "" : "");
-        // $list_metadata[3] = ($poster->meta4 != "" ? "" : "");
-        // $list_metadata[4] = ($poster->meta5 != "" ? "" : "");
-        // $list_metadata[5] = ($poster->meta6 != "" ? "" : "");
-        
         $metadata = get_metadata_from_api($resourcespace_id, $poster, $list_metadata);
 
         // Commit metadata to database
@@ -122,13 +114,6 @@ function poster_get_metadata($cmid, $poster)
             if($metadata[$i] != NULL){
                 $index = $i + 1;
                 $data = $metadata[$i];
-                // if (mb_detect_encoding($metadata[$i]) === 'ASCII'){
-                //     poster_print('ASCII CONVERSION');
-                //     $data = iconv('ASCII', 'UTF-8//IGNORE', $metadata[$i]);
-                // }
-                // else{
-                //     $data = $metadata[$i];
-                // }
                 
                 $DB->set_field('poster', 'meta_value'.$index, $data, array('name' => $poster->name));
                 $DB->set_field('poster', 'meta'.$index, $list_metadata[$i],  array('name' => $poster->name));
@@ -216,7 +201,6 @@ function do_api_search($string, $function)
 {
     $RS_object = init_resourcespace();
     // Set the private API key for the user (from the user account page) and the user we're accessing the system as.
-    // $private_key="9885aec8ea7eb2fb8ee45ff110773a5041030a7bdf7abb761c9e682de7f03045";
     $private_key = $RS_object->api_key;
 
     $user="admin";
@@ -230,7 +214,6 @@ function do_api_search($string, $function)
     $sign=hash("sha256",$private_key . $query);
 
     // Make the request and output the JSON results.
-    // $results=json_decode(file_get_contents("https://resourcespace.lmta.lt/api/?" . $query . "&sign=" . $sign));
     $results=json_decode(file_get_contents($url . $query . "&sign=" . $sign));
     $results=file_get_contents($url . $query . "&sign=" . $sign);
     $results=json_decode(file_get_contents($url . $query . "&sign=" . $sign), TRUE);

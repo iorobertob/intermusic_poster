@@ -76,7 +76,7 @@ function poster_add_instance(stdClass $poster) {
 
     $poster->id = $DB->insert_record('poster', $poster);
 
-    /////////////// CUSTOM CODE ////////////////////
+    /////////////// CUSTOM CODE: GET METADATA FROM AMS AND SAVE IT TO THE DATABASE////////////////////
     $cmid = $poster->coursemodule;
     poster_print("CMID: " . $cmid, true);
     $context = context_module::instance($cmid);
@@ -118,7 +118,7 @@ function poster_update_instance(stdClass $poster) {
 
     $DB->update_record('poster', $poster);
 
-    /////////////// CUSTOM CODE ////////////////////
+    /////////////// CUSTOM CODE: GET METADATA FROM AMS AND SAVE IT TO THE DATABASE////////////////////
     $cmid = $poster->coursemodule;
     $context = context_module::instance($cmid);
 
