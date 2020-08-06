@@ -3,7 +3,8 @@ Moodle Poster activity module [INTERMUSIC]
 
 Important!!
 ----------
-This is a fork of the original 'Poster' plugin, which is customised to work together with other Intermusic project plugins and therefore does not follow the releaes of the original plugin, and will likely have a name space collision if trying to use this version parallel to the original.
+- This is a fork of the original 'Poster' plugin, which is customised to work together with other Intermusic project plugins and therefore does not follow the releaes of the original plugin, and will likely have a name space collision if trying to use this version parallel to the original.
+- When installing the name of this module's folder should be named 'poster'.
 
 Differences with origintal Poster:
 ----------
