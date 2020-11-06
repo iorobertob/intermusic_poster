@@ -23,11 +23,11 @@
 defined('MOODLE_INTERNAL') || die();
 require_once("$CFG->libdir/filelib.php");
 require_once("$CFG->libdir/resourcelib.php");
-require_once("$CFG->dirroot/mod/poster/lib.php");
+require_once("$CFG->dirroot/mod/mediaposter/lib.php");
 
 
 // moodle 
-function poster_set_mainfile($data) {
+function mediaposter_set_mainfile($data) {
     global $DB;
     $fs = get_file_storage();
     $cmid = $data->coursemodule;
@@ -38,20 +38,20 @@ function poster_set_mainfile($data) {
         if ($data->display == RESOURCELIB_DISPLAY_EMBED) {
             $options['embed'] = true;
         }
-        file_save_draft_area_files($draftitemid, $context->id, 'mod_poster', 'content', 0, $options);
+        file_save_draft_area_files($draftitemid, $context->id, 'mod_mediaposter', 'content', 0, $options);
     }
-    $files = $fs->get_area_files($context->id, 'mod_poster', 'content', 0, 'sortorder', false);
+    $files = $fs->get_area_files($context->id, 'mod_mediaposter', 'content', 0, 'sortorder', false);
     if (count($files) == 1) {
         // only one file attached, set it as main file automatically
         $file = reset($files);
-        file_set_sortorder($context->id, 'mod_poster', 'content', 0, $file->get_filepath(), $file->get_filename(), 1);
+        file_set_sortorder($context->id, 'mod_mediaposter', 'content', 0, $file->get_filepath(), $file->get_filename(), 1);
     }
     
     if (count($files) > 0) {
         $url = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename(), false);
     }
     else{
-        poster_print($e);
+        mediaposter_print($e);
         $url = 'no file';
     }
 
@@ -62,16 +62,16 @@ function poster_set_mainfile($data) {
 /**
  * Get Metadata from Resource Space based on the Metadata File added on the settings of this activity
  * @param $context  The Context of this activity / module
- * @param @poster   The current module's instance
+ * @param @mediaposter   The current module's instance
  */
-function poster_get_metadata($cmid, $poster)
+function mediaposter_get_metadata($cmid, $mediaposter)
 {
     global $DB;
     $context = context_module::instance($cmid);
     try{
         // Retrieve elements from filename divided by "_"s
         // collection[0]= collection section in filename, collection[1]=whole filename
-        $collection = get_item_from_filename($context, 0, $poster->id);
+        $collection = get_item_from_filename($context, 0, $mediaposter->id);
 
         // If there was no file then we cut short here. 
         if ($collection == null){
@@ -79,22 +79,22 @@ function poster_get_metadata($cmid, $poster)
         }
 
 
-        $DB->set_field('poster', 'rs_collection', $collection[0], array('name' => $poster->name));
+        $DB->set_field('mediaposter', 'rs_collection', $collection[0], array('name' => $mediaposter->name));
 
         // Findout which ID corresponds to this file in RS
         $request_json     = get_file_fields_metadata($collection[1]);
         $resourcespace_id = $request_json[1][0]["ref"];
    
-        $DB->set_field('poster', 'rs_id', $resourcespace_id, array('name' => $poster->name));
+        $DB->set_field('mediaposter', 'rs_id', $resourcespace_id, array('name' => $mediaposter->name));
    
-        if ($poster->overwrite === "1"){
-            $list_metadata[0] = ($poster->meta1 != "" ? $poster->meta1 : "Composer");
-            $list_metadata[1] = ($poster->meta2 != "" ? $poster->meta2 : "Title");
-            $list_metadata[2] = ($poster->meta6 != "" ? $poster->meta6 : "Title - English");
-            $list_metadata[3] = ($poster->meta3 != "" ? $poster->meta3 : "Surtitle");
-            $list_metadata[4] = ($poster->meta4 != "" ? $poster->meta4 : "List");
-            $list_metadata[5] = ($poster->meta5 != "" ? $poster->meta5 : "1st line");
-            $list_metadata[6] = ($poster->meta6 != "" ? $poster->meta6 : "Language");
+        if ($mediaposter->overwrite === "1"){
+            $list_metadata[0] = ($mediaposter->meta1 != "" ? $mediaposter->meta1 : "Composer");
+            $list_metadata[1] = ($mediaposter->meta2 != "" ? $mediaposter->meta2 : "Title");
+            $list_metadata[2] = ($mediaposter->meta6 != "" ? $mediaposter->meta6 : "Title - English");
+            $list_metadata[3] = ($mediaposter->meta3 != "" ? $mediaposter->meta3 : "Surtitle");
+            $list_metadata[4] = ($mediaposter->meta4 != "" ? $mediaposter->meta4 : "List");
+            $list_metadata[5] = ($mediaposter->meta5 != "" ? $mediaposter->meta5 : "1st line");
+            $list_metadata[6] = ($mediaposter->meta6 != "" ? $mediaposter->meta6 : "Language");
         }
         else{
             $list_metadata[0] = "Composer";
@@ -106,7 +106,7 @@ function poster_get_metadata($cmid, $poster)
             $list_metadata[6] = "Language";
         }
         
-        $metadata = get_metadata_from_api($resourcespace_id, $poster, $list_metadata);
+        $metadata = get_metadata_from_api($resourcespace_id, $mediaposter, $list_metadata);
 
         // Commit metadata to database
         $length = count($metadata);
@@ -115,20 +115,20 @@ function poster_get_metadata($cmid, $poster)
                 $index = $i + 1;
                 $data = $metadata[$i];
                 
-                $DB->set_field('poster', 'meta_value'.$index, $data, array('name' => $poster->name));
-                $DB->set_field('poster', 'meta'.$index, $list_metadata[$i],  array('name' => $poster->name));
+                $DB->set_field('mediaposter', 'meta_value'.$index, $data, array('name' => $mediaposter->name));
+                $DB->set_field('mediaposter', 'meta'.$index, $list_metadata[$i],  array('name' => $mediaposter->name));
             }
         }
 
     }catch (Exception $e){
-        poster_print($e);
+        mediaposter_print($e);
     }
 }
 
 /**
  * lmta.utility
  * Item is each one of the parts in a file name like: item_item_item.extension 
- * If filenames of files uploaded to this poster contain information separated by _ (undesrcore), this 
+ * If filenames of files uploaded to this mediaposter contain information separated by _ (undesrcore), this 
  * function retreives one of those elements from the first of the files to upload. 
  * @param Context  $context the context of the current course
  * @param String   $item_number is the position number of the filename to get
@@ -140,7 +140,7 @@ function get_item_from_filename($context, $item_number, $id)
     
     // // Get files array and their names, split them by '_' and return the first of those divisions. 
     $fs              = get_file_storage();
-    $files           = $fs->get_area_files($context->id, 'mod_poster', 'content', 0, 'sortorder', false);
+    $files           = $fs->get_area_files($context->id, 'mod_mediaposter', 'content', 0, 'sortorder', false);
 
     if (count($files) > 0){
 
@@ -170,7 +170,7 @@ function get_item_from_filename($context, $item_number, $id)
 /**
  * File browsing support class
  */
-class poster_content_file_info extends file_info_stored {
+class mediaposter_content_file_info extends file_info_stored {
     public function get_parent() {
         if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
             return $this->browser->get_file_info($this->context);

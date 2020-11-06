@@ -4,12 +4,12 @@
  * lmta.utility
  * Auxiliary print function to write to a file for debugging and logging purposes
  */
-function poster_print($txt, $overwrite = false)
+function mediaposter_print($txt, $overwrite = false)
 {
     // UNCOMMENT THIS FUNCTION FOR DEBUGGING
     // global $CFG, $DB;
 
-    // $path = "$CFG->dirroot/mod/poster/log.txt";
+    // $path = "$CFG->dirroot/mod/mediaposter/log.txt";
 
     // // $f = ((file_exists($path))? fopen($path, "a+") : fopen($path, "w+"));
 

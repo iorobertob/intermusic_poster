@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Displays list of all posters in the course.
+ * Displays list of all mediaposters in the course.
  *
- * @package     mod_poster
+ * @package     mod_mediaposter
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -32,23 +32,23 @@ require_course_login($course, true);
 
 $PAGE->set_pagelayout('incourse');
 
-$PAGE->set_url('/mod/poster/index.php', array('id' => $course->id));
-$PAGE->set_title($course->shortname.': '.get_string('modulenameplural', 'mod_poster'));
+$PAGE->set_url('/mod/mediaposter/index.php', array('id' => $course->id));
+$PAGE->set_title($course->shortname.': '.get_string('modulenameplural', 'mod_mediaposter'));
 $PAGE->set_heading($course->fullname);
-$PAGE->navbar->add(get_string('modulenameplural', 'mod_poster'));
+$PAGE->navbar->add(get_string('modulenameplural', 'mod_mediaposter'));
 
 // Trigger instances list viewed event.
-$event = \mod_poster\event\course_module_instance_list_viewed::create(array(
+$event = \mod_mediaposter\event\course_module_instance_list_viewed::create(array(
     'context' => context_course::instance($course->id)
 ));
 $event->add_record_snapshot('course', $course);
 $event->trigger();
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('modulenameplural', 'mod_poster'));
+echo $OUTPUT->heading(get_string('modulenameplural', 'mod_mediaposter'));
 
-if (!$posters = get_all_instances_in_course('poster', $course)) {
-    notice(get_string('thereareno', 'core', get_string('modulenameplural', 'mod_poster')),
+if (!$mediaposters = get_all_instances_in_course('mediaposter', $course)) {
+    notice(get_string('thereareno', 'core', get_string('modulenameplural', 'mod_mediaposter')),
         new moodle_url('/course/view.php', array('id' => $course->id)));
 }
 
@@ -60,7 +60,7 @@ $table->attributes['class'] = 'generaltable mod_index';
 if ($usesections) {
     $table->head = array(
         get_string('sectionname', 'format_'.$course->format),
-        get_string('postername', 'mod_poster'),
+        get_string('mediapostername', 'mod_mediaposter'),
         get_string('moduleintro', 'core')
     );
     $table->align = array('center', 'left', 'left');
@@ -68,7 +68,7 @@ if ($usesections) {
 } else {
     $table->head = array(
         get_string('lastmodified', 'core'),
-        get_string('postername', 'mod_poster'),
+        get_string('mediapostername', 'mod_mediaposter'),
         get_string('moduleintro', 'core')
     );
     $table->align = array('left', 'left', 'left');
@@ -77,31 +77,31 @@ if ($usesections) {
 $modinfo = get_fast_modinfo($course);
 $currentsection = '';
 // PROCESS INSTANCES!!
-foreach ($posters as $poster) {
-    $cm = $modinfo->cms[$poster->coursemodule];
+foreach ($mediaposters as $mediaposter) {
+    $cm = $modinfo->cms[$mediaposter->coursemodule];
     if ($usesections) {
         $printsection = '';
-        if ($poster->section !== $currentsection) {
-            if ($poster->section) {
-                $printsection = get_section_name($course, $poster->section);
+        if ($mediaposter->section !== $currentsection) {
+            if ($mediaposter->section) {
+                $printsection = get_section_name($course, $mediaposter->section);
             }
             if ($currentsection !== '') {
                 $table->data[] = 'hr';
             }
-            $currentsection = $poster->section;
+            $currentsection = $mediaposter->section;
         }
     } else {
-        $printsection = html_writer::span(userdate($poster->timemodified), 'smallinfo');
+        $printsection = html_writer::span(userdate($mediaposter->timemodified), 'smallinfo');
     }
 
     $table->data[] = array(
         $printsection,
         html_writer::link(
             new moodle_url('view.php', array('id' => $cm->id)),
-            format_string($poster->name),
-            array('class' => $poster->visible ? '' : 'dimmed')
+            format_string($mediaposter->name),
+            array('class' => $mediaposter->visible ? '' : 'dimmed')
         ),
-        format_module_intro('poster', $poster, $cm->id)
+        format_module_intro('mediaposter', $mediaposter, $cm->id)
     );
 }
 

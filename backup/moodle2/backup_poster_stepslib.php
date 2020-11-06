@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides the backup_poster_activity_structure_step class.
+ * Provides the backup_mediaposter_activity_structure_step class.
  *
- * @package     mod_poster
+ * @package     mod_mediaposter
  * @category    backup
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -31,12 +31,12 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright 2015 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class backup_poster_activity_structure_step extends backup_activity_structure_step {
+class backup_mediaposter_activity_structure_step extends backup_activity_structure_step {
 
     /**
      * Defines the structure of the backup
      *
-     * The poster activity does not contain user data and not additional nodes
+     * The mediaposter activity does not contain user data and not additional nodes
      * but the instances itself.
      *
      * @return backup_nested_element
@@ -46,8 +46,8 @@ class backup_poster_activity_structure_step extends backup_activity_structure_st
         // To know if we are including userinfo
         $userinfo = $this->get_setting_value('userinfo');
         
-        // Define the poster root element.
-        $poster = new backup_nested_element('poster', array('id'), array(
+        // Define the mediaposter root element.
+        $mediaposter = new backup_nested_element('mediaposter', array('id'), array(
                 'name', 
                 'intro',
                 'rs_collection',
@@ -71,12 +71,12 @@ class backup_poster_activity_structure_step extends backup_activity_structure_st
                 'showdescriptionview'));
 
         // Define the data source.
-        $poster->set_source_table('poster', array('id' => backup::VAR_ACTIVITYID));
+        $mediaposter->set_source_table('mediaposter', array('id' => backup::VAR_ACTIVITYID));
 
         // Define file annotations.
-        $poster->annotate_files('mod_poster', 'intro', null);
-        $poster->annotate_files('mod_poster', 'content', null); // This file areas haven't itemid
+        $mediaposter->annotate_files('mod_mediaposter', 'intro', null);
+        $mediaposter->annotate_files('mod_mediaposter', 'content', null); // This file areas haven't itemid
 
-        return $this->prepare_activity_structure($poster);
+        return $this->prepare_activity_structure($mediaposter);
     }
 }

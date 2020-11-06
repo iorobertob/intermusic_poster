@@ -9,7 +9,7 @@
 
 ### 5.2.0 ###
 
-* [Privacy API](https://docs.moodle.org/dev/Privacy_API) implemented. The Poster
+* [Privacy API](https://docs.moodle.org/dev/Privacy_API) implemented. The Media Poster
   plugin does not store any personal data.
 * Moodle 3.5 added as a supported version.
 
@@ -17,11 +17,11 @@
 
 * In editing mode, the "Add a block" drop down selector is now displayed
   in the Boost based themes, too - making it easier and more intuitive
-  to add blocks to the poster regions.
+  to add blocks to the mediaposter regions.
 
 ### 5.0.0 ###
 
-* Improved the styling of the poster editing page
+* Improved the styling of the mediaposter editing page
 * Tested with Moodle 3.2 and 3.3 under Boost, Clean and More themes
 
 ### 4.0.1 ###
@@ -41,7 +41,7 @@
 
 ### v2 ###
 
-* Fixed the missing module help string (displayed when adding the poster into the course).
+* Fixed the missing module help string (displayed when adding the mediaposter into the course).
 
 ### v1 ###
 

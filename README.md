@@ -1,12 +1,12 @@
-Moodle Poster activity module [INTERMUSIC]
+Moodle Media Poster activity module [INTERMUSIC]
 =============================
 
 Important!!
 ----------
-- This is a fork of the original 'Poster' plugin, which is customised to work together with other Intermusic project plugins and therefore does not follow the releaes of the original plugin, and will likely have a name space collision if trying to use this version parallel to the original.
-- When installing the name of this module's folder should be named 'poster'.
+- This is a fork of the original 'Media Poster' plugin, which is customised to work together with other Intermusic project plugins and therefore does not follow the releaes of the original plugin, and will likely have a name space collision if trying to use this version parallel to the original.
+- When installing the name of this module's folder should be named 'mediaposter'.
 
-Differences with origintal Poster:
+Differences with origintal Media Poster:
 ----------
 - This version has settings to add metadata to this activity, that is late read by the 'Intermusic Database' activity plugin (https://github.com/iorobertob/intermusic-database)
 - This metadata is retreived from the Intermusic project's asset management system(AMS). (https://resourcespace.lmta.lt) or it can be manually input.
@@ -17,7 +17,7 @@ How does this module get its metadata
 ----------
 - The module has settings for  5 metadata field titles and values, that can be filled manually or sought for in the AMS. 
 - The mmodule also has the option to upload a metadata file. The metadata file contains in its name, the ID of a collection in the AMS, and performs an API call to retreive a json list with information about files of that collection. 
-- From the info of the collection, the script looks for the fields with the titles set in this module's configuration. If they are found, they are used to fill the values in this module's info. If the metadata field titles in the config are left empty, the poster will use the default values:  	 "Composer";
+- From the info of the collection, the script looks for the fields with the titles set in this module's configuration. If they are found, they are used to fill the values in this module's info. If the metadata field titles in the config are left empty, the mediaposter will use the default values:  	 "Composer";
             		"Title";
             		"Title - English";
             		"Surtitle";
@@ -27,13 +27,13 @@ How does this module get its metadata
 
 
 
-Moodle Poster activity module [ORIGINAL]
+Moodle Media Poster activity module [ORIGINAL]
 =============================
 
-[![Build status](https://travis-ci.org/mudrd8mz/moodle-mod_poster.svg?branch=master)](https://travis-ci.org/mudrd8mz/moodle-mod_poster)
+[![Build status](https://travis-ci.org/mudrd8mz/moodle-mod_mediaposter.svg?branch=master)](https://travis-ci.org/mudrd8mz/moodle-mod_mediaposter)
 
-Poster is a resource activity module for Moodle. It allows teachers to create a page for their students. What makes this module
-unique is that the contents of the poster page is composed of Moodle blocks (such as HTML blocks, Calendar block, Latest news block
+Media Poster is a resource activity module for Moodle. It allows teachers to create a page for their students. What makes this module
+unique is that the contents of the mediaposter page is composed of Moodle blocks (such as HTML blocks, Calendar block, Latest news block
 etc.). It provides yet another place within the course where blocks can be put without polluting the course front page.
 
 
@@ -43,10 +43,10 @@ Motivation
 
 There are many useful blocks available for Moodle. Typically, they can be only added to the sides of the Moodle pages, or to the
 user's dashboard page (also known as My home page). Sometimes, you may want to keep your course main page quite clean, not cluttered
-with blocks on both sides. In such case, you can put useful blocks into a separate Poster page.
+with blocks on both sides. In such case, you can put useful blocks into a separate Media Poster page.
 
 The overall concept is somewhat similar to how pages are created in Mahara - but it is typically the teacher in Moodle who creates
-the Poster for students to view.
+the Media Poster for students to view.
 
 Usage
 -----
@@ -56,14 +56,14 @@ settings](https://docs.moodle.org/en/Block_settings) page for more details.
 
 1. Add the module instance into the course.
 2. Keep the editing mode on.
-3. Add the Moodle blocks you want to display on the poster.
+3. Add the Moodle blocks you want to display on the mediaposter.
 4. Click the icon to configure the block. Set the block instance so that it is displayed in the context of the
-   poster, on page type _Poster module main page_ (`mod-poster-view`), inside the region `mod_poster-pre` or `mod_poster-post`.
-5. Alternatively, use the drag and drop feature to move the block to the regions at the poster content area.
+   mediaposter, on page type _Media Poster module main page_ (`mod-mediaposter-view`), inside the region `mod_mediaposter-pre` or `mod_mediaposter-post`.
+5. Alternatively, use the drag and drop feature to move the block to the regions at the mediaposter content area.
 6. Note that some blocks must be first added to the course main page first, configured to be displayed at any page and then
-   configured again to be displayed at the poster main page only (this is how block positioning works in Moodle generally).
+   configured again to be displayed at the mediaposter main page only (this is how block positioning works in Moodle generally).
 
-The poster can be used as for example:
+The mediaposter can be used as for example:
 
 * Course wall/dashboard (contact teachers, detailed outline of the course, latest news, comments, ...).
 * Project dashboard (project goals, calendar, comments, people, ...)
@@ -72,10 +72,10 @@ The poster can be used as for example:
 Implementation
 --------------
 
-The Poster module uses not so well known feature of the Moodle blocks architecture. In almost all cases, it is the theme that
+The Media Poster module uses not so well known feature of the Moodle blocks architecture. In almost all cases, it is the theme that
 defines regions where plugins can be added to. However in special cases, such as this one, any Moodle plugin can define its custom
-block regions.  Within the context of the Poster module instance, when displaying its view.php page, two extra block regions are
-defined - `mod_poster-pre` and `mod_poster-post`. The Poster module itself is just a tiny wrapper for displaying these two regions
+block regions.  Within the context of the Media Poster module instance, when displaying its view.php page, two extra block regions are
+defined - `mod_mediaposter-pre` and `mod_mediaposter-post`. The Media Poster module itself is just a tiny wrapper for displaying these two regions
 as its content. Simple and clever.
 
 The module natively supports responsive layout in bootstrap based themes (both 2.x and 3.x versions).
@@ -83,7 +83,7 @@ The module natively supports responsive layout in bootstrap based themes (both 2
 Author
 ------
 
-* The Poster module has been written and is currently maintained by David Mudrák <david@moodle.com>
+* The Media Poster module has been written and is currently maintained by David Mudrák <david@moodle.com>
 * The current plugin is a modified version of David's as part of Intermusic Project.
 
 Licence
@@ -103,4 +103,4 @@ You should have received a copy of the GNU General Public License along with thi
 
 TODOs
 -------
-* Perform migration from original poster plugin, which was used as template for the current module. 
+* Perform migration from original mediaposter plugin, which was used as template for the current module. 

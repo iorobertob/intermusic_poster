@@ -17,14 +17,14 @@
 /**
  * Provides meta-information about the plugin.
  *
- * @package     mod_poster
+ * @package     mod_mediaposter
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'mod_poster';
+$plugin->component = 'mod_mediaposter';
 $plugin->release   = '5.2.1.1';
 $plugin->version   = 2019030526;
 $plugin->requires  = 2016120500;

@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * View the poster instance
+ * View the mediaposter instance
  *
- * @package     mod_poster
+ * @package     mod_mediaposter
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,17 +28,17 @@ require_once($CFG->libdir.'/completionlib.php');
 $cmid = required_param('id', PARAM_INT);
 $edit = optional_param('edit', null, PARAM_BOOL);
 
-$cm = get_coursemodule_from_id('poster', $cmid, 0, false, MUST_EXIST);
+$cm = get_coursemodule_from_id('mediaposter', $cmid, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-$poster = $DB->get_record('poster', array('id' => $cm->instance), '*', MUST_EXIST);
+$mediaposter = $DB->get_record('mediaposter', array('id' => $cm->instance), '*', MUST_EXIST);
 
 require_login($course, true, $cm);
-require_capability('mod/poster:view', $PAGE->context);
+require_capability('mod/mediaposter:view', $PAGE->context);
 
-$PAGE->set_url('/mod/poster/view.php', array('id' => $cm->id));
-$PAGE->set_title($course->shortname.': '.$poster->name);
+$PAGE->set_url('/mod/mediaposter/view.php', array('id' => $cm->id));
+$PAGE->set_title($course->shortname.': '.$mediaposter->name);
 $PAGE->set_heading($course->fullname);
-$PAGE->set_activity_record($poster);
+$PAGE->set_activity_record($mediaposter);
 
 if ($edit !== null and confirm_sesskey() and $PAGE->user_allowed_editing()) {
 	$USER->editing = $edit;
@@ -46,26 +46,26 @@ if ($edit !== null and confirm_sesskey() and $PAGE->user_allowed_editing()) {
 }
 
 // Trigger module viewed event.
-$event = \mod_poster\event\course_module_viewed::create(array(
-   'objectid' => $poster->id,
+$event = \mod_mediaposter\event\course_module_viewed::create(array(
+   'objectid' => $mediaposter->id,
    'context' => $PAGE->context,
 ));
 $event->add_record_snapshot('course_modules', $cm);
 $event->add_record_snapshot('course', $course);
-$event->add_record_snapshot('poster', $poster);
+$event->add_record_snapshot('mediaposter', $mediaposter);
 $event->trigger();
 
 // Mark the module instance as viewed by the current user.
 $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
-// Define the custom block regions we want to use at the poster view page.
+// Define the custom block regions we want to use at the mediaposter view page.
 // Region names are limited to 16 characters.
-$PAGE->blocks->add_region('mod_poster-pre', true);
-$PAGE->blocks->add_region('mod_poster-post', true);
+$PAGE->blocks->add_region('mod_mediaposter-pre', true);
+$PAGE->blocks->add_region('mod_mediaposter-post', true);
 
-$output = $PAGE->get_renderer('mod_poster');
+$output = $PAGE->get_renderer('mod_mediaposter');
 
-echo $output->view_page($poster);
+echo $output->view_page($mediaposter);
 
 
