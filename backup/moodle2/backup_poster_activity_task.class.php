@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides the backup_mediaposter_activity_task class.
+ * Provides the backup_mdposter_activity_task class.
  *
- * @package     mod_mediaposter
+ * @package     mod_mdposter
  * @category    backup
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,20 +25,20 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot.'/mod/mediaposter/backup/moodle2/backup_mediaposter_stepslib.php');
+require_once($CFG->dirroot.'/mod/mdposter/backup/moodle2/backup_mdposter_stepslib.php');
 
 /**
- * Defines the settings and steps to perform a backup of the mediaposter.
+ * Defines the settings and steps to perform a backup of the mdposter.
  *
  * @copyright 2015 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class backup_mediaposter_activity_task extends backup_activity_task {
+class backup_mdposter_activity_task extends backup_activity_task {
 
     /**
      * Defines activity specific settings to be added to the common ones.
      *
-     * The mediaposter module does not define own settings.
+     * The mdposter module does not define own settings.
      *
      * @see self::define_settings() for the example how to define own settings
      */
@@ -51,14 +51,14 @@ class backup_mediaposter_activity_task extends backup_activity_task {
      * This method is called from {@link self::build()}.
      */
     protected function define_my_steps() {
-        $this->add_step(new backup_mediaposter_activity_structure_step('mediaposter_structure', 'mediaposter.xml'));
+        $this->add_step(new backup_mdposter_activity_structure_step('mdposter_structure', 'mdposter.xml'));
     }
 
     /**
      * Encodes URLs to the activity instance's scripts into a site-independent form
      *
      * The current instance of the activity may be referenced from other places in
-     * the course by URLs like http://my.moodle.site/mod/mediaposter/view.php?id=42
+     * the course by URLs like http://my.moodle.site/mod/mdposter/view.php?id=42
      * Obvisouly, such URLs are not valid any more once the course is restored elsewhere.
      * For this reason the backup file does not store the original URLs but encodes them
      * into a transportable form. During the restore, the reverse process is applied and
@@ -73,12 +73,12 @@ class backup_mediaposter_activity_task extends backup_activity_task {
 
         $base = preg_quote($CFG->wwwroot, '/');
 
-        // Link to the list of mediaposters.
-        $search = '/('.$base.'\/mod\/mediaposter\/index.php\?id\=)([0-9]+)/';
+        // Link to the list of mdposters.
+        $search = '/('.$base.'\/mod\/mdposter\/index.php\?id\=)([0-9]+)/';
         $content = preg_replace($search, '$@POSTERINDEX*$2@$', $content);
 
-        // Link to a mediaposter view by cmid.
-        $search = '/('.$base.'\/mod\/mediaposter\/view.php\?id\=)([0-9]+)/';
+        // Link to a mdposter view by cmid.
+        $search = '/('.$base.'\/mod\/mdposter\/view.php\?id\=)([0-9]+)/';
         $content = preg_replace($search, '$@POSTERVIEWBYID*$2@$', $content);
 
         return $content;

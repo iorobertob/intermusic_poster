@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides the restore_mediaposter_activity_structure_step class.
+ * Provides the restore_mdposter_activity_structure_step class.
  *
- * @package     mod_mediaposter
+ * @package     mod_mdposter
  * @category    backup
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,12 +26,12 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Structure step to restore mediaposter activity instance.
+ * Structure step to restore mdposter activity instance.
  *
  * @copyright 2015 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class restore_mediaposter_activity_structure_step extends restore_activity_structure_step {
+class restore_mdposter_activity_structure_step extends restore_activity_structure_step {
 
     /**
      * Defines the structure of the backup data to be processed.
@@ -39,22 +39,22 @@ class restore_mediaposter_activity_structure_step extends restore_activity_struc
      * @return array of restore_path_element
      */
     protected function define_structure() {
-        return $this->prepare_activity_structure(array(new restore_path_element('mediaposter', '/activity/mediaposter')));
+        return $this->prepare_activity_structure(array(new restore_path_element('mdposter', '/activity/mdposter')));
     }
 
     /**
-     * Process the mediaposter element data.
+     * Process the mdposter element data.
      *
      * @param array $data
      */
-    protected function process_mediaposter($data) {
+    protected function process_mdposter($data) {
         global $DB;
 
         $data = (object)$data;
         $data->course = $this->get_courseid();
         $data->timemodified = time();
 
-        $newid = $DB->insert_record('mediaposter', $data);
+        $newid = $DB->insert_record('mdposter', $data);
 
         $this->apply_activity_instance($newid);
     }
@@ -63,7 +63,7 @@ class restore_mediaposter_activity_structure_step extends restore_activity_struc
      * Define additional things to do after the steps are executed.
      */
     protected function after_execute() {
-        $this->add_related_files('mod_mediaposter', 'intro', null);
-        $this->add_related_files('mod_mediaposter', 'content', null);
+        $this->add_related_files('mod_mdposter', 'intro', null);
+        $this->add_related_files('mod_mdposter', 'content', null);
     }
 }

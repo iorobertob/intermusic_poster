@@ -1,11 +1,11 @@
-#page-mod-mediaposter-view #mod_mediaposter-content {
+#page-mod-mdposter-view #mod_mdposter-content {
     clear: both;
     padding-left: 0;
     padding-right: 0;
 }
 
-#page-mod-mediaposter-view.editing #block-region-mod_mediaposter-pre[data-droptarget="1"],
-#page-mod-mediaposter-view.editing #block-region-mod_mediaposter-post[data-droptarget="1"] {
+#page-mod-mdposter-view.editing #block-region-mod_mdposter-pre[data-droptarget="1"],
+#page-mod-mdposter-view.editing #block-region-mod_mdposter-post[data-droptarget="1"] {
     border: 2px dashed #888;
     padding: 5px;
     margin-bottom: 5px;

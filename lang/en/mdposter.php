@@ -17,7 +17,7 @@
 /**
  * Strings of the Media Poster activity module are defined here.
  *
- * @package     mod_mediaposter
+ * @package     mod_mdposter
  * @category    string
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -43,30 +43,30 @@ $string['meta6'] = 'Metadata Field #6:';
 $string['meta7'] = 'Metadata Field #7:';
 $string['meta_value']  = 'Value';
 $string['meta_title']  = 'Title';
-$string['modulename_help'] = 'The mediaposter module enables a teacher to make a page out of blocks (such as the HTML block, comments, calendar or RSS feed block), dragging and dropping them to the preferred location.
+$string['modulename_help'] = 'The Media Poster module enables a teacher to make a page out of blocks (such as the HTML block, comments, calendar or RSS feed block), dragging and dropping them to the preferred location.
 
-You can use the mediaposter
+You can use the mdposter
 
 * As a space for your students to present results of their work.
 * As a course dashboard, collating useful elements for students on a single page and keeping the main course page clean and clear of side blocks.';
 $string['modulenameplural']     	= 'Media Posters';
-$string['page-mod-mediaposter-view'] 	= 'Media Poster module main page';
+$string['page-mod-mdposter-view'] 	= 'Media Poster module main page';
 $string['pluginadministration'] 	= 'Media Poster administration';
 $string['pluginname'] 				= 'Media Poster';
-$string['mediaposter:addinstance'] 		= 'Add a new mediaposter';
-$string['mediaposter:view'] 				= 'View mediaposter';
-$string['mediapostername'] 				= 'Title';
+$string['mdposter:addinstance'] 		= 'Add a new mdposter';
+$string['mdposter:view'] 				= 'View mdposter';
+$string['mdpostername'] 				= 'Title';
 $string['overwrite'] 				= 'Overwrite Intermusic metadata with custom fields.';
-$string['mediaposterauthor'] 			= 'Composer';
-$string['mediapostersurtitle'] 			= 'Surtitle';
-$string['mediaposternumbering'] 			= 'Numbering';
-$string['mediaposterlanguage'] 			= 'Language';
+$string['mdposterauthor'] 			= 'Composer';
+$string['mdpostersurtitle'] 			= 'Surtitle';
+$string['mdposternumbering'] 			= 'Numbering';
+$string['mdposterlanguage'] 			= 'Language';
 $string['autopopulate'] 			= 'Autopopulate from childern \'File\' blocks';
 $string['privacy:metadata'] 		= 'Media Poster does not store any personal data';
 $string['showdescriptionview'] 		= 'Display description on view page';
-$string['showdescriptionview_help'] = 'If enabled, the description above will be displayed on the mediaposter page.';
+$string['showdescriptionview_help'] = 'If enabled, the description above will be displayed on the mdposter page.';
 $string['shownameview'] 			= 'Display name on view page';
-$string['shownameview_help'] 		= 'If enabled, the mediaposter name will be displayed as heading on the mediaposter page.';
+$string['shownameview_help'] 		= 'If enabled, the mdposter name will be displayed as heading on the mdposter page.';
 $string['metadatafile']    = 'Metadata file';
 $string['resourcecontent'] = 'Files and subfolders';
 $string['metadata_task'] = 'Update Metadata';

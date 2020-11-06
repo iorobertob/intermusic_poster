@@ -1,8 +1,8 @@
-@mod @mod_mediaposter
-Feature: Adding mediaposter activity
+@mod @mod_mdposter
+Feature: Adding mdposter activity
   In order to display blocks not only on the course page side bars
   As a teacher
-  I need to add mediaposter activity module to a course
+  I need to add mdposter activity module to a course
 
   Background:
     Given the following "users" exist:
@@ -17,27 +17,27 @@ Feature: Adding mediaposter activity
       | teacher1    | C1        | editingteacher    |
       | student1    | C1        | student           |
 
-  Scenario: Add empty mediaposter to the course with description displayed
+  Scenario: Add empty mdposter to the course with description displayed
     Given I log in as "teacher1"
     And I am on "Course 001" course homepage
     And I turn editing mode on
     And I add a "Media Poster" to section "1" and I fill the form with:
       | Name                              | Media Poster 001                  |
-      | Description                       | This is a test mediaposter 001.  |
+      | Description                       | This is a test mdposter 001.  |
       | Display description on view page  | 1                           |
     And I log out
     When I log in as "student1"
     And I am on "Course 001" course homepage
     And I follow "Media Poster 001"
-    Then I should see "This is a test mediaposter 001."
+    Then I should see "This is a test mdposter 001."
 
-  Scenario: Add empty mediaposter to the course with description not displayed
+  Scenario: Add empty mdposter to the course with description not displayed
     Given I log in as "teacher1"
     And I am on "Course 001" course homepage
     And I turn editing mode on
     And I add a "Media Poster" to section "1" and I fill the form with:
       | Name                              | Media Poster 002                  |
-      | Description                       | This is a test mediaposter 002.  |
+      | Description                       | This is a test mdposter 002.  |
       | Display description on view page  | 0                           |
     When I follow "Media Poster 002"
-    Then I should not see "This is a test mediaposter 002."
+    Then I should not see "This is a test mdposter 002."

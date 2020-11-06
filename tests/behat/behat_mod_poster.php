@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provide the {@link behat_mod_mediaposter} class.
+ * Provide the {@link behat_mod_mdposter} class.
  *
- * @package     mod_mediaposter
+ * @package     mod_mdposter
  * @category    test
  * @copyright   2017 David Mudrák <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -30,7 +30,7 @@ require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
 /**
  * Define the Media Poster module's behat steps.
  *
- * The mediaposter module changes the default look & behaviour of the "add-block" widget so that it looks like the drop down
+ * The mdposter module changes the default look & behaviour of the "add-block" widget so that it looks like the drop down
  * selector even in Boost based theme (where it would normally be displayed as a link in the flat navigation). As a
  * consequence, we can't use the default step {@link i_add_the_block()} because it would fail in Boost (the expected
  * link is not in the flat navigation).
@@ -41,15 +41,15 @@ require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
  * @copyright 2017 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class behat_mod_mediaposter extends behat_base {
+class behat_mod_mdposter extends behat_base {
 
     /**
      * Adds the selected block. Editing mode must be previously enabled.
      *
-     * @Given /^I add the "(?P<block_name_string>(?:[^"]|\\")*)" mediaposter block$/
+     * @Given /^I add the "(?P<block_name_string>(?:[^"]|\\")*)" mdposter block$/
      * @param string $blockname
      */
-    public function i_add_the_mediaposter_block($blockname) {
+    public function i_add_the_mdposter_block($blockname) {
         $this->execute('behat_forms::i_set_the_field_to',
             array("bui_addblock", $this->escape($blockname))
         );

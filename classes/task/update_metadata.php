@@ -17,22 +17,22 @@
 /**
  * A scheduled task for forum cron.
  *
- * @package    mod_mediaposter
+ * @package    mod_mdposter
  * @copyright  2019 Roberto Becerra <roberto.becerra@lmta.lt>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace mod_mediaposter\task;
+namespace mod_mdposter\task;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/mod/mediaposter/lib.php');
-require_once($CFG->dirroot . '/mod/mediaposter/locallib.php');
+require_once($CFG->dirroot . '/mod/mdposter/lib.php');
+require_once($CFG->dirroot . '/mod/mdposter/locallib.php');
 require_once("$CFG->libdir/resourcelib.php");
 
 /**
  * The main scheduled task for the forum.
  *
- * @package    mod_mediaposter
+ * @package    mod_mdposter
  * @copyright  2019 Roberto Becerra <roberto.becerra@lmta.lt>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -44,7 +44,7 @@ class update_metadata extends \core\task\scheduled_task {
      * @return string
      */
     public function get_name() {
-        return get_string('metadata_task', 'mod_mediaposter');
+        return get_string('metadata_task', 'mod_mdposter');
     }
 
     /**
@@ -56,14 +56,14 @@ class update_metadata extends \core\task\scheduled_task {
 
         // require_once($CFG->dirroot . '/lib/accesslib.php');
 
-        $mediaposter_instances = $DB->get_records("mediaposter", null, $sort='', $fields='*');
+        $mdposter_instances = $DB->get_records("mdposter", null, $sort='', $fields='*');
         
-        foreach($mediaposter_instances as $moduleinstance)
+        foreach($mdposter_instances as $moduleinstance)
         {
             $cmid = $DB->get_field("course_modules", 'id', array('course'=> $moduleinstance->course, 'instance'=>$moduleinstance->id));
             // echo $cmid;
             // $context = context_module::instance($cmid);
-            mediaposter_get_metadata($cmid, $moduleinstance);
+            mdposter_get_metadata($cmid, $moduleinstance);
         }
     }
 }

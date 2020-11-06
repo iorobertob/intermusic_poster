@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides the restore_mediaposter_activity_task class.
+ * Provides the restore_mdposter_activity_task class.
  *
- * @package     mod_mediaposter
+ * @package     mod_mdposter
  * @category    backup
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,15 +25,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot.'/mod/mediaposter/backup/moodle2/restore_mediaposter_stepslib.php');
+require_once($CFG->dirroot.'/mod/mdposter/backup/moodle2/restore_mdposter_stepslib.php');
 
 /**
- * Defines the steps needed to restore a mediaposter activity.
+ * Defines the steps needed to restore a mdposter activity.
  *
  * @copyright 2015 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class restore_mediaposter_activity_task extends restore_activity_task {
+class restore_mdposter_activity_task extends restore_activity_task {
 
     /**
      * Defines additional restore settings for this activity.
@@ -42,10 +42,10 @@ class restore_mediaposter_activity_task extends restore_activity_task {
     }
 
     /**
-     * Defines the steps to restore the mediaposter activity.
+     * Defines the steps to restore the mdposter activity.
      */
     protected function define_my_steps() {
-        $this->add_step(new restore_mediaposter_activity_structure_step('mediaposter_structure', 'mediaposter.xml'));
+        $this->add_step(new restore_mdposter_activity_structure_step('mdposter_structure', 'mdposter.xml'));
     }
 
     /**
@@ -54,7 +54,7 @@ class restore_mediaposter_activity_task extends restore_activity_task {
      * @return array of restore_decode_content
      */
     static public function define_decode_contents() {
-        return array(new restore_decode_content('mediaposter', array('intro'), 'mediaposter'));
+        return array(new restore_decode_content('mdposter', array('intro'), 'mdposter'));
     }
 
     /**
@@ -62,8 +62,8 @@ class restore_mediaposter_activity_task extends restore_activity_task {
      */
     static public function define_decode_rules() {
         return array(
-            new restore_decode_rule('POSTERINDEX', '/mod/mediaposter/index.php?id=$1', 'course'),
-            new restore_decode_rule('POSTERVIEWBYID', '/mod/mediaposter/view.php?id=$1', 'course_module'),
+            new restore_decode_rule('POSTERINDEX', '/mod/mdposter/index.php?id=$1', 'course'),
+            new restore_decode_rule('POSTERVIEWBYID', '/mod/mdposter/view.php?id=$1', 'course_module'),
         );
     }
 }

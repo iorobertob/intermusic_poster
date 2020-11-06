@@ -17,15 +17,15 @@
 /**
  * Activity module interface functions are defined here
  *
- * @package     mod_mediaposter
+ * @package     mod_mdposter
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once("$CFG->dirroot/mod/mediaposter/io_print.php");
-require_once("$CFG->dirroot/mod/mediaposter/locallib.php");
+require_once("$CFG->dirroot/mod/mdposter/io_print.php");
+require_once("$CFG->dirroot/mod/mdposter/locallib.php");
 require_once("$CFG->libdir/resourcelib.php");
 
 //moodle 
@@ -36,7 +36,7 @@ require_once("$CFG->libdir/resourcelib.php");
  * @param string $feature FEATURE_xx constant for requested feature
  * @return bool true if the feature is supported, null if unknown
  */
-function mediaposter_supports($feature) {
+function mdposter_supports($feature) {
 
     switch($feature) {
         case FEATURE_MOD_ARCHETYPE:
@@ -60,74 +60,74 @@ function mediaposter_supports($feature) {
 
 //moodle
 /**
- * Adds a new instance of the mediaposter into the database
+ * Adds a new instance of the mdposter into the database
  *
  * Given an object containing all the settings form data, this function will
  * save a new instance and return the id of the new instance.
  *
- * @param stdClass $mediaposter An object from the form in mod_form.php
- * @return int The id of the newly inserted mediaposter record
+ * @param stdClass $mdposter An object from the form in mod_form.php
+ * @return int The id of the newly inserted mdposter record
  */
-function mediaposter_add_instance(stdClass $mediaposter) {
+function mdposter_add_instance(stdClass $mdposter) {
     global $DB, $PAGE, $CFG;
 
-    $mediaposter->timecreated = time();
-    $mediaposter->timemodified = $mediaposter->timecreated;
+    $mdposter->timecreated = time();
+    $mdposter->timemodified = $mdposter->timecreated;
 
-    $mediaposter->id = $DB->insert_record('mediaposter', $mediaposter);
+    $mdposter->id = $DB->insert_record('mdposter', $mdposter);
 
     /////////////// CUSTOM CODE: GET METADATA FROM AMS AND SAVE IT TO THE DATABASE////////////////////
-    $cmid = $mediaposter->coursemodule;
-    mediaposter_print("CMID: " . $cmid, true);
+    $cmid = $mdposter->coursemodule;
+    mdposter_print("CMID: " . $cmid, true);
     $context = context_module::instance($cmid);
 
-    $DB->set_field('course_modules', 'instance', $mediaposter->id, array('id'=>$cmid));
+    $DB->set_field('course_modules', 'instance', $mdposter->id, array('id'=>$cmid));
 
     try{
-        $url = mediaposter_set_mainfile($mediaposter);
+        $url = mdposter_set_mainfile($mdposter);
 
-        mediaposter_get_metadata($cmid, $mediaposter);
+        mdposter_get_metadata($cmid, $mdposter);
         
     }catch (Exception $e){
-        mediaposter_print($e);
+        mdposter_print($e);
     } 
 
-    $completiontimeexpected = !empty($mediaposter->completionexpected) ? $mediaposter->completionexpected : null;
+    $completiontimeexpected = !empty($mdposter->completionexpected) ? $mdposter->completionexpected : null;
     
-    \core_completion\api::update_completion_date_event($cmid, 'mediaposter', $mediaposter->id, $completiontimeexpected);
+    \core_completion\api::update_completion_date_event($cmid, 'mdposter', $mdposter->id, $completiontimeexpected);
     /////////////////////////////////////////////////
     
-    return $mediaposter->id;
+    return $mdposter->id;
 }
 
 /**
- * Updates the existing instance of the mediaposter in the database
+ * Updates the existing instance of the mdposter in the database
  *
  * Given an object containing all the settings form data, this function will
  * update the instance record with the new form data.
  *
- * @param stdClass $mediaposter An object from the form in mod_form.php
+ * @param stdClass $mdposter An object from the form in mod_form.php
  * @return bool true
  */
-function mediaposter_update_instance(stdClass $mediaposter) {
+function mdposter_update_instance(stdClass $mdposter) {
     global $DB;
 
-    $mediaposter->timemodified = time();
-    $mediaposter->id = $mediaposter->instance;
-    $mediaposter->revision++;
+    $mdposter->timemodified = time();
+    $mdposter->id = $mdposter->instance;
+    $mdposter->revision++;
 
-    $DB->update_record('mediaposter', $mediaposter);
+    $DB->update_record('mdposter', $mdposter);
 
     /////////////// CUSTOM CODE: GET METADATA FROM AMS AND SAVE IT TO THE DATABASE////////////////////
-    $cmid = $mediaposter->coursemodule;
+    $cmid = $mdposter->coursemodule;
     $context = context_module::instance($cmid);
 
-    $url = mediaposter_set_mainfile($mediaposter);
+    $url = mdposter_set_mainfile($mdposter);
 
-    mediaposter_get_metadata($cmid, $mediaposter);
+    mdposter_get_metadata($cmid, $mdposter);
 
-    $completiontimeexpected = !empty($mediaposter->completionexpected) ? $mediaposter->completionexpected : null;
-    \core_completion\api::update_completion_date_event($mediaposter->coursemodule, 'mediaposter', $mediaposter->id, $completiontimeexpected);
+    $completiontimeexpected = !empty($mdposter->completionexpected) ? $mdposter->completionexpected : null;
+    \core_completion\api::update_completion_date_event($mdposter->coursemodule, 'mdposter', $mdposter->id, $completiontimeexpected);
     /////////////////////////////////////////////////
 
     
@@ -135,30 +135,30 @@ function mediaposter_update_instance(stdClass $mediaposter) {
 }
 
 /**
- * Deletes the mediaposter instance
+ * Deletes the mdposter instance
  *
- * @param int $id ID of the mediaposter instance
+ * @param int $id ID of the mdposter instance
  * @return bool Success indicator
  */
-function mediaposter_delete_instance($id) {
+function mdposter_delete_instance($id) {
     global $DB;
 
-    if (! $mediaposter = $DB->get_record('mediaposter', array('id' => $id))) {
+    if (! $mdposter = $DB->get_record('mdposter', array('id' => $id))) {
         return false;
     }
 
-    $DB->delete_records('mediaposter', array('id' => $mediaposter->id));
+    $DB->delete_records('mdposter', array('id' => $mdposter->id));
 
     return true;
 }
 
 /**
- * Adds items into the mediaposter administration block
+ * Adds items into the mdposter administration block
  *
  * @param settings_navigation $settingsnav The settings navigation object
  * @param navigation_node $node The node to add module settings to
  */
-function mediaposter_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $node) {
+function mdposter_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $node) {
     global $PAGE;
 
     if ($PAGE->user_allowed_editing()) {
@@ -184,9 +184,9 @@ function mediaposter_extend_settings_navigation(settings_navigation $settingsnav
  * @param stdClass $parentcontext Block's parent context
  * @param stdClass $currentcontext Current context of block
  */
-function mediaposter_page_type_list($pagetype, $parentcontext, $currentcontext) {
+function mdposter_page_type_list($pagetype, $parentcontext, $currentcontext) {
     return array(
-        'mod-mediaposter-view' => get_string('page-mod-mediaposter-view', 'mod_mediaposter'),
+        'mod-mdposter-view' => get_string('page-mod-mdposter-view', 'mod_mdposter'),
     );
 }
 
@@ -204,15 +204,15 @@ function mediaposter_page_type_list($pagetype, $parentcontext, $currentcontext) 
  * @param stdClass $context.
  * @return string[].
  */
-function mediaposter_get_file_areas($course, $cm, $context) {
+function mdposter_get_file_areas($course, $cm, $context) {
     // return array();
     $areas = array();
-    $areas['content'] = get_string('resourcecontent', 'mediaposter');
+    $areas['content'] = get_string('resourcecontent', 'mdposter');
     return $areas;
 }
 
 /**
- * File browsing support for mod_mediaposter file areas.
+ * File browsing support for mod_mdposter file areas.
  *
  * @package     mod_inter
  * @category    files
@@ -228,7 +228,7 @@ function mediaposter_get_file_areas($course, $cm, $context) {
  * @param string $filename.
  * @return file_info Instance or null if not found.
  */
-function mediaposter_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
+function mdposter_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
      global $CFG;
 
     if (!has_capability('moodle/course:managefiles', $context)) {
@@ -243,16 +243,16 @@ function mediaposter_get_file_info($browser, $areas, $course, $cm, $context, $fi
         $filename = is_null($filename) ? '.' : $filename;
 
         $urlbase = $CFG->wwwroot.'/pluginfile.php';
-        if (!$storedfile = $fs->get_file($context->id, 'mod_mediaposter', 'content', 0, $filepath, $filename)) {
+        if (!$storedfile = $fs->get_file($context->id, 'mod_mdposter', 'content', 0, $filepath, $filename)) {
             if ($filepath === '/' and $filename === '.') {
-                $storedfile = new virtual_root_file($context->id, 'mod_mediaposter', 'content', 0);
+                $storedfile = new virtual_root_file($context->id, 'mod_mdposter', 'content', 0);
             } else {
                 // not found
                 return null;
             }
         }
-        require_once("$CFG->dirroot/mod/mediaposter/locallib.php");
-        return new mediaposter_content_file_info($browser, $context, $storedfile, $urlbase, $areas[$filearea], true, true, true, false);
+        require_once("$CFG->dirroot/mod/mdposter/locallib.php");
+        return new mdposter_content_file_info($browser, $context, $storedfile, $urlbase, $areas[$filearea], true, true, true, false);
     }
 
     // note: resource_intro handled in file_browser automatically

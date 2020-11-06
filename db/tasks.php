@@ -17,7 +17,7 @@
 /**
  * Definition of Forum scheduled tasks.
  *
- * @package   mod_mediaposter
+ * @package   mod_mdposter
  * @category  task
  * @copyright 2019 Roberto Becerra <roberto.becerra@lmta.lt>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $tasks = array(
     array(
-        'classname' => 'mod_mediaposter\task\update_metadata',
+        'classname' => 'mod_mdposter\task\update_metadata',
         'blocking' => 0,
         'minute' => '*',
         'hour' => '*',

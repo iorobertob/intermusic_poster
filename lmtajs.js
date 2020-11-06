@@ -6,8 +6,8 @@ cardClassName = "card-body";
 var titleClassName = "card-title";
 var blockClassName = "block";
 var blockList = document.getElementsByClassName(blockClassName);
-var mediaposterColumnOne = document.querySelector('#mod_mediaposter-content > div > div:first-child');
-var mediaposterColumnTwo = document.querySelector('#mod_mediaposter-content > div > div:nth-child(2)');
+var mdposterColumnOne = document.querySelector('#mod_mdposter-content > div > div:first-child');
+var mdposterColumnTwo = document.querySelector('#mod_mdposter-content > div > div:nth-child(2)');
 
 for ( var i = 0; i < blockList.length; i++){
     var cardElement  = blockList[i].getElementsByClassName(cardClassName) [0];
@@ -21,10 +21,10 @@ for ( var i = 0; i < blockList.length; i++){
     dragElement(cardElement, blockList[i], titleElement);
 }
 
-if (mediaposterColumnOne && mediaposterColumnTwo) {
+if (mdposterColumnOne && mdposterColumnTwo) {
     // Store initial widths
-    mediaposterColumnOne.dataset.initialSize = mediaposterColumnOne.offsetWidth;
-    mediaposterColumnTwo.dataset.initialSize = mediaposterColumnTwo.offsetWidth;
+    mdposterColumnOne.dataset.initialSize = mdposterColumnOne.offsetWidth;
+    mdposterColumnTwo.dataset.initialSize = mdposterColumnTwo.offsetWidth;
 
 }
 
