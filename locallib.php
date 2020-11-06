@@ -71,7 +71,7 @@ function mediaposter_get_metadata($cmid, $mediaposter)
     try{
         // Retrieve elements from filename divided by "_"s
         // collection[0]= collection section in filename, collection[1]=whole filename
-        $collection = get_item_from_filename($context, 0, $mediaposter->id);
+        $collection = mediaposter_get_item_from_filename($context, 0, $mediaposter->id);
 
         // If there was no file then we cut short here. 
         if ($collection == null){
@@ -134,7 +134,7 @@ function mediaposter_get_metadata($cmid, $mediaposter)
  * @param String   $item_number is the position number of the filename to get
  * @return String  $item is the piece of string from the filename of the first file in the upload. 
  */
-function get_item_from_filename($context, $item_number, $id)
+function mediaposter_get_item_from_filename($context, $item_number, $id)
 {
     global $DB, $CFG, $PAGE;    
     
