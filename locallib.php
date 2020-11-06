@@ -82,7 +82,7 @@ function mediaposter_get_metadata($cmid, $mediaposter)
         $DB->set_field('mediaposter', 'rs_collection', $collection[0], array('name' => $mediaposter->name));
 
         // Findout which ID corresponds to this file in RS
-        $request_json     = get_file_fields_metadata($collection[1]);
+        $request_json     = mediaposter_get_file_fields_metadata($collection[1]);
         $resourcespace_id = $request_json[1][0]["ref"];
    
         $DB->set_field('mediaposter', 'rs_id', $resourcespace_id, array('name' => $mediaposter->name));
@@ -106,7 +106,7 @@ function mediaposter_get_metadata($cmid, $mediaposter)
             $list_metadata[6] = "Language";
         }
         
-        $metadata = get_metadata_from_api($resourcespace_id, $mediaposter, $list_metadata);
+        $metadata = mediaposter_get_metadata_from_api($resourcespace_id, $mediaposter, $list_metadata);
 
         // Commit metadata to database
         $length = count($metadata);
@@ -188,18 +188,18 @@ class mediaposter_content_file_info extends file_info_stored {
 /**
  * Get the fields from the Resourcespae metadata
  */
-function get_file_fields_metadata($string)
+function mediaposter_get_file_fields_metadata($string)
 {
-    $api_result = do_api_search($string, 'do_search');
+    $api_result = mediaposter_do_api_search($string, 'do_search');
     return $api_result;
 }
 
 /**
  * Do an API requeuest with 
  */
-function do_api_search($string, $function)
+function mediaposter_do_api_search($string, $function)
 {
-    $RS_object = init_resourcespace();
+    $RS_object = mediaposter_init_resourcespace();
     // Set the private API key for the user (from the user account page) and the user we're accessing the system as.
     $private_key = $RS_object->api_key;
 
@@ -228,7 +228,7 @@ function do_api_search($string, $function)
 /**
  * Initialise Resourcespace API variables
  */
-function init_resourcespace()
+function mediaposter_init_resourcespace()
 {
     $RS_object = new stdClass;
     $RS_object->config          = get_config('resourcespace');
@@ -244,12 +244,12 @@ function init_resourcespace()
 /**
  * Get the data via API call and compare its metadata with the one indicated in the current Inter list instance
  */
-function get_metadata_from_api($resourcespace_id, $moduleinstance, $list_metadata)
+function mediaposter_get_metadata_from_api($resourcespace_id, $moduleinstance, $list_metadata)
 {
     global $PAGE, $DB, $CFG;
     $prefix = $CFG->prefix;
 
-    $result = do_api_search($resourcespace_id, 'get_resource_field_data');
+    $result = mediaposter_do_api_search($resourcespace_id, 'get_resource_field_data');
 
     $new_list_metadata = array_fill(0, sizeof($list_metadata), '');
     for($i = 0; $i < sizeof($list_metadata); $i++)
