@@ -73,3 +73,4 @@ $string['metadata_task'] = 'Update Metadata';
 $string['manage'] = "Manage";
 $string['showinnavigation'] = 'Show in navigation';
 $string['showinnavigation_desc'] = 'Show in navigation. Desc';
+$
