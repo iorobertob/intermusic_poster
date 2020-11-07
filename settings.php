@@ -29,7 +29,7 @@ if ($ADMIN->fulltree) {
     require_once($CFG->dirroot.'/mod/mposter/locallib.php');
 
     // Introductory explanation that all the settings are defaults for the add lesson form.
-    $settings->add(new admin_setting_heading('mod_mposter/lessonintro', '', get_string('pluginname', 'mposter')));
+    $settings->add(new admin_setting_heading('mod_mposter/lessonintro', '', get_string('showinnavigation', 'mposter')));
 
     // Appearance settings.
     $settings->add(new admin_setting_heading('mod_mposter/appearance', get_string('manage'), 'mposter'));
