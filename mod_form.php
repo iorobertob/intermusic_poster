@@ -58,7 +58,6 @@ class mod_mposter_mod_form extends moodleform_mod {
 
         // Metadata Field #1
         $mform->addElement('header', 'meta_label_1', get_string('meta_label_1', 'mod_mposter'));
-        // $mform->setExpanded('meta_label_1');
         $mform->addElement('text', 'meta1', get_string('meta_title', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta1', PARAM_TEXT);
         $mform->addRule('meta1', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -66,11 +65,11 @@ class mod_mposter_mod_form extends moodleform_mod {
         $mform->addElement('text', 'meta_value1', get_string('meta_value', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta_value1', PARAM_TEXT);
         $mform->addRule('meta_value1', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        $mform->setDefault('meta_value1',get_config('mod_mposter','meta1' ))
 
 
          // Metadata Field #2
         $mform->addElement('header', 'meta_label_2', get_string('meta_label_2', 'mod_mposter'));
-        // $mform->setExpanded('meta_label_2');
         $mform->addElement('text', 'meta2', get_string('meta_title', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta2', PARAM_TEXT);
         $mform->addRule('meta2', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -78,11 +77,11 @@ class mod_mposter_mod_form extends moodleform_mod {
         $mform->addElement('text', 'meta_value2', get_string('meta_value', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta_value2', PARAM_TEXT);
         $mform->addRule('meta_value2', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        $mform->setDefault('meta_value2',get_config('mod_mposter','meta1' ))
 
 
         // Metadata Field #3
         $mform->addElement('header', 'meta_label_3', get_string('meta_label_3', 'mod_mposter'));
-        // $mform->setExpanded('meta_label_3');
         $mform->addElement('text', 'meta3', get_string('meta_title', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta3', PARAM_TEXT);
         $mform->addRule('meta3', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -90,11 +89,11 @@ class mod_mposter_mod_form extends moodleform_mod {
         $mform->addElement('text', 'meta_value3', get_string('meta_value', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta_value3', PARAM_TEXT);
         $mform->addRule('meta_value3', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        $mform->setDefault('meta_value3',get_config('mod_mposter','meta3' ))
 
 
         // Metadata Field #4
         $mform->addElement('header', 'meta_label_4', get_string('meta_label_4', 'mod_mposter'));
-        // $mform->setExpanded('meta_label_4');
         $mform->addElement('text', 'meta4', get_string('meta_title', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta4', PARAM_TEXT);
         $mform->addRule('meta4', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -102,11 +101,11 @@ class mod_mposter_mod_form extends moodleform_mod {
         $mform->addElement('text', 'meta_value4', get_string('meta_value', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta_value4', PARAM_TEXT);
         $mform->addRule('meta_value4', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        $mform->setDefault('meta_value4',get_config('mod_mposter','meta4' ))
 
 
         // Metadata Field #5
         $mform->addElement('header', 'meta_label_5', get_string('meta_label_5', 'mod_mposter'));
-        // $mform->setExpanded('meta_label_5');
         $mform->addElement('text', 'meta5', get_string('meta_title', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta5', PARAM_TEXT);
         $mform->addRule('meta5', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -114,11 +113,11 @@ class mod_mposter_mod_form extends moodleform_mod {
         $mform->addElement('text', 'meta_value5', get_string('meta_value', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta_value5', PARAM_TEXT);
         $mform->addRule('meta_value5', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        $mform->setDefault('meta_value5',get_config('mod_mposter','meta5' ))
 
 
         // Metadata Field #6
         $mform->addElement('header', 'meta_label_6', get_string('meta_label_6', 'mod_mposter'));
-        // $mform->setExpanded('meta_label_6');
         $mform->addElement('text', 'meta6', get_string('meta_title', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta6', PARAM_TEXT);
         $mform->addRule('meta6', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -126,11 +125,11 @@ class mod_mposter_mod_form extends moodleform_mod {
         $mform->addElement('text', 'meta_value6', get_string('meta_value', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta_value6', PARAM_TEXT);
         $mform->addRule('meta_value6', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        $mform->setDefault('meta_value6',get_config('mod_mposter','meta6' ))
 
 
         // Metadata Field #6
         $mform->addElement('header', 'meta_label_7', get_string('meta_label_7', 'mod_mposter'));
-        // $mform->setExpanded('meta_label_6');
         $mform->addElement('text', 'meta7', get_string('meta_title', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta7', PARAM_TEXT);
         $mform->addRule('meta7', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
@@ -138,6 +137,7 @@ class mod_mposter_mod_form extends moodleform_mod {
         $mform->addElement('text', 'meta_value7', get_string('meta_value', 'mod_mposter'), array('size' => '64'));
         $mform->setType('meta_value7', PARAM_TEXT);
         $mform->addRule('meta_value7', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
+        $mform->setDefault('meta_value7',get_config('mod_mposter','meta7' ))
 
         ///////////////////////////////////// METADATA FIELDS ////////////////////////////////
 

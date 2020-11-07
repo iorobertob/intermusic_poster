@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['modulename'] = 'Media Poster';
+$string['default_titles'] = 'Default metadata titles.';
 $string['meta_label_1'] = 'Metadata Field #1';
 $string['meta_label_2'] = 'Metadata Field #2';
 $string['meta_label_3'] = 'Metadata Field #3';

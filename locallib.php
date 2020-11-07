@@ -86,24 +86,30 @@ function mposter_get_metadata($cmid, $mposter)
    
         $DB->set_field('mposter', 'rs_id', $resourcespace_id, array('name' => $mposter->name));
    
-        if ($mposter->overwrite === "1"){
-            $list_metadata[0] = ($mposter->meta1 != "" ? $mposter->meta1 : "Composer");
-            $list_metadata[1] = ($mposter->meta2 != "" ? $mposter->meta2 : "Title");
-            $list_metadata[2] = ($mposter->meta6 != "" ? $mposter->meta6 : "Title - English");
-            $list_metadata[3] = ($mposter->meta3 != "" ? $mposter->meta3 : "Surtitle");
-            $list_metadata[4] = ($mposter->meta4 != "" ? $mposter->meta4 : "List");
-            $list_metadata[5] = ($mposter->meta5 != "" ? $mposter->meta5 : "1st line");
-            $list_metadata[6] = ($mposter->meta6 != "" ? $mposter->meta6 : "Language");
-        }
-        else{
-            $list_metadata[0] = "Composer";
-            $list_metadata[1] = "Title";
-            $list_metadata[2] = "Title - English";
-            $list_metadata[3] = "Surtitle";
-            $list_metadata[4] = "List";
-            $list_metadata[5] = "1st line";
-            $list_metadata[6] = "Language";
-        }
+
+        // If user types metadata titles and field, they override the default titles. 
+        $list_metadata[0] = ($mposter->meta1 != "" ? $mposter->meta1 : "Composer");
+        $DB->set_field('mposter', 'meta1',       $list_metadata[0],  array('name' => $mposter->name));
+
+        $list_metadata[1] = ($mposter->meta2 != "" ? $mposter->meta2 : "Title");
+        $DB->set_field('mposter', 'meta2',       $list_metadata[1],  array('name' => $mposter->name));
+        
+        $list_metadata[2] = ($mposter->meta3 != "" ? $mposter->meta3 : "Title - English");
+        $DB->set_field('mposter', 'meta3',       $list_metadata[2],  array('name' => $mposter->name));
+        
+        $list_metadata[3] = ($mposter->meta4 != "" ? $mposter->meta4 : "Surtitle");
+        $DB->set_field('mposter', 'meta4',       $list_metadata[3],  array('name' => $mposter->name));
+        
+        $list_metadata[4] = ($mposter->meta5 != "" ? $mposter->meta5 : "List");
+        $DB->set_field('mposter', 'meta5',       $list_metadata[4],  array('name' => $mposter->name));
+        
+        $list_metadata[5] = ($mposter->meta6 != "" ? $mposter->meta6 : "1st line");
+        $DB->set_field('mposter', 'meta6',       $list_metadata[5],  array('name' => $mposter->name));
+        
+        $list_metadata[6] = ($mposter->meta7 != "" ? $mposter->meta7 : "Language");
+        $DB->set_field('mposter', 'meta7',       $list_metadata[6],  array('name' => $mposter->name));
+            
+       
         
         $metadata = mposter_get_metadata_from_api($resourcespace_id, $mposter, $list_metadata);
 
@@ -114,8 +120,8 @@ function mposter_get_metadata($cmid, $mposter)
                 $index = $i + 1;
                 $data = $metadata[$i];
                 
-                $DB->set_field('mposter', 'meta_value'.$index, $data, array('name' => $mposter->name));
-                $DB->set_field('mposter', 'meta'.$index, $list_metadata[$i],  array('name' => $mposter->name));
+                $DB->set_field('mposter', 'meta_value'.$index, $data,               array('name' => $mposter->name));
+                $DB->set_field('mposter', 'meta'.$index,       $list_metadata[$i],  array('name' => $mposter->name));
             }
         }
 
