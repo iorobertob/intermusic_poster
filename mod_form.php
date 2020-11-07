@@ -51,10 +51,7 @@ class mod_mposter_mod_form extends moodleform_mod {
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
-
         ///////////////////////////////////// METADATA FIELDS ////////////////////////////////
-
-        $mform->addElement('advcheckbox', 'overwrite', get_string('overwrite', 'mod_mposter'), '', array('group' => 1), array(0, 1));
 
         // Metadata Field #1
         $mform->addElement('header', 'meta_label_1', get_string('meta_label_1', 'mod_mposter'));
