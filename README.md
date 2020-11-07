@@ -90,25 +90,10 @@ as its content. Simple and clever.
 
 The module natively supports responsive layout in bootstrap based themes (both 2.x and 3.x versions).
 
-Author
-------
+* The original Poster module has been written by David Mudrák.
+* The current plugin is a modified version of David's as part of Intermusic Project. 
 
-* The Poster module has been written and is currently maintained by David Mudrák <david@moodle.com>
-* The current plugin is a modified version of David's as part of Intermusic Project.
 
-Licence
--------
-
-Copyright (C) 2015 David Mudrák <david@moodle.com>
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
-published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with this program.  If not, see
-<http://www.gnu.org/licenses/>.
 
 
             
