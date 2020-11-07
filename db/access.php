@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Capabilities of the Poster activity module are defined here.
+ * Capabilities of the Media Poster activity module are defined here.
  *
- * @package     mod_poster
+ * @package     mod_mposter
  * @category    access
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $capabilities = array(
 
     // Ability to add instance of the module to the course.
-    'mod/poster:addinstance' => array(
+    'mod/mposter:addinstance' => array(
         'riskbitmask' => RISK_XSS,
         'captype' => 'write',
         'contextlevel' => CONTEXT_COURSE,
@@ -39,8 +39,8 @@ $capabilities = array(
         'clonepermissionsfrom' => 'moodle/course:manageactivities'
     ),
 
-    // Ability to view the poster instance.
-    'mod/poster:view' => array(
+    // Ability to view the mposter instance.
+    'mod/mposter:view' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(

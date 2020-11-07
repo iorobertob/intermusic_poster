@@ -15,20 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines {@link \mod_poster\privacy\provider} class.
+ * Defines {@link \mod_mposter\privacy\provider} class.
  *
- * @package     mod_poster
+ * @package     mod_mposter
  * @category    privacy
  * @copyright   2018 David Mudrák <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_poster\privacy;
+namespace mod_mposter\privacy;
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Privacy API implementation for the Poster plugin.
+ * Privacy API implementation for the Media Poster plugin.
  *
  * @copyright  2018 David Mudrák <david@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

@@ -15,31 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Upgrade steps for the Poster activity module.
+ * Upgrade steps for the Media Poster activity module.
  *
- * @package     mod_poster
+ * @package     mod_mposter
  * @category    upgrade
- * @copyright   2015 David Mudrak <david@moodle.com>
+ * @copyright   Original Poster by 2015 David Mudrak <david@moodle.com>, modified by Roberto Becerra, 2020 <roberto.becerra@lmta.lt>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Performs the poster upgrade steps.
+ * Performs the mposter upgrade steps.
  *
  * @param int $oldversion The version we are upgrading from
  * @return bool
  */
-function xmldb_poster_upgrade($oldversion) {
+function xmldb_mposter_upgrade($oldversion) {
     global $CFG, $DB;
 
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2018120204) {
 
-        // Define field author to be added to poster.
-        $table = new xmldb_table('poster');
+        // Define field author to be added to mposter.
+        $table = new xmldb_table('mposter');
         $field = new xmldb_field('surtitle', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'name');
 
         // Conditionally launch add field author.
@@ -68,14 +68,14 @@ function xmldb_poster_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        // Poster savepoint reached.
-        upgrade_mod_savepoint(true, 2018120204, 'poster');
+        // Media Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2018120204, 'mposter');
     }
 
     if ($oldversion < 2018120205)
     {
-        // Define field author to be added to poster.
-        $table = new xmldb_table('poster');
+        // Define field author to be added to mposter.
+        $table = new xmldb_table('mposter');
         $field = new xmldb_field('rs_collection', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'course ');
 
         // Conditionally launch add field author.
@@ -83,14 +83,14 @@ function xmldb_poster_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        // Poster savepoint reached.
-        upgrade_mod_savepoint(true, 2018120205, 'poster');
+        // Media Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2018120205, 'mposter');
     }
 
     if ($oldversion < 2018120207)
     {
-        // Define field author to be added to poster.
-        $table = new xmldb_table('poster');
+        // Define field author to be added to mposter.
+        $table = new xmldb_table('mposter');
         $field = new xmldb_field('autopopulate', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'language ');
 
         // Conditionally launch add field author.
@@ -98,13 +98,13 @@ function xmldb_poster_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        // Poster savepoint reached.
-        upgrade_mod_savepoint(true, 2018120207, 'poster');
+        // Media Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2018120207, 'mposter');
     }
     if ($oldversion < 2018120208)
     {
-        // Define field author to be added to poster.
-        $table = new xmldb_table('poster');
+        // Define field author to be added to mposter.
+        $table = new xmldb_table('mposter');
         $field = new xmldb_field('rs_id', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'rs_collection ');
 
         // Conditionally launch add field author.
@@ -112,16 +112,16 @@ function xmldb_poster_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        // Poster savepoint reached.
-        upgrade_mod_savepoint(true, 2018120208, 'poster');
+        // Media Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2018120208, 'mposter');
     }
 
 
     // 29 nov 2019
     if ($oldversion < 2019030505) {
 
-        // Define field surtitle to be dropped from poster.
-        $table = new xmldb_table('poster');
+        // Define field surtitle to be dropped from mposter.
+        $table = new xmldb_table('mposter');
         $field_1 = new xmldb_field('surtitle');
         $field_2 = new xmldb_field('author');
         $field_3 = new xmldb_field('numbering');
@@ -147,14 +147,14 @@ function xmldb_poster_upgrade($oldversion) {
             $dbman->add_field($table, $field_meta5);
         }
 
-        // Poster savepoint reached.
-        upgrade_mod_savepoint(true, 2019030505, 'poster');
+        // Media Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2019030505, 'mposter');
     }
 
     if ($oldversion < 2019030510) {
 
-        // Define field surtitle to be dropped from poster.
-        $table = new xmldb_table('poster');
+        // Define field surtitle to be dropped from mposter.
+        $table = new xmldb_table('mposter');
 
         $field_meta2 = new xmldb_field('meta2', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta1');
         $field_meta3 = new xmldb_field('meta3', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta2');
@@ -169,15 +169,15 @@ function xmldb_poster_upgrade($oldversion) {
             $dbman->add_field($table, $field_meta5);
         }
 
-        // Poster savepoint reached.
-        upgrade_mod_savepoint(true, 2019030510, 'poster');
+        // Media Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2019030510, 'mposter');
     }
     // \ 29 nov 2029
 
     if ($oldversion < 2019030511) {
 
-        // Define field surtitle to be dropped from poster.
-        $table = new xmldb_table('poster');
+        // Define field surtitle to be dropped from mposter.
+        $table = new xmldb_table('mposter');
         $field_meta6 = new xmldb_field('meta6', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta5');
 
         // Conditionally launch 
@@ -185,16 +185,16 @@ function xmldb_poster_upgrade($oldversion) {
             $dbman->add_field($table, $field_meta6);
         }
 
-        // Poster savepoint reached.
-        upgrade_mod_savepoint(true, 2019030511, 'poster');
+        // Media Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2019030511, 'mposter');
     }
 
 
     // 3 December 2019
     if ($oldversion < 2019030513) {
 
-        // Define field surtitle to be dropped from poster.
-        $table = new xmldb_table('poster');
+        // Define field surtitle to be dropped from mposter.
+        $table = new xmldb_table('mposter');
 
         $field_meta1 = new xmldb_field('meta_value1', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta6');
         $field_meta2 = new xmldb_field('meta_value2', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta_value1');
@@ -214,8 +214,8 @@ function xmldb_poster_upgrade($oldversion) {
             $dbman->add_field($table, $field_meta6);
         }
 
-        // Poster savepoint reached.
-        upgrade_mod_savepoint(true, 2019030513, 'poster');
+        // Media Poster savepoint reached.
+        upgrade_mod_savepoint(true, 2019030513, 'mposter');
     }
     // \ 3 December 2019
 
@@ -223,38 +223,38 @@ function xmldb_poster_upgrade($oldversion) {
     // 5 Jan 2020
     if ($oldversion < 2019030523){
         // Define table and field to modify/add
-        $table = new xmldb_table('poster');
+        $table = new xmldb_table('mposter');
         $field_meta7 = new xmldb_field('meta_value7', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta_value6');
 
         // Conditionally launch add field author.
         if (!$dbman->field_exists($table, $field_meta7)) {
             $dbman->add_field($table, $field_meta7);
         }
-        upgrade_mod_savepoint(true, 2019030522, 'poster');
+        upgrade_mod_savepoint(true, 2019030522, 'mposter');
     }
 
     if ($oldversion < 2019030524){
         // Define table and field to modify/add
-        $table = new xmldb_table('poster');
+        $table = new xmldb_table('mposter');
         $field_7 = new xmldb_field('meta7', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'meta6');
 
         // Conditionally launch add field author.
         if (!$dbman->field_exists($table, $field_7)) {
             $dbman->add_field($table, $field_7);
         }
-        upgrade_mod_savepoint(true, 2019030524, 'poster');
+        upgrade_mod_savepoint(true, 2019030524, 'mposter');
     }
 
     if ($oldversion < 2019030525){
         // Define table and field to modify/add
-        $table = new xmldb_table('poster');
+        $table = new xmldb_table('mposter');
         $field_overwrite = new xmldb_field('overwrite', XMLDB_TYPE_CHAR, '8', null, XMLDB_NOTNULL, null, "0", 'name');
 
         // Conditionally launch add field author.
         if (!$dbman->field_exists($table, $field_overwrite)) {
             $dbman->add_field($table, $field_overwrite);
         }
-        upgrade_mod_savepoint(true, 2019030525, 'poster');
+        upgrade_mod_savepoint(true, 2019030525, 'mposter');
     }
     // \ 5 :Jan 2020
 

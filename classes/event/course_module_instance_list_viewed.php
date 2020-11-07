@@ -17,18 +17,18 @@
 /**
  * Provides the course_module_instance_list_viewed class.
  *
- * @package     mod_poster
+ * @package     mod_mposter
  * @category    event
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_poster\event;
+namespace mod_mposter\event;
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Class of the mod_poster instances list viewed events.
+ * Class of the mod_mposter instances list viewed events.
  *
  * @copyright 2015 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

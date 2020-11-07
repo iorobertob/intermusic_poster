@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/poster/db" VERSION="20150520" COMMENT="XMLDB file for Moodle mod/poster"
+<XMLDB PATH="mod/mposter/db" VERSION="20150520" COMMENT="XMLDB file for Moodle mod/mposter"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="poster" COMMENT="Holds the module instances data.">
+    <TABLE NAME="mposter" COMMENT="Holds the module instances data.">
       <FIELDS>
         <FIELD NAME="id"                  TYPE="int"  LENGTH="10"     NOTNULL="true"    SEQUENCE="true"/>
-        <FIELD NAME="course"              TYPE="int"  LENGTH="10"     NOTNULL="true"    SEQUENCE="false" COMMENT="Course poster activity belongs to"/>
+        <FIELD NAME="course"              TYPE="int"  LENGTH="10"     NOTNULL="true"    SEQUENCE="false" COMMENT="Course mposter activity belongs to"/>
         <FIELD NAME="rs_collection"       TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="collection field for moodle instances"/>
-        <FIELD NAME="rs_id"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="RS ID field for moodle instances"/>
+        <FIELD NAME="rs_id"               TYPE="char" LENGTH="255"    NOTNULL="false"   SEQUENCE="false" COMMENT="RS ID field for moodle instances"/>
         <FIELD NAME="name"                TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="name field for moodle instances"/>
         <FIELD NAME="overwrite"           TYPE="char" LENGTH="8"      NOTNULL="true"    DEFAULT="0"      SEQUENCE="false"/>
         <FIELD NAME="meta1"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
@@ -27,11 +27,11 @@
         <FIELD NAME="meta_value6"         TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
         <FIELD NAME="meta_value7"         TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
         <FIELD NAME="autopopulate"        TYPE="text"                 NOTNULL="false"   SEQUENCE="false"/>
-        <FIELD NAME="intro"               TYPE="text"                 NOTNULL="true"    SEQUENCE="false" COMMENT="General introduction of the poster activity"/>
+        <FIELD NAME="intro"               TYPE="text"                 NOTNULL="true"    SEQUENCE="false" COMMENT="General introduction of the mposter activity"/>
         <FIELD NAME="introformat"         TYPE="int"  LENGTH="4"      NOTNULL="true"    DEFAULT="0"      SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)"/>
         <FIELD NAME="timecreated"         TYPE="int"  LENGTH="10"     NOTNULL="true"                     SEQUENCE="false"/>
         <FIELD NAME="timemodified"        TYPE="int"  LENGTH="10"     NOTNULL="true"    DEFAULT="0"      SEQUENCE="false"/>
-        <FIELD NAME="shownameview"        TYPE="int"  LENGTH="3"      NOTNULL="true"    DEFAULT="0"      SEQUENCE="false" COMMENT="Display the poster name as a heading title of the view page"/>
+        <FIELD NAME="shownameview"        TYPE="int"  LENGTH="3"      NOTNULL="true"    DEFAULT="0"      SEQUENCE="false" COMMENT="Display the mposter name as a heading title of the view page"/>
         <FIELD NAME="showdescriptionview" TYPE="int"  LENGTH="3"      NOTNULL="true"    DEFAULT="0"      SEQUENCE="false" COMMENT="Display the intro description at the view page"/>
       </FIELDS>
       <KEYS>

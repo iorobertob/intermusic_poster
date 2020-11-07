@@ -17,15 +17,14 @@
 /**
  * Activity module interface functions are defined here
  *
- * @package     mod_poster
- * @copyright   2015 David Mudrak <david@moodle.com>
+ * @package     mod_mposter
+ * @copyright   Original Poster by 2015 David Mudrak <david@moodle.com>, modified by Roberto Becerra, 2020 <roberto.becerra@lmta.lt>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once("$CFG->dirroot/mod/poster/io_print.php");
-require_once("$CFG->dirroot/mod/poster/locallib.php");
+require_once("$CFG->dirroot/mod/mposter/locallib.php");
 require_once("$CFG->libdir/resourcelib.php");
 
 //moodle 
@@ -36,7 +35,7 @@ require_once("$CFG->libdir/resourcelib.php");
  * @param string $feature FEATURE_xx constant for requested feature
  * @return bool true if the feature is supported, null if unknown
  */
-function poster_supports($feature) {
+function mposter_supports($feature) {
 
     switch($feature) {
         case FEATURE_MOD_ARCHETYPE:
@@ -60,74 +59,72 @@ function poster_supports($feature) {
 
 //moodle
 /**
- * Adds a new instance of the poster into the database
+ * Adds a new instance of the mposter into the database
  *
  * Given an object containing all the settings form data, this function will
  * save a new instance and return the id of the new instance.
  *
- * @param stdClass $poster An object from the form in mod_form.php
- * @return int The id of the newly inserted poster record
+ * @param stdClass $mposter An object from the form in mod_form.php
+ * @return int The id of the newly inserted mposter record
  */
-function poster_add_instance(stdClass $poster) {
+function mposter_add_instance(stdClass $mposter) {
     global $DB, $PAGE, $CFG;
 
-    $poster->timecreated = time();
-    $poster->timemodified = $poster->timecreated;
+    $mposter->timecreated = time();
+    $mposter->timemodified = $mposter->timecreated;
 
-    $poster->id = $DB->insert_record('poster', $poster);
+    $mposter->id = $DB->insert_record('mposter', $mposter);
 
     /////////////// CUSTOM CODE: GET METADATA FROM AMS AND SAVE IT TO THE DATABASE////////////////////
-    $cmid = $poster->coursemodule;
-    poster_print("CMID: " . $cmid, true);
+    $cmid    = $mposter->coursemodule;
     $context = context_module::instance($cmid);
 
-    $DB->set_field('course_modules', 'instance', $poster->id, array('id'=>$cmid));
+    $DB->set_field('course_modules', 'instance', $mposter->id, array('id'=>$cmid));
 
     try{
-        $url = poster_set_mainfile($poster);
+        $url = mposter_set_mainfile($mposter);
 
-        poster_get_metadata($cmid, $poster);
+        mposter_get_metadata($cmid, $mposter);
         
     }catch (Exception $e){
-        poster_print($e);
+        print_error("ivalidrequest", $debuginfo = $e ." : Invalid Database or API request, do you have Resourcespae rspository plugin installed?");
     } 
 
-    $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
+    $completiontimeexpected = !empty($mposter->completionexpected) ? $mposter->completionexpected : null;
     
-    \core_completion\api::update_completion_date_event($cmid, 'poster', $poster->id, $completiontimeexpected);
+    \core_completion\api::update_completion_date_event($cmid, 'mposter', $mposter->id, $completiontimeexpected);
     /////////////////////////////////////////////////
     
-    return $poster->id;
+    return $mposter->id;
 }
 
 /**
- * Updates the existing instance of the poster in the database
+ * Updates the existing instance of the mposter in the database
  *
  * Given an object containing all the settings form data, this function will
  * update the instance record with the new form data.
  *
- * @param stdClass $poster An object from the form in mod_form.php
+ * @param stdClass $mposter An object from the form in mod_form.php
  * @return bool true
  */
-function poster_update_instance(stdClass $poster) {
+function mposter_update_instance(stdClass $mposter) {
     global $DB;
 
-    $poster->timemodified = time();
-    $poster->id = $poster->instance;
-    $poster->revision++;
+    $mposter->timemodified = time();
+    $mposter->id = $mposter->instance;
+    $mposter->revision++;
 
-    $DB->update_record('poster', $poster);
+    $DB->update_record('mposter', $mposter);
 
-    /////////////// CUSTOM CODE: GET METADATA FROM AMS AND SAVE IT TO THE DATABASE////////////////////
-    $cmid = $poster->coursemodule;
+    /////////////// CUSTOM CODE: GET METADATA FROM ASSET MANAGEMENT SYSTEM AND SAVE IT TO THE DATABASE////////////////////
+    $cmid    = $mposter->coursemodule;
     $context = context_module::instance($cmid);
+    $url     = mposter_set_mainfile($mposter);
 
-    $url = poster_set_mainfile($poster);
+    mposter_get_metadata($cmid, $mposter);
 
-    poster_get_metadata($cmid, $poster);
-
-    $completiontimeexpected = !empty($poster->completionexpected) ? $poster->completionexpected : null;
-    \core_completion\api::update_completion_date_event($poster->coursemodule, 'poster', $poster->id, $completiontimeexpected);
+    $completiontimeexpected = !empty($mposter->completionexpected) ? $mposter->completionexpected : null;
+    \core_completion\api::update_completion_date_event($mposter->coursemodule, 'mposter', $mposter->id, $completiontimeexpected);
     /////////////////////////////////////////////////
 
     
@@ -135,30 +132,30 @@ function poster_update_instance(stdClass $poster) {
 }
 
 /**
- * Deletes the poster instance
+ * Deletes the mposter instance
  *
- * @param int $id ID of the poster instance
+ * @param int $id ID of the mposter instance
  * @return bool Success indicator
  */
-function poster_delete_instance($id) {
+function mposter_delete_instance($id) {
     global $DB;
 
-    if (! $poster = $DB->get_record('poster', array('id' => $id))) {
+    if (! $mposter = $DB->get_record('mposter', array('id' => $id))) {
         return false;
     }
 
-    $DB->delete_records('poster', array('id' => $poster->id));
+    $DB->delete_records('mposter', array('id' => $mposter->id));
 
     return true;
 }
 
 /**
- * Adds items into the poster administration block
+ * Adds items into the mposter administration block
  *
  * @param settings_navigation $settingsnav The settings navigation object
  * @param navigation_node $node The node to add module settings to
  */
-function poster_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $node) {
+function mposter_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $node) {
     global $PAGE;
 
     if ($PAGE->user_allowed_editing()) {
@@ -184,9 +181,9 @@ function poster_extend_settings_navigation(settings_navigation $settingsnav, nav
  * @param stdClass $parentcontext Block's parent context
  * @param stdClass $currentcontext Current context of block
  */
-function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
+function mposter_page_type_list($pagetype, $parentcontext, $currentcontext) {
     return array(
-        'mod-poster-view' => get_string('page-mod-poster-view', 'mod_poster'),
+        'mod-mposter-view' => get_string('page-mod-mposter-view', 'mod_mposter'),
     );
 }
 
@@ -204,15 +201,15 @@ function poster_page_type_list($pagetype, $parentcontext, $currentcontext) {
  * @param stdClass $context.
  * @return string[].
  */
-function poster_get_file_areas($course, $cm, $context) {
+function mposter_get_file_areas($course, $cm, $context) {
     // return array();
     $areas = array();
-    $areas['content'] = get_string('resourcecontent', 'poster');
+    $areas['content'] = get_string('resourcecontent', 'mposter');
     return $areas;
 }
 
 /**
- * File browsing support for mod_poster file areas.
+ * File browsing support for mod_mposter file areas.
  *
  * @package     mod_inter
  * @category    files
@@ -228,7 +225,7 @@ function poster_get_file_areas($course, $cm, $context) {
  * @param string $filename.
  * @return file_info Instance or null if not found.
  */
-function poster_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
+function mposter_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
      global $CFG;
 
     if (!has_capability('moodle/course:managefiles', $context)) {
@@ -243,16 +240,16 @@ function poster_get_file_info($browser, $areas, $course, $cm, $context, $fileare
         $filename = is_null($filename) ? '.' : $filename;
 
         $urlbase = $CFG->wwwroot.'/pluginfile.php';
-        if (!$storedfile = $fs->get_file($context->id, 'mod_poster', 'content', 0, $filepath, $filename)) {
+        if (!$storedfile = $fs->get_file($context->id, 'mod_mposter', 'content', 0, $filepath, $filename)) {
             if ($filepath === '/' and $filename === '.') {
-                $storedfile = new virtual_root_file($context->id, 'mod_poster', 'content', 0);
+                $storedfile = new virtual_root_file($context->id, 'mod_mposter', 'content', 0);
             } else {
                 // not found
                 return null;
             }
         }
-        require_once("$CFG->dirroot/mod/poster/locallib.php");
-        return new poster_content_file_info($browser, $context, $storedfile, $urlbase, $areas[$filearea], true, true, true, false);
+        require_once("$CFG->dirroot/mod/mposter/locallib.php");
+        return new mposter_content_file_info($browser, $context, $storedfile, $urlbase, $areas[$filearea], true, true, true, false);
     }
 
     // note: resource_intro handled in file_browser automatically

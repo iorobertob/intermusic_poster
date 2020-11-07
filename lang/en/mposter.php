@@ -15,17 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings of the Poster activity module are defined here.
+ * Strings of the Media Poster activity module are defined here.
  *
- * @package     mod_poster
+ * @package     mod_mposter
  * @category    string
- * @copyright   2015 David Mudrak <david@moodle.com>
+ * @copyright   Original Poster by 2015 David Mudrak <david@moodle.com>, modified by Roberto Becerra, 2020 <roberto.becerra@lmta.lt>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['modulename'] = 'Poster';
+$string['modulename'] = 'Media Poster';
+$string['default_titles'] = 'Default metadata titles.';
 $string['meta_label_1'] = 'Metadata Field #1';
 $string['meta_label_2'] = 'Metadata Field #2';
 $string['meta_label_3'] = 'Metadata Field #3';
@@ -43,30 +44,34 @@ $string['meta6'] = 'Metadata Field #6:';
 $string['meta7'] = 'Metadata Field #7:';
 $string['meta_value']  = 'Value';
 $string['meta_title']  = 'Title';
-$string['modulename_help'] = 'The poster module enables a teacher to make a page out of blocks (such as the HTML block, comments, calendar or RSS feed block), dragging and dropping them to the preferred location.
+$string['modulename_help'] = 'The Media Poster module enables a teacher to make a page out of blocks (such as the HTML block, comments, calendar or RSS feed block), dragging and dropping them to the preferred location.
 
-You can use the poster
+You can use the mposter
 
 * As a space for your students to present results of their work.
 * As a course dashboard, collating useful elements for students on a single page and keeping the main course page clean and clear of side blocks.';
-$string['modulenameplural']     	= 'Posters';
-$string['page-mod-poster-view'] 	= 'Poster module main page';
-$string['pluginadministration'] 	= 'Poster administration';
-$string['pluginname'] 				= 'Poster';
-$string['poster:addinstance'] 		= 'Add a new poster';
-$string['poster:view'] 				= 'View poster';
-$string['postername'] 				= 'Title';
+$string['modulenameplural']     	= 'Media Posters';
+$string['page-mod-mposter-view'] 	= 'Media Poster module main page';
+$string['pluginadministration'] 	= 'Media Poster administration';
+$string['pluginname'] 				= 'Media Poster';
+$string['mposter:addinstance'] 		= 'Add a new mposter';
+$string['mposter:view'] 				= 'View mposter';
+$string['mpostername'] 				= 'Title';
 $string['overwrite'] 				= 'Overwrite Intermusic metadata with custom fields.';
-$string['posterauthor'] 			= 'Composer';
-$string['postersurtitle'] 			= 'Surtitle';
-$string['posternumbering'] 			= 'Numbering';
-$string['posterlanguage'] 			= 'Language';
+$string['mposterauthor'] 			= 'Composer';
+$string['mpostersurtitle'] 			= 'Surtitle';
+$string['mposternumbering'] 			= 'Numbering';
+$string['mposterlanguage'] 			= 'Language';
 $string['autopopulate'] 			= 'Autopopulate from childern \'File\' blocks';
-$string['privacy:metadata'] 		= 'Poster does not store any personal data';
+$string['privacy:metadata'] 		= 'Media Poster does not store any personal data';
 $string['showdescriptionview'] 		= 'Display description on view page';
-$string['showdescriptionview_help'] = 'If enabled, the description above will be displayed on the poster page.';
+$string['showdescriptionview_help'] = 'If enabled, the description above will be displayed on the mposter page.';
 $string['shownameview'] 			= 'Display name on view page';
-$string['shownameview_help'] 		= 'If enabled, the poster name will be displayed as heading on the poster page.';
+$string['shownameview_help'] 		= 'If enabled, the mposter name will be displayed as heading on the mposter page.';
 $string['metadatafile']    = 'Metadata file';
 $string['resourcecontent'] = 'Files and subfolders';
 $string['metadata_task'] = 'Update Metadata';
+$string['manage'] = "Manage";
+$string['showinnavigation'] = 'Show in navigation';
+$string['showinnavigation_desc'] = 'Show in navigation. Desc';
+

@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class mod_poster_renderer is defined here.
+ * Class mod_mposter_renderer is defined here.
  *
- * @package     mod_poster
+ * @package     mod_mposter
  * @category    output
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,38 +26,38 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The renderer for poster module
+ * The renderer for mposter module
  *
  * @copyright 2015 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_poster_renderer extends plugin_renderer_base {
+class mod_mposter_renderer extends plugin_renderer_base {
 
     /**
-     * Render the poster main view page (view.php)
+     * Render the mposter main view page (view.php)
      *
-     * @param stdClass $poster The poster instance record
+     * @param stdClass $mposter The mposter instance record
      * @return string
      */
-    public function view_page($poster) {
+    public function view_page($mposter) {
 
         if ($this->page->user_allowed_editing()) {
             $this->page->set_button($this->edit_button($this->page->url));
-            $this->page->blocks->set_default_region('mod_poster-pre');
+            $this->page->blocks->set_default_region('mod_mposter-pre');
             $this->page->theme->addblockposition = BLOCK_ADDBLOCK_POSITION_DEFAULT;
         }
 
         $out = $this->header();
 
-        if ($poster->shownameview) {
-            $out .= $this->view_page_heading($poster);
+        if ($mposter->shownameview) {
+            $out .= $this->view_page_heading($mposter);
         }
 
-        if ($poster->showdescriptionview) {
-            $out .= $this->view_page_description($poster);
+        if ($mposter->showdescriptionview) {
+            $out .= $this->view_page_description($mposter);
         }
 
-        $out .= $this->view_page_content($poster);
+        $out .= $this->view_page_content($mposter);
         $out .= $this->footer();
 
         return $out;
@@ -66,35 +66,35 @@ class mod_poster_renderer extends plugin_renderer_base {
     /**
      * Render the page title at the view.php page
      *
-     * @param stdClass $poster The poster instance record
+     * @param stdClass $mposter The mposter instance record
      * @return string
      */
-    protected function view_page_heading($poster) {
-        return $this->heading(format_string($poster->name), 2, null, 'mod_poster-heading');
+    protected function view_page_heading($mposter) {
+        return $this->heading(format_string($mposter->name), 2, null, 'mod_mposter-heading');
     }
 
     /**
-     * Render the poster description at the view.php page
+     * Render the mposter description at the view.php page
      *
-     * @param stdClass $poster The poster instance record
+     * @param stdClass $mposter The mposter instance record
      * @return string
      */
-    protected function view_page_description($poster) {
+    protected function view_page_description($mposter) {
 
-        if (html_is_blank($poster->intro)) {
+        if (html_is_blank($mposter->intro)) {
             return '';
         }
 
-        return $this->box(format_module_intro('poster', $poster, $this->page->cm->id), 'generalbox', 'mod_poster-description');
+        return $this->box(format_module_intro('mposter', $mposter, $this->page->cm->id), 'generalbox', 'mod_mposter-description');
     }
 
     /**
-     * Render the poster content at the view.php page
+     * Render the mposter content at the view.php page
      *
-     * @param stdClass $poster The poster instance record
+     * @param stdClass $mposter The mposter instance record
      * @return string
      */
-    protected function view_page_content($poster) {
+    protected function view_page_content($mposter) {
 
         $out = '';
 
@@ -102,8 +102,8 @@ class mod_poster_renderer extends plugin_renderer_base {
             $haspre = true;
             $haspost = true;
         } else {
-            $haspre = $this->page->blocks->region_has_content('mod_poster-pre', $this);
-            $haspost = $this->page->blocks->region_has_content('mod_poster-post', $this);
+            $haspre = $this->page->blocks->region_has_content('mod_mposter-pre', $this);
+            $haspost = $this->page->blocks->region_has_content('mod_mposter-post', $this);
         }
 
         if (!$haspre and !$haspost) {
@@ -111,10 +111,10 @@ class mod_poster_renderer extends plugin_renderer_base {
         }
 
         $cssclassmain = 'container-fluid';
-        $cssclassmain .= $haspre ? '' : ' empty-region-mod_poster-pre';
-        $cssclassmain .= $haspost ? '' : ' empty-region-mod_poster-post';
+        $cssclassmain .= $haspre ? '' : ' empty-region-mod_mposter-pre';
+        $cssclassmain .= $haspost ? '' : ' empty-region-mod_mposter-post';
 
-        $out .= html_writer::start_div($cssclassmain, array('id' => 'mod_poster-content'));
+        $out .= html_writer::start_div($cssclassmain, array('id' => 'mod_mposter-content'));
 
         // The bootstrap3 based themes should use the class .row here.
         // But that would have different meaning in the bootstrap2 based themes.
@@ -126,16 +126,16 @@ class mod_poster_renderer extends plugin_renderer_base {
 
         if ($haspre) {
             $out .= html_writer::start_div($haspost ? $cssclassgrid : $cssclasssingle);
-            $out .= html_writer::start_div('mod_poster-content-region', array('id' => 'mod_poster-content-region-pre'));
-            $out .= $this->custom_block_region('mod_poster-pre');
+            $out .= html_writer::start_div('mod_mposter-content-region', array('id' => 'mod_mposter-content-region-pre'));
+            $out .= $this->custom_block_region('mod_mposter-pre');
             $out .= html_writer::end_div();
             $out .= html_writer::end_div();
         }
 
         if ($haspost) {
             $out .= html_writer::start_div($haspre ? $cssclassgrid : $cssclasssingle);
-            $out .= html_writer::start_div('mod_poster-content-region', array('id' => 'mod_poster-content-region-post'));
-            $out .= $this->custom_block_region('mod_poster-post');
+            $out .= html_writer::start_div('mod_mposter-content-region', array('id' => 'mod_mposter-content-region-post'));
+            $out .= $this->custom_block_region('mod_mposter-post');
             $out .= html_writer::end_div();
             $out .= html_writer::end_div();
         }

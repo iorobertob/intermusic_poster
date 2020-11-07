@@ -17,18 +17,18 @@
 /**
  * Provides the course_module_viewed class.
  *
- * @package     mod_poster
+ * @package     mod_mposter
  * @category    event
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_poster\event;
+namespace mod_mposter\event;
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Class of the mod_poster course module viewed events.
+ * Class of the mod_mposter course module viewed events.
  *
  * @copyright 2015 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -41,6 +41,6 @@ class course_module_viewed extends \core\event\course_module_viewed {
     protected function init() {
         $this->data['crud'] = 'r';
         $this->data['edulevel'] = self::LEVEL_PARTICIPATING;
-        $this->data['objecttable'] = 'poster';
+        $this->data['objecttable'] = 'mposter';
     }
 }

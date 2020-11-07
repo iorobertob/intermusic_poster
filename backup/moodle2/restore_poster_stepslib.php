@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides the restore_poster_activity_structure_step class.
+ * Provides the restore_mposter_activity_structure_step class.
  *
- * @package     mod_poster
+ * @package     mod_mposter
  * @category    backup
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,12 +26,12 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Structure step to restore poster activity instance.
+ * Structure step to restore mposter activity instance.
  *
  * @copyright 2015 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class restore_poster_activity_structure_step extends restore_activity_structure_step {
+class restore_mposter_activity_structure_step extends restore_activity_structure_step {
 
     /**
      * Defines the structure of the backup data to be processed.
@@ -39,22 +39,22 @@ class restore_poster_activity_structure_step extends restore_activity_structure_
      * @return array of restore_path_element
      */
     protected function define_structure() {
-        return $this->prepare_activity_structure(array(new restore_path_element('poster', '/activity/poster')));
+        return $this->prepare_activity_structure(array(new restore_path_element('mposter', '/activity/mposter')));
     }
 
     /**
-     * Process the poster element data.
+     * Process the mposter element data.
      *
      * @param array $data
      */
-    protected function process_poster($data) {
+    protected function process_mposter($data) {
         global $DB;
 
         $data = (object)$data;
         $data->course = $this->get_courseid();
         $data->timemodified = time();
 
-        $newid = $DB->insert_record('poster', $data);
+        $newid = $DB->insert_record('mposter', $data);
 
         $this->apply_activity_instance($newid);
     }
@@ -63,7 +63,7 @@ class restore_poster_activity_structure_step extends restore_activity_structure_
      * Define additional things to do after the steps are executed.
      */
     protected function after_execute() {
-        $this->add_related_files('mod_poster', 'intro', null);
-        $this->add_related_files('mod_poster', 'content', null);
+        $this->add_related_files('mod_mposter', 'intro', null);
+        $this->add_related_files('mod_mposter', 'content', null);
     }
 }
