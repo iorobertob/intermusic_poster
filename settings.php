@@ -31,21 +31,21 @@ if ($ADMIN->fulltree) {
     // Introductory explanation that all the settings are defaults for the add lesson form.
     $settings->add(new admin_setting_heading('mod_mposter/intro', '', get_string('default_titles', 'mposter')));
 
-    $settings->add(new admin_setting_configtext('mod_mposter/meta1', get_string('meta_label_1', 'mposter')." ".get_string('meta_title','mposter')),
+    $settings->add(new admin_setting_configtext('mod_mposter/meta1', get_string('meta_label_1', 'mposter')." ".get_string('meta_title','mposter'),
             '', "Composer", PARAM_TEXT));
 
-    $settings->add(new admin_setting_configtext('mod_mposter/meta2', get_string('meta_label_2', 'mposter')." ".get_string('meta_title','mposter')),
+    $settings->add(new admin_setting_configtext('mod_mposter/meta2', get_string('meta_label_2', 'mposter')." ".get_string('meta_title','mposter'),
             '', "Composer", PARAM_TEXT));
 
-    $settings->add(new admin_setting_configtext('mod_mposter/meta3', get_string('meta_label_3', 'mposter')." ".get_string('meta_title','mposter')),
+    $settings->add(new admin_setting_configtext('mod_mposter/meta3', get_string('meta_label_3', 'mposter')." ".get_string('meta_title','mposter'),
             '', "Composer", PARAM_TEXT));
 
-    $settings->add(new admin_setting_configtext('mod_mposter/meta4', get_string('meta_label_4', 'mposter')." ".get_string('meta_title','mposter')),
+    $settings->add(new admin_setting_configtext('mod_mposter/meta4', get_string('meta_label_4', 'mposter')." ".get_string('meta_title','mposter'),
             '', "Composer", PARAM_TEXT));
 
-    $settings->add(new admin_setting_configtext('mod_mposter/meta5', get_string('meta_label_5', 'mposter')." ".get_string('meta_title','mposter')),
+    $settings->add(new admin_setting_configtext('mod_mposter/meta5', get_string('meta_label_5', 'mposter')." ".get_string('meta_title','mposter'),
             '', "Composer", PARAM_TEXT));
 
-    $settings->add(new admin_setting_configtext('mod_mposter/meta6', get_string('meta_label_6', 'mposter')." ".get_string('meta_title','mposter')),
+    $settings->add(new admin_setting_configtext('mod_mposter/meta6', get_string('meta_label_6', 'mposter')." ".get_string('meta_title','mposter'),
             '', "Composer", PARAM_TEXT));
 }
