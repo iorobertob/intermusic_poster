@@ -35,17 +35,20 @@ if ($ADMIN->fulltree) {
             '', "Composer", PARAM_TEXT));
 
     $settings->add(new admin_setting_configtext('mod_mposter/meta2', get_string('meta_label_2', 'mposter')." ".get_string('meta_title','mposter'),
-            '', "Composer", PARAM_TEXT));
+            '', "Title", PARAM_TEXT));
 
     $settings->add(new admin_setting_configtext('mod_mposter/meta3', get_string('meta_label_3', 'mposter')." ".get_string('meta_title','mposter'),
-            '', "Composer", PARAM_TEXT));
+            '', "Title - EN", PARAM_TEXT));
 
     $settings->add(new admin_setting_configtext('mod_mposter/meta4', get_string('meta_label_4', 'mposter')." ".get_string('meta_title','mposter'),
-            '', "Composer", PARAM_TEXT));
+            '', "Surtitle", PARAM_TEXT));
 
     $settings->add(new admin_setting_configtext('mod_mposter/meta5', get_string('meta_label_5', 'mposter')." ".get_string('meta_title','mposter'),
-            '', "Composer", PARAM_TEXT));
+            '', "List", PARAM_TEXT));
 
     $settings->add(new admin_setting_configtext('mod_mposter/meta6', get_string('meta_label_6', 'mposter')." ".get_string('meta_title','mposter'),
-            '', "Composer", PARAM_TEXT));
+            '', "1st Line", PARAM_TEXT));
+
+    $settings->add(new admin_setting_configtext('mod_mposter/meta7', get_string('meta_label_7', 'mposter')." ".get_string('meta_title','mposter'),
+            '', "Language", PARAM_TEXT));
 }
