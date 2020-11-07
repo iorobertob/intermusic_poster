@@ -70,3 +70,6 @@ $string['shownameview_help'] 		= 'If enabled, the mposter name will be displayed
 $string['metadatafile']    = 'Metadata file';
 $string['resourcecontent'] = 'Files and subfolders';
 $string['metadata_task'] = 'Update Metadata';
+$string['manage'] = "Manage";
+$string['showinnavigation'] = 'Show in navigation';
+$string['showinnavigation_desc'] = 'Show in navigation. Desc';
