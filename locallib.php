@@ -51,7 +51,7 @@ function mposter_set_mainfile($data) {
         $url = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename(), false);
     }
     else{
-        $url = 'no file';s
+        $url = 'no file';
     }
 
     
