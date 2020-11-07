@@ -3,7 +3,7 @@ Moodle Media Poster activity module [INTERMUSIC]
 
 Important!!
 ----------
-- This is a fork of the original 'Media Poster' plugin, which is customised to work together with other Intermusic project plugins and therefore does not follow the releaes of the original plugin.
+- This **Media Poster** module is  based on the original *Poster* plugin, which is customised to work together with other Intermusic project plugins and therefore does not follow the releaes of the original plugin.
 - When installing the name of this module's folder should be named **mposter**.
 - Metadata functionality works only with an enabled ResourceSpace respository plugin. I will still work withoug it, but it wont fetch/autofill metadata. 
 
