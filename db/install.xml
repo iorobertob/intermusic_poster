@@ -9,7 +9,7 @@
         <FIELD NAME="id"                  TYPE="int"  LENGTH="10"     NOTNULL="true"    SEQUENCE="true"/>
         <FIELD NAME="course"              TYPE="int"  LENGTH="10"     NOTNULL="true"    SEQUENCE="false" COMMENT="Course mposter activity belongs to"/>
         <FIELD NAME="rs_collection"       TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="collection field for moodle instances"/>
-        <FIELD NAME="rs_id"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="RS ID field for moodle instances"/>
+        <FIELD NAME="rs_id"               TYPE="char" LENGTH="255"    NOTNULL="false"   SEQUENCE="false" COMMENT="RS ID field for moodle instances"/>
         <FIELD NAME="name"                TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="name field for moodle instances"/>
         <FIELD NAME="overwrite"           TYPE="char" LENGTH="8"      NOTNULL="true"    DEFAULT="0"      SEQUENCE="false"/>
         <FIELD NAME="meta1"               TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false"/>
