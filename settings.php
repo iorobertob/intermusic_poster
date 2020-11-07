@@ -25,18 +25,15 @@
  
 defined('MOODLE_INTERNAL') || die();
  
-if ($hassiteconfig) {
-    // $ADMIN->add('mediaposters', new admin_category('mod_mposter_settings', new lang_string('pluginname', 'mod_mposter')));
-    $settingspage = new admin_settingpage('managemodmposter', new lang_string('manage', 'mod_mposter'));
- 
-    if ($ADMIN->fulltree) {
-        $settingspage->add(new admin_setting_configcheckbox(
-            'mod_poster/showinnavigation',
-            new lang_string('showinnavigation', 'mod_mposter'),
-            new lang_string('showinnavigation_desc', 'mod_mposter'),
-            1
-        ));
-    }
- 
-    $ADMIN->add('mediaposters', $settingspage);
+if ($ADMIN->fulltree) {
+    require_once($CFG->dirroot.'/mod/mposter/locallib.php');
+
+    // Introductory explanation that all the settings are defaults for the add lesson form.
+    $settings->add(new admin_setting_heading('mod_mposter/lessonintro', '', get_string('pluginname', 'lesson')));
+
+    // Appearance settings.
+    $settings->add(new admin_setting_heading('mod_poster/appearance', get_string('manage'), ''));
+
+    $settings->add(new admin_setting_configtext('mod_mposter/mediaheight', get_string('meta_label_1', 'lesson'),
+            get_string('meta_label_2', 'lesson'), "480", PARAM_TEXT));
 }
