@@ -51,8 +51,7 @@ function mposter_set_mainfile($data) {
         $url = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename(), false);
     }
     else{
-        mposter_print($e);
-        $url = 'no file';
+        $url = 'no file';s
     }
 
     
@@ -121,7 +120,7 @@ function mposter_get_metadata($cmid, $mposter)
         }
 
     }catch (Exception $e){
-        mposter_print($e);
+        print_error("ivalidrequest", $debuginfo = $e . " : Invalid Database or API request, do you have Resourcespae rspository plugin installed?");
     }
 }
 

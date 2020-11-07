@@ -77,8 +77,7 @@ function mposter_add_instance(stdClass $mposter) {
     $mposter->id = $DB->insert_record('mposter', $mposter);
 
     /////////////// CUSTOM CODE: GET METADATA FROM AMS AND SAVE IT TO THE DATABASE////////////////////
-    $cmid = $mposter->coursemodule;
-    mposter_print("CMID: " . $cmid, true);
+    $cmid    = $mposter->coursemodule;
     $context = context_module::instance($cmid);
 
     $DB->set_field('course_modules', 'instance', $mposter->id, array('id'=>$cmid));
@@ -89,7 +88,7 @@ function mposter_add_instance(stdClass $mposter) {
         mposter_get_metadata($cmid, $mposter);
         
     }catch (Exception $e){
-        mposter_print($e);
+        print_error("ivalidrequest", $debuginfo = $e ." : Invalid Database or API request, do you have Resourcespae rspository plugin installed?");
     } 
 
     $completiontimeexpected = !empty($mposter->completionexpected) ? $mposter->completionexpected : null;
