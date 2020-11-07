@@ -32,7 +32,7 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_heading('mod_mposter/lessonintro', '', get_string('showinnavigation', 'mposter')));
 
     // Appearance settings.
-    $settings->add(new admin_setting_heading('mod_mposter/appearance', get_string('manage'), 'mposter'));
+    $settings->add(new admin_setting_heading('mod_mposter/appearance', get_string('showinnavigation'), 'mposter'));
 
     $settings->add(new admin_setting_configtext('mod_mposter/mediaheight', get_string('meta_label_1', 'mposter'),
             get_string('meta_label_2', 'mposter'), "480", PARAM_TEXT));
