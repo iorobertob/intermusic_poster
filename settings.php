@@ -26,8 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
  
 if ($hassiteconfig) {
-    $ADMIN->add('mediaposters', new admin_category('mod_mposter_settings', new lang_string('pluginname', 'mod_mposter')));
-    $settingspage = new admin_settingpage('managemodmposter', new lang_string('manage', 'mod_mposter'));
+    // $ADMIN->add('mediaposters', new admin_category('mod_mposter_settings', new lang_string('pluginname', 'mod_mposter')));
+    // $settingspage = new admin_settingpage('managemodmposter', new lang_string('manage', 'mod_mposter'));
  
     if ($ADMIN->fulltree) {
         $settingspage->add(new admin_setting_configcheckbox(
@@ -38,5 +38,5 @@ if ($hassiteconfig) {
         ));
     }
  
-    $ADMIN->add('mediaposters', $settingspage);
+    // $ADMIN->add('mediaposters', $settingspage);
 }
