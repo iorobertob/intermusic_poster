@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides the backup_mdposter_activity_structure_step class.
+ * Provides the backup_mposter_activity_structure_step class.
  *
- * @package     mod_mdposter
+ * @package     mod_mposter
  * @category    backup
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -31,12 +31,12 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright 2015 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class backup_mdposter_activity_structure_step extends backup_activity_structure_step {
+class backup_mposter_activity_structure_step extends backup_activity_structure_step {
 
     /**
      * Defines the structure of the backup
      *
-     * The mdposter activity does not contain user data and not additional nodes
+     * The mposter activity does not contain user data and not additional nodes
      * but the instances itself.
      *
      * @return backup_nested_element
@@ -46,8 +46,8 @@ class backup_mdposter_activity_structure_step extends backup_activity_structure_
         // To know if we are including userinfo
         $userinfo = $this->get_setting_value('userinfo');
         
-        // Define the mdposter root element.
-        $mdposter = new backup_nested_element('mdposter', array('id'), array(
+        // Define the mposter root element.
+        $mposter = new backup_nested_element('mposter', array('id'), array(
                 'name', 
                 'intro',
                 'rs_collection',
@@ -71,12 +71,12 @@ class backup_mdposter_activity_structure_step extends backup_activity_structure_
                 'showdescriptionview'));
 
         // Define the data source.
-        $mdposter->set_source_table('mdposter', array('id' => backup::VAR_ACTIVITYID));
+        $mposter->set_source_table('mposter', array('id' => backup::VAR_ACTIVITYID));
 
         // Define file annotations.
-        $mdposter->annotate_files('mod_mdposter', 'intro', null);
-        $mdposter->annotate_files('mod_mdposter', 'content', null); // This file areas haven't itemid
+        $mposter->annotate_files('mod_mposter', 'intro', null);
+        $mposter->annotate_files('mod_mposter', 'content', null); // This file areas haven't itemid
 
-        return $this->prepare_activity_structure($mdposter);
+        return $this->prepare_activity_structure($mposter);
     }
 }

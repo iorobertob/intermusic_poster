@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * View the mdposter instance
+ * View the mposter instance
  *
- * @package     mod_mdposter
+ * @package     mod_mposter
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,17 +28,17 @@ require_once($CFG->libdir.'/completionlib.php');
 $cmid = required_param('id', PARAM_INT);
 $edit = optional_param('edit', null, PARAM_BOOL);
 
-$cm = get_coursemodule_from_id('mdposter', $cmid, 0, false, MUST_EXIST);
+$cm = get_coursemodule_from_id('mposter', $cmid, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-$mdposter = $DB->get_record('mdposter', array('id' => $cm->instance), '*', MUST_EXIST);
+$mposter = $DB->get_record('mposter', array('id' => $cm->instance), '*', MUST_EXIST);
 
 require_login($course, true, $cm);
-require_capability('mod/mdposter:view', $PAGE->context);
+require_capability('mod/mposter:view', $PAGE->context);
 
-$PAGE->set_url('/mod/mdposter/view.php', array('id' => $cm->id));
-$PAGE->set_title($course->shortname.': '.$mdposter->name);
+$PAGE->set_url('/mod/mposter/view.php', array('id' => $cm->id));
+$PAGE->set_title($course->shortname.': '.$mposter->name);
 $PAGE->set_heading($course->fullname);
-$PAGE->set_activity_record($mdposter);
+$PAGE->set_activity_record($mposter);
 
 if ($edit !== null and confirm_sesskey() and $PAGE->user_allowed_editing()) {
 	$USER->editing = $edit;
@@ -46,26 +46,26 @@ if ($edit !== null and confirm_sesskey() and $PAGE->user_allowed_editing()) {
 }
 
 // Trigger module viewed event.
-$event = \mod_mdposter\event\course_module_viewed::create(array(
-   'objectid' => $mdposter->id,
+$event = \mod_mposter\event\course_module_viewed::create(array(
+   'objectid' => $mposter->id,
    'context' => $PAGE->context,
 ));
 $event->add_record_snapshot('course_modules', $cm);
 $event->add_record_snapshot('course', $course);
-$event->add_record_snapshot('mdposter', $mdposter);
+$event->add_record_snapshot('mposter', $mposter);
 $event->trigger();
 
 // Mark the module instance as viewed by the current user.
 $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
-// Define the custom block regions we want to use at the mdposter view page.
+// Define the custom block regions we want to use at the mposter view page.
 // Region names are limited to 16 characters.
-$PAGE->blocks->add_region('mod_mdposter-pre', true);
-$PAGE->blocks->add_region('mod_mdposter-post', true);
+$PAGE->blocks->add_region('mod_mposter-pre', true);
+$PAGE->blocks->add_region('mod_mposter-post', true);
 
-$output = $PAGE->get_renderer('mod_mdposter');
+$output = $PAGE->get_renderer('mod_mposter');
 
-echo $output->view_page($mdposter);
+echo $output->view_page($mposter);
 
 

@@ -17,15 +17,15 @@
 /**
  * Activity module interface functions are defined here
  *
- * @package     mod_mdposter
+ * @package     mod_mposter
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once("$CFG->dirroot/mod/mdposter/io_print.php");
-require_once("$CFG->dirroot/mod/mdposter/locallib.php");
+require_once("$CFG->dirroot/mod/mposter/io_print.php");
+require_once("$CFG->dirroot/mod/mposter/locallib.php");
 require_once("$CFG->libdir/resourcelib.php");
 
 //moodle 
@@ -36,7 +36,7 @@ require_once("$CFG->libdir/resourcelib.php");
  * @param string $feature FEATURE_xx constant for requested feature
  * @return bool true if the feature is supported, null if unknown
  */
-function mdposter_supports($feature) {
+function mposter_supports($feature) {
 
     switch($feature) {
         case FEATURE_MOD_ARCHETYPE:
@@ -60,74 +60,74 @@ function mdposter_supports($feature) {
 
 //moodle
 /**
- * Adds a new instance of the mdposter into the database
+ * Adds a new instance of the mposter into the database
  *
  * Given an object containing all the settings form data, this function will
  * save a new instance and return the id of the new instance.
  *
- * @param stdClass $mdposter An object from the form in mod_form.php
- * @return int The id of the newly inserted mdposter record
+ * @param stdClass $mposter An object from the form in mod_form.php
+ * @return int The id of the newly inserted mposter record
  */
-function mdposter_add_instance(stdClass $mdposter) {
+function mposter_add_instance(stdClass $mposter) {
     global $DB, $PAGE, $CFG;
 
-    $mdposter->timecreated = time();
-    $mdposter->timemodified = $mdposter->timecreated;
+    $mposter->timecreated = time();
+    $mposter->timemodified = $mposter->timecreated;
 
-    $mdposter->id = $DB->insert_record('mdposter', $mdposter);
+    $mposter->id = $DB->insert_record('mposter', $mposter);
 
     /////////////// CUSTOM CODE: GET METADATA FROM AMS AND SAVE IT TO THE DATABASE////////////////////
-    $cmid = $mdposter->coursemodule;
-    mdposter_print("CMID: " . $cmid, true);
+    $cmid = $mposter->coursemodule;
+    mposter_print("CMID: " . $cmid, true);
     $context = context_module::instance($cmid);
 
-    $DB->set_field('course_modules', 'instance', $mdposter->id, array('id'=>$cmid));
+    $DB->set_field('course_modules', 'instance', $mposter->id, array('id'=>$cmid));
 
     try{
-        $url = mdposter_set_mainfile($mdposter);
+        $url = mposter_set_mainfile($mposter);
 
-        mdposter_get_metadata($cmid, $mdposter);
+        mposter_get_metadata($cmid, $mposter);
         
     }catch (Exception $e){
-        mdposter_print($e);
+        mposter_print($e);
     } 
 
-    $completiontimeexpected = !empty($mdposter->completionexpected) ? $mdposter->completionexpected : null;
+    $completiontimeexpected = !empty($mposter->completionexpected) ? $mposter->completionexpected : null;
     
-    \core_completion\api::update_completion_date_event($cmid, 'mdposter', $mdposter->id, $completiontimeexpected);
+    \core_completion\api::update_completion_date_event($cmid, 'mposter', $mposter->id, $completiontimeexpected);
     /////////////////////////////////////////////////
     
-    return $mdposter->id;
+    return $mposter->id;
 }
 
 /**
- * Updates the existing instance of the mdposter in the database
+ * Updates the existing instance of the mposter in the database
  *
  * Given an object containing all the settings form data, this function will
  * update the instance record with the new form data.
  *
- * @param stdClass $mdposter An object from the form in mod_form.php
+ * @param stdClass $mposter An object from the form in mod_form.php
  * @return bool true
  */
-function mdposter_update_instance(stdClass $mdposter) {
+function mposter_update_instance(stdClass $mposter) {
     global $DB;
 
-    $mdposter->timemodified = time();
-    $mdposter->id = $mdposter->instance;
-    $mdposter->revision++;
+    $mposter->timemodified = time();
+    $mposter->id = $mposter->instance;
+    $mposter->revision++;
 
-    $DB->update_record('mdposter', $mdposter);
+    $DB->update_record('mposter', $mposter);
 
     /////////////// CUSTOM CODE: GET METADATA FROM AMS AND SAVE IT TO THE DATABASE////////////////////
-    $cmid = $mdposter->coursemodule;
+    $cmid = $mposter->coursemodule;
     $context = context_module::instance($cmid);
 
-    $url = mdposter_set_mainfile($mdposter);
+    $url = mposter_set_mainfile($mposter);
 
-    mdposter_get_metadata($cmid, $mdposter);
+    mposter_get_metadata($cmid, $mposter);
 
-    $completiontimeexpected = !empty($mdposter->completionexpected) ? $mdposter->completionexpected : null;
-    \core_completion\api::update_completion_date_event($mdposter->coursemodule, 'mdposter', $mdposter->id, $completiontimeexpected);
+    $completiontimeexpected = !empty($mposter->completionexpected) ? $mposter->completionexpected : null;
+    \core_completion\api::update_completion_date_event($mposter->coursemodule, 'mposter', $mposter->id, $completiontimeexpected);
     /////////////////////////////////////////////////
 
     
@@ -135,30 +135,30 @@ function mdposter_update_instance(stdClass $mdposter) {
 }
 
 /**
- * Deletes the mdposter instance
+ * Deletes the mposter instance
  *
- * @param int $id ID of the mdposter instance
+ * @param int $id ID of the mposter instance
  * @return bool Success indicator
  */
-function mdposter_delete_instance($id) {
+function mposter_delete_instance($id) {
     global $DB;
 
-    if (! $mdposter = $DB->get_record('mdposter', array('id' => $id))) {
+    if (! $mposter = $DB->get_record('mposter', array('id' => $id))) {
         return false;
     }
 
-    $DB->delete_records('mdposter', array('id' => $mdposter->id));
+    $DB->delete_records('mposter', array('id' => $mposter->id));
 
     return true;
 }
 
 /**
- * Adds items into the mdposter administration block
+ * Adds items into the mposter administration block
  *
  * @param settings_navigation $settingsnav The settings navigation object
  * @param navigation_node $node The node to add module settings to
  */
-function mdposter_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $node) {
+function mposter_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $node) {
     global $PAGE;
 
     if ($PAGE->user_allowed_editing()) {
@@ -184,9 +184,9 @@ function mdposter_extend_settings_navigation(settings_navigation $settingsnav, n
  * @param stdClass $parentcontext Block's parent context
  * @param stdClass $currentcontext Current context of block
  */
-function mdposter_page_type_list($pagetype, $parentcontext, $currentcontext) {
+function mposter_page_type_list($pagetype, $parentcontext, $currentcontext) {
     return array(
-        'mod-mdposter-view' => get_string('page-mod-mdposter-view', 'mod_mdposter'),
+        'mod-mposter-view' => get_string('page-mod-mposter-view', 'mod_mposter'),
     );
 }
 
@@ -204,15 +204,15 @@ function mdposter_page_type_list($pagetype, $parentcontext, $currentcontext) {
  * @param stdClass $context.
  * @return string[].
  */
-function mdposter_get_file_areas($course, $cm, $context) {
+function mposter_get_file_areas($course, $cm, $context) {
     // return array();
     $areas = array();
-    $areas['content'] = get_string('resourcecontent', 'mdposter');
+    $areas['content'] = get_string('resourcecontent', 'mposter');
     return $areas;
 }
 
 /**
- * File browsing support for mod_mdposter file areas.
+ * File browsing support for mod_mposter file areas.
  *
  * @package     mod_inter
  * @category    files
@@ -228,7 +228,7 @@ function mdposter_get_file_areas($course, $cm, $context) {
  * @param string $filename.
  * @return file_info Instance or null if not found.
  */
-function mdposter_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
+function mposter_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
      global $CFG;
 
     if (!has_capability('moodle/course:managefiles', $context)) {
@@ -243,16 +243,16 @@ function mdposter_get_file_info($browser, $areas, $course, $cm, $context, $filea
         $filename = is_null($filename) ? '.' : $filename;
 
         $urlbase = $CFG->wwwroot.'/pluginfile.php';
-        if (!$storedfile = $fs->get_file($context->id, 'mod_mdposter', 'content', 0, $filepath, $filename)) {
+        if (!$storedfile = $fs->get_file($context->id, 'mod_mposter', 'content', 0, $filepath, $filename)) {
             if ($filepath === '/' and $filename === '.') {
-                $storedfile = new virtual_root_file($context->id, 'mod_mdposter', 'content', 0);
+                $storedfile = new virtual_root_file($context->id, 'mod_mposter', 'content', 0);
             } else {
                 // not found
                 return null;
             }
         }
-        require_once("$CFG->dirroot/mod/mdposter/locallib.php");
-        return new mdposter_content_file_info($browser, $context, $storedfile, $urlbase, $areas[$filearea], true, true, true, false);
+        require_once("$CFG->dirroot/mod/mposter/locallib.php");
+        return new mposter_content_file_info($browser, $context, $storedfile, $urlbase, $areas[$filearea], true, true, true, false);
     }
 
     // note: resource_intro handled in file_browser automatically

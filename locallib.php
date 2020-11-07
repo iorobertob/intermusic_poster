@@ -23,11 +23,11 @@
 defined('MOODLE_INTERNAL') || die();
 require_once("$CFG->libdir/filelib.php");
 require_once("$CFG->libdir/resourcelib.php");
-require_once("$CFG->dirroot/mod/mdposter/lib.php");
+require_once("$CFG->dirroot/mod/mposter/lib.php");
 
 
 // moodle 
-function mdposter_set_mainfile($data) {
+function mposter_set_mainfile($data) {
     global $DB;
     $fs = get_file_storage();
     $cmid = $data->coursemodule;
@@ -38,20 +38,20 @@ function mdposter_set_mainfile($data) {
         if ($data->display == RESOURCELIB_DISPLAY_EMBED) {
             $options['embed'] = true;
         }
-        file_save_draft_area_files($draftitemid, $context->id, 'mod_mdposter', 'content', 0, $options);
+        file_save_draft_area_files($draftitemid, $context->id, 'mod_mposter', 'content', 0, $options);
     }
-    $files = $fs->get_area_files($context->id, 'mod_mdposter', 'content', 0, 'sortorder', false);
+    $files = $fs->get_area_files($context->id, 'mod_mposter', 'content', 0, 'sortorder', false);
     if (count($files) == 1) {
         // only one file attached, set it as main file automatically
         $file = reset($files);
-        file_set_sortorder($context->id, 'mod_mdposter', 'content', 0, $file->get_filepath(), $file->get_filename(), 1);
+        file_set_sortorder($context->id, 'mod_mposter', 'content', 0, $file->get_filepath(), $file->get_filename(), 1);
     }
     
     if (count($files) > 0) {
         $url = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename(), false);
     }
     else{
-        mdposter_print($e);
+        mposter_print($e);
         $url = 'no file';
     }
 
@@ -62,16 +62,16 @@ function mdposter_set_mainfile($data) {
 /**
  * Get Metadata from Resource Space based on the Metadata File added on the settings of this activity
  * @param $context  The Context of this activity / module
- * @param @mdposter   The current module's instance
+ * @param @mposter   The current module's instance
  */
-function mdposter_get_metadata($cmid, $mdposter)
+function mposter_get_metadata($cmid, $mposter)
 {
     global $DB;
     $context = context_module::instance($cmid);
     try{
         // Retrieve elements from filename divided by "_"s
         // collection[0]= collection section in filename, collection[1]=whole filename
-        $collection = mdposter_get_item_from_filename($context, 0, $mdposter->id);
+        $collection = mposter_get_item_from_filename($context, 0, $mposter->id);
 
         // If there was no file then we cut short here. 
         if ($collection == null){
@@ -79,22 +79,22 @@ function mdposter_get_metadata($cmid, $mdposter)
         }
 
 
-        $DB->set_field('mdposter', 'rs_collection', $collection[0], array('name' => $mdposter->name));
+        $DB->set_field('mposter', 'rs_collection', $collection[0], array('name' => $mposter->name));
 
         // Findout which ID corresponds to this file in RS
-        $request_json     = mdposter_get_file_fields_metadata($collection[1]);
+        $request_json     = mposter_get_file_fields_metadata($collection[1]);
         $resourcespace_id = $request_json[1][0]["ref"];
    
-        $DB->set_field('mdposter', 'rs_id', $resourcespace_id, array('name' => $mdposter->name));
+        $DB->set_field('mposter', 'rs_id', $resourcespace_id, array('name' => $mposter->name));
    
-        if ($mdposter->overwrite === "1"){
-            $list_metadata[0] = ($mdposter->meta1 != "" ? $mdposter->meta1 : "Composer");
-            $list_metadata[1] = ($mdposter->meta2 != "" ? $mdposter->meta2 : "Title");
-            $list_metadata[2] = ($mdposter->meta6 != "" ? $mdposter->meta6 : "Title - English");
-            $list_metadata[3] = ($mdposter->meta3 != "" ? $mdposter->meta3 : "Surtitle");
-            $list_metadata[4] = ($mdposter->meta4 != "" ? $mdposter->meta4 : "List");
-            $list_metadata[5] = ($mdposter->meta5 != "" ? $mdposter->meta5 : "1st line");
-            $list_metadata[6] = ($mdposter->meta6 != "" ? $mdposter->meta6 : "Language");
+        if ($mposter->overwrite === "1"){
+            $list_metadata[0] = ($mposter->meta1 != "" ? $mposter->meta1 : "Composer");
+            $list_metadata[1] = ($mposter->meta2 != "" ? $mposter->meta2 : "Title");
+            $list_metadata[2] = ($mposter->meta6 != "" ? $mposter->meta6 : "Title - English");
+            $list_metadata[3] = ($mposter->meta3 != "" ? $mposter->meta3 : "Surtitle");
+            $list_metadata[4] = ($mposter->meta4 != "" ? $mposter->meta4 : "List");
+            $list_metadata[5] = ($mposter->meta5 != "" ? $mposter->meta5 : "1st line");
+            $list_metadata[6] = ($mposter->meta6 != "" ? $mposter->meta6 : "Language");
         }
         else{
             $list_metadata[0] = "Composer";
@@ -106,7 +106,7 @@ function mdposter_get_metadata($cmid, $mdposter)
             $list_metadata[6] = "Language";
         }
         
-        $metadata = mdposter_get_metadata_from_api($resourcespace_id, $mdposter, $list_metadata);
+        $metadata = mposter_get_metadata_from_api($resourcespace_id, $mposter, $list_metadata);
 
         // Commit metadata to database
         $length = count($metadata);
@@ -115,32 +115,32 @@ function mdposter_get_metadata($cmid, $mdposter)
                 $index = $i + 1;
                 $data = $metadata[$i];
                 
-                $DB->set_field('mdposter', 'meta_value'.$index, $data, array('name' => $mdposter->name));
-                $DB->set_field('mdposter', 'meta'.$index, $list_metadata[$i],  array('name' => $mdposter->name));
+                $DB->set_field('mposter', 'meta_value'.$index, $data, array('name' => $mposter->name));
+                $DB->set_field('mposter', 'meta'.$index, $list_metadata[$i],  array('name' => $mposter->name));
             }
         }
 
     }catch (Exception $e){
-        mdposter_print($e);
+        mposter_print($e);
     }
 }
 
 /**
  * lmta.utility
  * Item is each one of the parts in a file name like: item_item_item.extension 
- * If filenames of files uploaded to this mdposter contain information separated by _ (undesrcore), this 
+ * If filenames of files uploaded to this mposter contain information separated by _ (undesrcore), this 
  * function retreives one of those elements from the first of the files to upload. 
  * @param Context  $context the context of the current course
  * @param String   $item_number is the position number of the filename to get
  * @return String  $item is the piece of string from the filename of the first file in the upload. 
  */
-function mdposter_get_item_from_filename($context, $item_number, $id)
+function mposter_get_item_from_filename($context, $item_number, $id)
 {
     global $DB, $CFG, $PAGE;    
     
     // // Get files array and their names, split them by '_' and return the first of those divisions. 
     $fs              = get_file_storage();
-    $files           = $fs->get_area_files($context->id, 'mod_mdposter', 'content', 0, 'sortorder', false);
+    $files           = $fs->get_area_files($context->id, 'mod_mposter', 'content', 0, 'sortorder', false);
 
     if (count($files) > 0){
 
@@ -170,7 +170,7 @@ function mdposter_get_item_from_filename($context, $item_number, $id)
 /**
  * File browsing support class
  */
-class mdposter_content_file_info extends file_info_stored {
+class mposter_content_file_info extends file_info_stored {
     public function get_parent() {
         if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
             return $this->browser->get_file_info($this->context);
@@ -188,18 +188,18 @@ class mdposter_content_file_info extends file_info_stored {
 /**
  * Get the fields from the Resourcespae metadata
  */
-function mdposter_get_file_fields_metadata($string)
+function mposter_get_file_fields_metadata($string)
 {
-    $api_result = mdposter_do_api_search($string, 'do_search');
+    $api_result = mposter_do_api_search($string, 'do_search');
     return $api_result;
 }
 
 /**
  * Do an API requeuest with 
  */
-function mdposter_do_api_search($string, $function)
+function mposter_do_api_search($string, $function)
 {
-    $RS_object = mdposter_init_resourcespace();
+    $RS_object = mposter_init_resourcespace();
     // Set the private API key for the user (from the user account page) and the user we're accessing the system as.
     $private_key = $RS_object->api_key;
 
@@ -228,7 +228,7 @@ function mdposter_do_api_search($string, $function)
 /**
  * Initialise Resourcespace API variables
  */
-function mdposter_init_resourcespace()
+function mposter_init_resourcespace()
 {
     $RS_object = new stdClass;
     $RS_object->config          = get_config('resourcespace');
@@ -244,12 +244,12 @@ function mdposter_init_resourcespace()
 /**
  * Get the data via API call and compare its metadata with the one indicated in the current Inter list instance
  */
-function mdposter_get_metadata_from_api($resourcespace_id, $moduleinstance, $list_metadata)
+function mposter_get_metadata_from_api($resourcespace_id, $moduleinstance, $list_metadata)
 {
     global $PAGE, $DB, $CFG;
     $prefix = $CFG->prefix;
 
-    $result = mdposter_do_api_search($resourcespace_id, 'get_resource_field_data');
+    $result = mposter_do_api_search($resourcespace_id, 'get_resource_field_data');
 
     $new_list_metadata = array_fill(0, sizeof($list_metadata), '');
     for($i = 0; $i < sizeof($list_metadata); $i++)

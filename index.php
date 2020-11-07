@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Displays list of all mdposters in the course.
+ * Displays list of all mposters in the course.
  *
- * @package     mod_mdposter
+ * @package     mod_mposter
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -32,23 +32,23 @@ require_course_login($course, true);
 
 $PAGE->set_pagelayout('incourse');
 
-$PAGE->set_url('/mod/mdposter/index.php', array('id' => $course->id));
-$PAGE->set_title($course->shortname.': '.get_string('modulenameplural', 'mod_mdposter'));
+$PAGE->set_url('/mod/mposter/index.php', array('id' => $course->id));
+$PAGE->set_title($course->shortname.': '.get_string('modulenameplural', 'mod_mposter'));
 $PAGE->set_heading($course->fullname);
-$PAGE->navbar->add(get_string('modulenameplural', 'mod_mdposter'));
+$PAGE->navbar->add(get_string('modulenameplural', 'mod_mposter'));
 
 // Trigger instances list viewed event.
-$event = \mod_mdposter\event\course_module_instance_list_viewed::create(array(
+$event = \mod_mposter\event\course_module_instance_list_viewed::create(array(
     'context' => context_course::instance($course->id)
 ));
 $event->add_record_snapshot('course', $course);
 $event->trigger();
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('modulenameplural', 'mod_mdposter'));
+echo $OUTPUT->heading(get_string('modulenameplural', 'mod_mposter'));
 
-if (!$mdposters = get_all_instances_in_course('mdposter', $course)) {
-    notice(get_string('thereareno', 'core', get_string('modulenameplural', 'mod_mdposter')),
+if (!$mposters = get_all_instances_in_course('mposter', $course)) {
+    notice(get_string('thereareno', 'core', get_string('modulenameplural', 'mod_mposter')),
         new moodle_url('/course/view.php', array('id' => $course->id)));
 }
 
@@ -60,7 +60,7 @@ $table->attributes['class'] = 'generaltable mod_index';
 if ($usesections) {
     $table->head = array(
         get_string('sectionname', 'format_'.$course->format),
-        get_string('mdpostername', 'mod_mdposter'),
+        get_string('mpostername', 'mod_mposter'),
         get_string('moduleintro', 'core')
     );
     $table->align = array('center', 'left', 'left');
@@ -68,7 +68,7 @@ if ($usesections) {
 } else {
     $table->head = array(
         get_string('lastmodified', 'core'),
-        get_string('mdpostername', 'mod_mdposter'),
+        get_string('mpostername', 'mod_mposter'),
         get_string('moduleintro', 'core')
     );
     $table->align = array('left', 'left', 'left');
@@ -77,31 +77,31 @@ if ($usesections) {
 $modinfo = get_fast_modinfo($course);
 $currentsection = '';
 // PROCESS INSTANCES!!
-foreach ($mdposters as $mdposter) {
-    $cm = $modinfo->cms[$mdposter->coursemodule];
+foreach ($mposters as $mposter) {
+    $cm = $modinfo->cms[$mposter->coursemodule];
     if ($usesections) {
         $printsection = '';
-        if ($mdposter->section !== $currentsection) {
-            if ($mdposter->section) {
-                $printsection = get_section_name($course, $mdposter->section);
+        if ($mposter->section !== $currentsection) {
+            if ($mposter->section) {
+                $printsection = get_section_name($course, $mposter->section);
             }
             if ($currentsection !== '') {
                 $table->data[] = 'hr';
             }
-            $currentsection = $mdposter->section;
+            $currentsection = $mposter->section;
         }
     } else {
-        $printsection = html_writer::span(userdate($mdposter->timemodified), 'smallinfo');
+        $printsection = html_writer::span(userdate($mposter->timemodified), 'smallinfo');
     }
 
     $table->data[] = array(
         $printsection,
         html_writer::link(
             new moodle_url('view.php', array('id' => $cm->id)),
-            format_string($mdposter->name),
-            array('class' => $mdposter->visible ? '' : 'dimmed')
+            format_string($mposter->name),
+            array('class' => $mposter->visible ? '' : 'dimmed')
         ),
-        format_module_intro('mdposter', $mdposter, $cm->id)
+        format_module_intro('mposter', $mposter, $cm->id)
     );
 }
 

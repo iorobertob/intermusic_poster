@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides the restore_mdposter_activity_task class.
+ * Provides the restore_mposter_activity_task class.
  *
- * @package     mod_mdposter
+ * @package     mod_mposter
  * @category    backup
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,15 +25,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot.'/mod/mdposter/backup/moodle2/restore_mdposter_stepslib.php');
+require_once($CFG->dirroot.'/mod/mposter/backup/moodle2/restore_mposter_stepslib.php');
 
 /**
- * Defines the steps needed to restore a mdposter activity.
+ * Defines the steps needed to restore a mposter activity.
  *
  * @copyright 2015 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class restore_mdposter_activity_task extends restore_activity_task {
+class restore_mposter_activity_task extends restore_activity_task {
 
     /**
      * Defines additional restore settings for this activity.
@@ -42,10 +42,10 @@ class restore_mdposter_activity_task extends restore_activity_task {
     }
 
     /**
-     * Defines the steps to restore the mdposter activity.
+     * Defines the steps to restore the mposter activity.
      */
     protected function define_my_steps() {
-        $this->add_step(new restore_mdposter_activity_structure_step('mdposter_structure', 'mdposter.xml'));
+        $this->add_step(new restore_mposter_activity_structure_step('mposter_structure', 'mposter.xml'));
     }
 
     /**
@@ -54,7 +54,7 @@ class restore_mdposter_activity_task extends restore_activity_task {
      * @return array of restore_decode_content
      */
     static public function define_decode_contents() {
-        return array(new restore_decode_content('mdposter', array('intro'), 'mdposter'));
+        return array(new restore_decode_content('mposter', array('intro'), 'mposter'));
     }
 
     /**
@@ -62,8 +62,8 @@ class restore_mdposter_activity_task extends restore_activity_task {
      */
     static public function define_decode_rules() {
         return array(
-            new restore_decode_rule('POSTERINDEX', '/mod/mdposter/index.php?id=$1', 'course'),
-            new restore_decode_rule('POSTERVIEWBYID', '/mod/mdposter/view.php?id=$1', 'course_module'),
+            new restore_decode_rule('POSTERINDEX', '/mod/mposter/index.php?id=$1', 'course'),
+            new restore_decode_rule('POSTERVIEWBYID', '/mod/mposter/view.php?id=$1', 'course_module'),
         );
     }
 }

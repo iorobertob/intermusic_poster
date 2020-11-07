@@ -15,15 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines {@link \mod_mdposter\privacy\provider} class.
+ * Defines {@link \mod_mposter\privacy\provider} class.
  *
- * @package     mod_mdposter
+ * @package     mod_mposter
  * @category    privacy
  * @copyright   2018 David Mudrák <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_mdposter\privacy;
+namespace mod_mposter\privacy;
 
 defined('MOODLE_INTERNAL') || die();
 
