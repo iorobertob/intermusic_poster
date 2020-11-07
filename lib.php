@@ -18,13 +18,12 @@
  * Activity module interface functions are defined here
  *
  * @package     mod_mposter
- * @copyright   2015 David Mudrak <david@moodle.com>
+ * @copyright   Original Poster by 2015 David Mudrak <david@moodle.com>, modified by Roberto Becerra, 2020 <roberto.becerra@lmta.lt>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once("$CFG->dirroot/mod/mposter/io_print.php");
 require_once("$CFG->dirroot/mod/mposter/locallib.php");
 require_once("$CFG->libdir/resourcelib.php");
 
@@ -117,11 +116,10 @@ function mposter_update_instance(stdClass $mposter) {
 
     $DB->update_record('mposter', $mposter);
 
-    /////////////// CUSTOM CODE: GET METADATA FROM AMS AND SAVE IT TO THE DATABASE////////////////////
-    $cmid = $mposter->coursemodule;
+    /////////////// CUSTOM CODE: GET METADATA FROM ASSET MANAGEMENT SYSTEM AND SAVE IT TO THE DATABASE////////////////////
+    $cmid    = $mposter->coursemodule;
     $context = context_module::instance($cmid);
-
-    $url = mposter_set_mainfile($mposter);
+    $url     = mposter_set_mainfile($mposter);
 
     mposter_get_metadata($cmid, $mposter);
 
