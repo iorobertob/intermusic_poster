@@ -3,27 +3,28 @@ Moodle Media Poster activity module [INTERMUSIC]
 
 Important!!
 ----------
-- This is a fork of the original 'Media Poster' plugin, which is customised to work together with other Intermusic project plugins and therefore does not follow the releaes of the original plugin, and will likely have a name space collision if trying to use this version parallel to the original.
+- This is a fork of the original 'Media Poster' plugin, which is customised to work together with other Intermusic project plugins and therefore does not follow the releaes of the original plugin.
 - When installing the name of this module's folder should be named 'mposter'.
+- Metadata functionality works only with an enabled ResourceSpace respository plugin. I will still work withoug it, but it it wont fetch/autofill metadata. 
 
 Differences with origintal Media Poster:
 ----------
-- This version has settings to add metadata to this activity, that is late read by the 'Intermusic Database' activity plugin (https://github.com/iorobertob/intermusic-database)
-- This metadata is retreived from the Intermusic project's asset management system(AMS). (https://resourcespace.lmta.lt) or it can be manually input.
-- It can take a metadata file, whose sole purpose is to provide some strings to look for in the AMS. 
+- This version has settings to add **metadata** to this activity, a ['Media Poster List' activity plugin](https://github.com/iorobertob/intermusic-database) can later read this data and create a table with it. 
+- This module can retreive such metadata from a **collection** in a ResourceSpace asset management system(AMS) instance. This is linked to moodle using the ResourceSpace repository plugin (LINK TO THE PLUGIN REPOSITORY) which has to be installed for this feature to work. 
 
 
 How does this module get its metadata
 ----------
-- The module has settings for  5 metadata field titles and values, that can be filled manually or sought for in the AMS. 
-- The mmodule also has the option to upload a metadata file. The metadata file contains in its name, the ID of a collection in the AMS, and performs an API call to retreive a json list with information about files of that collection. 
-- From the info of the collection, the script looks for the fields with the titles set in this module's configuration. If they are found, they are used to fill the values in this module's info. If the metadata field titles in the config are left empty, the mposter will use the default values:  	 "Composer";
-            		"Title";
-            		"Title - English";
-            		"Surtitle";
-            		"List";
-            		"1st line";
-            		"Language";
+- The module has settings for  7 metadata field titles and values, that can be filled manually or sought for in the ResourceSapce instance. 
+- The module also has the option to upload a metadata file. The metadata file contains in its name, the ID of a **collection** in ResourceSpace, and performs an API call to retreive a json list with information about files of that collection. 
+- From the info of the collection, the script looks for the metadata fields that match the titles set in this module's configuration or settings. If they are found, they are used to fill the values in this module's info. If the metadata field titles in the config are left empty, the mposter will use the default (configurable) values:  	
+- "Composer";
+- "Title";
+- "Title - English";
+- "Surtitle";
+- "List";
+- "1st line";
+- "Language";
 
 
 
@@ -101,6 +102,4 @@ You should have received a copy of the GNU General Public License along with thi
 <http://www.gnu.org/licenses/>.
 
 
-TODOs
--------
-* Perform migration from original mposter plugin, which was used as template for the current module. 
+            
