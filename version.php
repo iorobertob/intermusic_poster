@@ -18,14 +18,14 @@
  * Provides meta-information about the plugin.
  *
  * @package     mod_mposter
- * @copyright   2015 David Mudrak <david@moodle.com>
+ * @copyright   Roberto Becerra, 2020 <roberto.becerra@lmta.lt>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_mposter';
-$plugin->release   = '5.2.1.1';
-$plugin->version   = 2019030532;
+$plugin->release   = '5.2.1.2';
+$plugin->version   = 2019030533;
 $plugin->requires  = 2016120500;
 $plugin->maturity  = MATURITY_BETA;

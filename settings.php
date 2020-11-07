@@ -19,7 +19,7 @@
  *
  * @package     mod_mposter
  * @category    admin
- * @copyright   2020 Your Name <email@example.com>
+ * @copyright   2020 Roberto Becerra <roberto.becerra@lmta.lt>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
  
