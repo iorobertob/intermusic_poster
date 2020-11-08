@@ -9,7 +9,7 @@ Important!!
 
 Differences with origintal Media Poster:
 ----------
-- This version has settings to add **metadata** to this activity, a ['Media Poster List' activity plugin](https://github.com/iorobertob/intermusic-database) can later read this data and create a table with it. 
+- This version has settings to add **metadata** to this activity, a ['Media Poster List' activity plugin](https://github.com/iorobertob/moodle-mod_inter) can later read this data and create a table with it. 
 - This module can retreive such metadata from a **collection** in a ResourceSpace asset management system(AMS) instance. This is linked to moodle using the [ResourceSpace repository plugin](https://github.com/iorobertob/moodle-repository_resourcespace.git) which has to be installed for this feature to work. 
 
 
