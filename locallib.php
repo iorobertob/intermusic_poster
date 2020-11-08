@@ -35,7 +35,7 @@ function mposter_set_mainfile($data) {
     $context = context_module::instance($cmid);
     if ($draftitemid) {
         $options = array('subdirs' => true, 'embed' => false);
-        if ($data->display == RESOURCELIB_DISPLAY_EMBED) {
+        if ((isset($data->display))&&($data->display == RESOURCELIB_DISPLAY_EMBED) {
             $options['embed'] = true;
         }
         file_save_draft_area_files($draftitemid, $context->id, 'mod_mposter', 'content', 0, $options);
