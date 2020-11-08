@@ -51,7 +51,6 @@ class mod_mposter_mod_form extends moodleform_mod {
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', 'core', 255), 'maxlength', 255, 'client');
 
-
         ///////////////////////////////////// METADATA FIELDS ////////////////////////////////
 
         // Metadata Field #1

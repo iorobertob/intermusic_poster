@@ -54,13 +54,12 @@ function mposter_set_mainfile($data) {
         $url = 'no file';
     }
 
-    
     return $url;
 }
 
 /**
  * Get Metadata from Resource Space based on the Metadata File added on the settings of this activity
- * @param $context  The Context of this activity / module
+ * @param $context   The Context of this activity / module
  * @param @mposter   The current module's instance
  */
 function mposter_get_metadata($cmid, $mposter)
@@ -85,7 +84,6 @@ function mposter_get_metadata($cmid, $mposter)
         $resourcespace_id = $request_json[1][0]["ref"];
    
         $DB->set_field('mposter', 'rs_id', $resourcespace_id, array('name' => $mposter->name));
-   
 
         // If user types metadata titles and field, they override the default titles. 
         $list_metadata[0] = ($mposter->meta1 != "" ? $mposter->meta1 : "Composer");
@@ -107,9 +105,7 @@ function mposter_get_metadata($cmid, $mposter)
         $DB->set_field('mposter', 'meta6',       $list_metadata[5],  array('name' => $mposter->name));
         
         $list_metadata[6] = ($mposter->meta7 != "" ? $mposter->meta7 : "Language");
-        $DB->set_field('mposter', 'meta7',       $list_metadata[6],  array('name' => $mposter->name));
-            
-       
+        $DB->set_field('mposter', 'meta7',       $list_metadata[6],  array('name' => $mposter->name));   
         
         $metadata = mposter_get_metadata_from_api($resourcespace_id, $mposter, $list_metadata);
 

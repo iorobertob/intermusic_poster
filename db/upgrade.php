@@ -260,13 +260,13 @@ function xmldb_mposter_upgrade($oldversion) {
 
 
     // 8 nov 2020
-    if ($oldversion < 2019030534){
+    if ($oldversion < 2019030535){
         // Define table and field to modify/add
         $table   = new xmldb_table('mposter');
         // new field to be created
         $field_revision = new xmldb_field('revision',     XMLDB_TYPE_CHAR, '16', null, "false", null, null, 'id');
         $field_tobe     = new xmldb_field('tobemigrated', XMLDB_TYPE_CHAR, '16', null, "false", null, null, 'revision');
-        $field_display  = new xmldb_field('display',      XMLDB_TYPE_CHAR, '16', null, "false", null, null, 'tobemigrated');
+        $field_display  = new xmldb_field('display',      XMLDB_TYPE_CHAR, '16', null, "false", null, "false", 'tobemigrated');
 
         // Conditionally launch add field author.
         if (!$dbman->field_exists($table, $field_revision)) {
@@ -274,7 +274,7 @@ function xmldb_mposter_upgrade($oldversion) {
             $dbman->add_field($table, $field_tobe);
             $dbman->add_field($table, $field_display);
         }
-        upgrade_mod_savepoint(true, 2019030534, 'mposter');
+        upgrade_mod_savepoint(true, 2019030535, 'mposter');
     }
 
     return true;
