@@ -26,6 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_mposter';
 $plugin->release   = '5.2.1.2';
-$plugin->version   = 2019030533;
+$plugin->version   = 2019030534;
 $plugin->requires  = 2016120500;
 $plugin->maturity  = MATURITY_BETA;

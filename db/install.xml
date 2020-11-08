@@ -7,6 +7,9 @@
     <TABLE NAME="mposter" COMMENT="Holds the module instances data.">
       <FIELDS>
         <FIELD NAME="id"                  TYPE="int"  LENGTH="10"     NOTNULL="true"    SEQUENCE="true"/>
+        <FIELD REVISION="revision"        TYPE="char" LENGTH="16"     NOTNULL="false"   SEQUENCE="false"/>
+        <FIELD REVISION="tobemigrated"    TYPE="char" LENGTH="16"     NOTNULL="false"   SEQUENCE="false"/>
+        <FIELD REVISION="display"         TYPE="char" LENGTH="16"     NOTNULL="false"   SEQUENCE="false"/>
         <FIELD NAME="course"              TYPE="int"  LENGTH="10"     NOTNULL="true"    SEQUENCE="false" COMMENT="Course mposter activity belongs to"/>
         <FIELD NAME="rs_collection"       TYPE="char" LENGTH="255"    NOTNULL="true"    SEQUENCE="false" COMMENT="collection field for moodle instances"/>
         <FIELD NAME="rs_id"               TYPE="char" LENGTH="255"    NOTNULL="false"   SEQUENCE="false" COMMENT="RS ID field for moodle instances"/>
