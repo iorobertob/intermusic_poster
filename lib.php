@@ -112,7 +112,10 @@ function mposter_update_instance(stdClass $mposter) {
 
     $mposter->timemodified = time();
     $mposter->id = $mposter->instance;
-    $mposter->revision++;
+    if (isset($mposter->revision)){
+        $mposter->revision++;
+    }
+    
 
     $DB->update_record('mposter', $mposter);
 
