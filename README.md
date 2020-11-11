@@ -7,16 +7,16 @@ Important!!
 - When installing the name of this module's folder should be named **mposter**.
 - Metadata functionality works only with an enabled ResourceSpace respository plugin. I will still work withoug it, but it wont fetch/autofill metadata. 
 
-Differences with origintal Media Poster:
+Differences with original Media Poster:
 ----------
 - This version has settings to add **metadata** to this activity, a ['Media Poster List' activity plugin](https://github.com/iorobertob/moodle-mod_inter) can later read this data and create a table with it. 
-- This module can retreive such metadata from a **collection** in a ResourceSpace asset management system(AMS) instance. This is linked to moodle using the [ResourceSpace repository plugin](https://github.com/iorobertob/moodle-repository_resourcespace.git) which has to be installed for this feature to work. 
+- This module can retrieve such metadata from a **collection** in a ResourceSpace asset management system(AMS) instance. This is linked to moodle using the [ResourceSpace repository plugin](https://github.com/iorobertob/moodle-repository_resourcespace.git) which has to be installed for this feature to work. 
 
 
 How does this module get its metadata
 ----------
 - The module has settings for  7 metadata field titles and values, that can be filled manually or sought for in the ResourceSapce instance. 
-- The module also has the option to upload a metadata file. The metadata file contains in its name, the ID of a **collection** in ResourceSpace, and performs an API call to retreive a json list with information about files of that collection. 
+- The module also has the option to upload a metadata file. The metadata file contains in its name, the ID of a **collection** in ResourceSpace, and performs an API call to retrieve a json list with information about files of that collection. 
 - From the info of the collection, the script looks for the metadata fields that match the titles set in this module's configuration or settings. If they are found, they are used to fill the values in this module's info. If the metadata field titles in the config are left empty, the mposter will use the default (configurable) values:  	
 - "Composer";
 - "Title";
